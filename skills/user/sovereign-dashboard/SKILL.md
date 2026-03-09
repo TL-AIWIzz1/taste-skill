@@ -1,5 +1,5 @@
 # SKILL: sovereign-dashboard
-**Version:** 1.0
+**Version:** 2.0
 **Owner:** The Sovereign Ledger (@BannedLuigi)
 **Trigger:** "open dashboard", "launch dashboard", "start dashboard", "You know what to do" (when context is dashboard)
 
@@ -7,45 +7,33 @@
 
 ## 1. IDENTITY & PURPOSE
 
-This skill launches the Sovereign Ledger Command Center dashboard as a local web page you can open in your browser. One command — dashboard is live.
+This skill provides access to the Sovereign Ledger Command Center dashboard. The dashboard is hosted on GitHub Pages — no installs, no servers, no technical setup.
 
 ---
 
-## 2. EXECUTION
+## 2. ACCESS
 
-When triggered, start a simple local HTTP server pointing at `dashboard.html` and open it in the browser.
+Open this URL in any browser (phone, tablet, laptop):
 
-### Steps
-
-1. Start a lightweight Python HTTP server in the project directory on port 8888
-2. Open `http://localhost:8888/dashboard.html` in the default browser
-3. Report the URL back so the user can also open it manually or on another device
-
-### Command Sequence
-
-```bash
-cd /home/user/taste-skill && python3 -m http.server 8888 &
-sleep 1
-xdg-open http://localhost:8888/dashboard.html 2>/dev/null || open http://localhost:8888/dashboard.html 2>/dev/null
+```
+https://tl-aiwizz1.github.io/taste-skill/
 ```
 
-### To Stop
+Bookmark it. That's it.
 
-```bash
-pkill -f "python3 -m http.server 8888"
-```
+All data stays in your browser (localStorage). Nothing leaves your device.
 
 ---
 
-## 3. ACCESS
+## 3. SETUP (one time, repo owner only)
 
-Once running, open this in any browser on your machine:
+If GitHub Pages isn't enabled yet:
 
-```
-http://localhost:8888/dashboard.html
-```
-
-No installs. No accounts. No build step. All data stays in your browser (localStorage).
+1. Go to your repo on GitHub: `github.com/TL-AIWIzz1/taste-skill`
+2. Click **Settings** (top menu bar, far right)
+3. Click **Pages** (left sidebar, under "Code and automation")
+4. Under **Source**, select **GitHub Actions**
+5. Done — the dashboard deploys automatically on every push to `main`
 
 ---
 
