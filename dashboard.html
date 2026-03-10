@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOVEREIGN LEDGER — @BannedLuigi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --obsidian: #0B0C10;
+    --steel: #1F2833;
+    --silver: #C5C6C7;
+    --blueprint: #66FCF1;
+    --gold: #45A29E;
+    --red: #FF4444;
+    --terminal: #080A0C;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --font-ui: 'Inter', system-ui, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: var(--obsidian);
+    color: var(--silver);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: 200px;
+    min-width: 200px;
+    background: var(--steel);
+    border-right: 1px solid #2a3540;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  #sidebar-header {
+    padding: 20px 16px 12px;
+    border-bottom: 1px solid #2a3540;
+  }
+
+  #sidebar-brand {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--blueprint);
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  #sidebar-handle {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--gold);
+    margin-top: 4px;
+    letter-spacing: 0.1em;
+  }
+
+  #nav {
+    padding: 8px 0;
+    flex: 1;
+  }
+
+  .nav-item {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    border-left: 3px solid transparent;
+    color: var(--silver);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.1s;
+  }
+
+  .nav-item:hover {
+    color: var(--blueprint);
+  }
+
+  .nav-item.active {
+    border-left-color: var(--blueprint);
+    color: var(--blueprint);
+  }
+
+  /* MAIN CONTENT */
+  #main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    height: 100vh;
+  }
+
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  .tab-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--blueprint);
+    margin-bottom: 20px;
+    border-bottom: 1px solid #2a3540;
+    padding-bottom: 10px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--steel);
+    border: 1px solid #2a3540;
+    padding: 16px;
+  }
+
+  .card-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .card-value {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--blueprint);
+  }
+
+  /* GRID LAYOUTS */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* BUTTONS */
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 8px 16px;
+    background: none;
+    border: 1px solid var(--blueprint);
+    color: var(--blueprint);
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+
+  .btn:hover {
+    background: rgba(102, 252, 241, 0.08);
+  }
+
+  .btn.flash {
+    border-color: var(--blueprint);
+    background: rgba(102, 252, 241, 0.2);
+  }
+
+  .btn-gold {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .btn-gold:hover {
+    background: rgba(69, 162, 158, 0.08);
+  }
+
+  /* INPUTS */
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    background: var(--obsidian);
+    border: 1px solid #2a3540;
+    color: var(--silver);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 8px 10px;
+    width: 100%;
+    outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--blueprint);
+  }
+
+  select option {
+    background: var(--obsidian);
+  }
+
+  label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    background: var(--terminal);
+    border: 1px solid #2a3540;
+    padding: 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--silver);
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.6;
+  }
+
+  /* STATUS BADGES */
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 2px 8px;
+    border: 1px solid;
+    display: inline-block;
+  }
+
+  .badge-blueprint {
+    border-color: var(--blueprint);
+    color: var(--blueprint);
+  }
+
+  .badge-gold {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(69, 162, 158, 0.15);
+  }
+
+  .badge-grey {
+    border-color: #444;
+    color: #666;
+  }
+
+  .badge-red {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .badge-t1 {
+    background: var(--blueprint);
+    color: var(--obsidian);
+    border-color: var(--blueprint);
+    font-weight: 700;
+  }
+
+  .badge-t2 {
+    background: var(--gold);
+    color: var(--obsidian);
+    border-color: var(--gold);
+    font-weight: 700;
+  }
+
+  .badge-t3 {
+    background: var(--steel);
+    color: #666;
+    border-color: #333;
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 12px;
+    margin-top: 20px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2a3540;
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #444;
+    text-align: center;
+    padding: 40px;
+    border: 1px solid #1a2028;
+  }
+
+  /* ===================== */
+  /* TAB 1: DASHBOARD      */
+  /* ===================== */
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .calendar-col-header {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    padding: 8px 12px;
+    background: var(--steel);
+    border: 1px solid #2a3540;
+    border-bottom: none;
+    text-align: center;
+  }
+
+  .calendar-cell {
+    background: var(--steel);
+    border: 1px solid #2a3540;
+    padding: 12px;
+    min-height: 80px;
+    cursor: pointer;
+    transition: border-color 0.1s;
+  }
+
+  .calendar-cell:hover {
+    border-color: var(--blueprint);
+  }
+
+  .calendar-cell-gap {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--silver);
+    margin-bottom: 8px;
+  }
+
+  .calendar-cell-empty {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #333;
+  }
+
+  .activity-feed {
+    background: var(--steel);
+    border: 1px solid #2a3540;
+    padding: 12px;
+  }
+
+  .activity-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--silver);
+    padding: 6px 0;
+    border-bottom: 1px solid #1a2028;
+    line-height: 1.4;
+  }
+
+  .activity-item:last-child {
+    border-bottom: none;
+  }
+
+  .activity-time {
+    color: var(--gold);
+  }
+
+  /* ===================== */
+  /* TAB 2: SHADOW RATE    */
+  /* ===================== */
+
+  .sr-layout {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 16px;
+  }
+
+  /* ===================== */
+  /* TAB 3: VOICE LINTER   */
+  /* ===================== */
+
+  .vl-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .score-display {
+    font-family: var(--font-mono);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .violations-block {
+    background: var(--terminal);
+    border: 1px solid #2a3540;
+    padding: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    max-height: 320px;
+    overflow-y: auto;
+    line-height: 1.8;
+  }
+
+  .violation-group-header {
+    color: var(--gold);
+    font-weight: 700;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .violation-item {
+    color: var(--red);
+    padding-left: 12px;
+  }
+
+  /* ===================== */
+  /* TAB 4: CHAR COUNTER   */
+  /* ===================== */
+
+  .cc-count-display {
+    font-family: var(--font-mono);
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .cc-badges-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .thread-tweet {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .thread-tweet-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--gold);
+    margin-bottom: 4px;
+    letter-spacing: 0.1em;
+  }
+
+  .thread-tweet-count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .thread-tweet textarea {
+    padding-bottom: 28px;
+  }
+
+  .cc-details {
+    background: var(--terminal);
+    border: 1px solid #2a3540;
+    padding: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.8;
+    white-space: pre;
+  }
+
+  /* ===================== */
+  /* TAB 5: CONTENT PLAN   */
+  /* ===================== */
+
+  .cp-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--silver);
+    padding: 8px 12px;
+    border: 1px solid #2a3540;
+    background: var(--obsidian);
+    transition: border-color 0.1s;
+  }
+
+  .radio-option:hover {
+    border-color: var(--gold);
+  }
+
+  .radio-option.selected {
+    border-color: var(--blueprint);
+    color: var(--blueprint);
+  }
+
+  .radio-option input[type="radio"] {
+    display: none;
+  }
+
+  .radio-dot {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--silver);
+    background: none;
+    flex-shrink: 0;
+  }
+
+  .radio-option.selected .radio-dot {
+    background: var(--blueprint);
+    border-color: var(--blueprint);
+  }
+
+  .ciun-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ciun-block {
+    background: var(--obsidian);
+    border: 1px solid #2a3540;
+    padding: 10px;
+  }
+
+  .ciun-label {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blueprint);
+    margin-bottom: 4px;
+  }
+
+  .ciun-helper {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: #555;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .ciun-count {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--gold);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  /* ===================== */
+  /* TAB 6: PROSPECT LEDGER */
+  /* ===================== */
+
+  .pl-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-top: 16px;
+  }
+
+  .pl-table th {
+    background: var(--steel);
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 8px 10px;
+    text-align: left;
+    border: 1px solid #2a3540;
+    font-weight: 400;
+  }
+
+  .pl-table td {
+    padding: 8px 10px;
+    border: 1px solid #1a2028;
+    color: var(--silver);
+    vertical-align: middle;
+  }
+
+  .pl-table tr:hover td {
+    background: rgba(31, 40, 51, 0.5);
+  }
+
+  .status-select {
+    background: var(--obsidian);
+    border: 1px solid #2a3540;
+    color: var(--silver);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 3px 6px;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    outline: none;
+    width: auto;
+  }
+
+  .status-select:focus {
+    border-color: var(--blueprint);
+  }
+
+  .action-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    background: none;
+    border: 1px solid;
+    cursor: pointer;
+    margin-right: 4px;
+  }
+
+  .action-btn-comment {
+    border-color: var(--blueprint);
+    color: var(--blueprint);
+  }
+
+  .action-btn-archive {
+    border-color: #444;
+    color: #666;
+  }
+
+  .action-btn:hover {
+    opacity: 0.8;
+  }
+
+  /* MODAL */
+  #modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 12, 16, 0.9);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #modal-overlay.open {
+    display: flex;
+  }
+
+  #modal-box {
+    background: var(--steel);
+    border: 1px solid var(--blueprint);
+    padding: 24px;
+    width: 600px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  #modal-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--blueprint);
+    margin-bottom: 16px;
+    border-bottom: 1px solid #2a3540;
+    padding-bottom: 10px;
+  }
+
+  #modal-content textarea {
+    height: 280px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  #modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  /* ACCOUNT HEALTH SELECTOR */
+  .health-select {
+    background: var(--obsidian);
+    border: 1px solid #2a3540;
+    color: var(--silver);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    padding: 4px 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 4px;
+    outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+
+  .health-select:focus {
+    border-color: var(--blueprint);
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--obsidian);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2a3540;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+  }
+
+  /* THREAD REMOVE BUTTON */
+  .thread-remove {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--red);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 8px;
+  }
+
+  .thread-mode-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .toggle-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    background: none;
+    border: 1px solid #2a3540;
+    color: var(--silver);
+    cursor: pointer;
+  }
+
+  .toggle-btn.active {
+    border-color: var(--blueprint);
+    color: var(--blueprint);
+  }
+
+  .add-tweet-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    background: none;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  .cp-step-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: #666;
+    margin-bottom: 8px;
+    margin-top: 16px;
+  }
+
+  .cp-step-label:first-child {
+    margin-top: 0;
+  }
+
+  .cp-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <div id="sidebar-brand">SOVEREIGN<br>LEDGER</div>
+    <div id="sidebar-handle">@BannedLuigi</div>
+  </div>
+  <div id="nav">
+    <button class="nav-item active" data-tab="dashboard">DASHBOARD</button>
+    <button class="nav-item" data-tab="shadow-rate">SHADOW RATE</button>
+    <button class="nav-item" data-tab="voice-linter">VOICE LINTER</button>
+    <button class="nav-item" data-tab="char-counter">CHAR COUNTER</button>
+    <button class="nav-item" data-tab="content-planner">CONTENT PLANNER</button>
+    <button class="nav-item" data-tab="prospect-ledger">PROSPECT LEDGER</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- ==================== -->
+  <!-- TAB 1: DASHBOARD     -->
+  <!-- ==================== -->
+  <section id="tab-dashboard" class="tab-panel active">
+    <div class="tab-title">DASHBOARD</div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-label">WEEKLY POSTS</div>
+        <div class="card-value" id="dash-weekly-posts">0</div>
+      </div>
+      <div class="card">
+        <div class="card-label">TIER 1 PROSPECTS</div>
+        <div class="card-value" id="dash-t1-count">0</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ACCOUNT HEALTH</div>
+        <select class="health-select" id="dash-health">
+          <option value="NOMINAL">NOMINAL</option>
+          <option value="CAUTION">CAUTION</option>
+          <option value="COOLDOWN">COOLDOWN</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="section-header">CONTENT CALENDAR — CURRENT WEEK</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div>
+        <div class="calendar-col-header">MONDAY</div>
+        <div class="calendar-cell" id="cal-monday" onclick="calClick('MONDAY')">
+          <div class="calendar-cell-empty">No post scheduled</div>
+        </div>
+      </div>
+      <div>
+        <div class="calendar-col-header">WEDNESDAY</div>
+        <div class="calendar-cell" id="cal-wednesday" onclick="calClick('WEDNESDAY')">
+          <div class="calendar-cell-empty">No post scheduled</div>
+        </div>
+      </div>
+      <div>
+        <div class="calendar-col-header">FRIDAY</div>
+        <div class="calendar-cell" id="cal-friday" onclick="calClick('FRIDAY')">
+          <div class="calendar-cell-empty">No post scheduled</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">RECENT ACTIVITY</div>
+    <div class="activity-feed" id="activity-feed">
+      <div class="empty-state">No activity recorded.</div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- TAB 2: SHADOW RATE CALC  -->
+  <!-- ======================== -->
+  <section id="tab-shadow-rate" class="tab-panel">
+    <div class="tab-title">SHADOW RATE CALCULATOR</div>
+    <div class="sr-layout">
+      <div>
+        <div class="form-group">
+          <label>ANNUAL REVENUE ($)</label>
+          <input type="number" id="sr-revenue" placeholder="180000" min="0">
+        </div>
+        <div class="form-group">
+          <label>WEEKLY HOURS WORKED</label>
+          <input type="number" id="sr-hours" placeholder="60" min="1" max="168">
+        </div>
+        <div class="form-group">
+          <label>GAP TYPE</label>
+          <select id="sr-gap">
+            <option value="Shadow Rate Gap">Shadow Rate Gap</option>
+            <option value="Retention Gap">Retention Gap</option>
+            <option value="Pricing Gap">Pricing Gap</option>
+            <option value="Ops Gap">Ops Gap</option>
+            <option value="Scale Gap">Scale Gap</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>HOURS LOST TO GAP PER WEEK</label>
+          <input type="number" id="sr-lost-hours" placeholder="15" min="0" max="168">
+        </div>
+        <button class="btn" id="sr-calculate" onclick="calculateShadowRate()">CALCULATE</button>
+      </div>
+      <div>
+        <div class="terminal" id="sr-output">SHADOW RATE DIAGNOSTIC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Enter values and press CALCULATE.</div>
+        <div style="margin-top:10px;">
+          <button class="btn" id="sr-copy-btn" onclick="copySRDeployment()" style="display:none;">COPY DEPLOYMENT BLOCK</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- TAB 3: VOICE LINTER      -->
+  <!-- ======================== -->
+  <section id="tab-voice-linter" class="tab-panel">
+    <div class="tab-title">VOICE LINTER</div>
+    <div class="vl-layout">
+      <div>
+        <div class="form-group">
+          <label>PASTE CONTENT</label>
+          <textarea id="vl-input" rows="18" placeholder="Paste your post or content here..."></textarea>
+        </div>
+        <button class="btn" id="vl-lint-btn" onclick="runLinter()">LINT</button>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="card-label">VOICE SCORE</div>
+          <div class="score-display" id="vl-score" style="color:var(--silver);">--/100</div>
+          <div id="vl-status-badge" style="margin-top:8px;"></div>
+        </div>
+        <div class="section-header" style="margin-top:0;">VIOLATIONS</div>
+        <div class="violations-block" id="vl-violations">
+          <span style="color:#444;font-family:var(--font-mono);font-size:11px;">Run linter to see results.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- TAB 4: CHAR COUNTER      -->
+  <!-- ======================== -->
+  <section id="tab-char-counter" class="tab-panel">
+    <div class="tab-title">CHAR COUNTER</div>
+
+    <div class="thread-mode-row">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--gold);">MODE:</span>
+      <button class="toggle-btn active" id="mode-single" onclick="setMode('single')">SINGLE POST</button>
+      <button class="toggle-btn" id="mode-thread" onclick="setMode('thread')">THREAD</button>
+    </div>
+
+    <!-- Single mode -->
+    <div id="cc-single-mode">
+      <div class="form-group" style="position:relative;">
+        <label>POST TEXT</label>
+        <textarea id="cc-input" rows="8" placeholder="Type or paste your post..." oninput="updateCharCount()"></textarea>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px;">
+        <div class="cc-count-display" id="cc-count" style="color:var(--blueprint);">0 / 280</div>
+      </div>
+      <div class="cc-badges-row" id="cc-badges">
+        <span class="badge badge-blueprint">X-SAFE: PASS</span>
+        <span class="badge badge-blueprint">EM-DASHES: CLEAR</span>
+        <span class="badge badge-blueprint">SIGNAL WORDS: CLEAR</span>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:16px;">
+        <button class="btn" onclick="copyCleanText()">COPY CLEAN TEXT</button>
+      </div>
+      <div class="cc-details" id="cc-details">CHARACTER BREAKDOWN
+━━━━━━━━━━━━━━━━━━
+Total chars:    0
+Remaining:      280
+Words:          0
+Lines:          0
+
+EM-DASHES FOUND
+━━━━━━━━━━━━━━━
+None detected.</div>
+    </div>
+
+    <!-- Thread mode -->
+    <div id="cc-thread-mode" style="display:none;">
+      <div id="thread-tweets-container"></div>
+      <button class="add-tweet-btn" onclick="addThreadTweet()">+ ADD TWEET</button>
+    </div>
+
+  </section>
+
+  <!-- ======================== -->
+  <!-- TAB 5: CONTENT PLANNER   -->
+  <!-- ======================== -->
+  <section id="tab-content-planner" class="tab-panel">
+    <div class="tab-title">CONTENT PLANNER</div>
+    <div class="cp-layout">
+      <div>
+        <div class="cp-step-label">STEP 1 — SELECT GAP</div>
+        <div class="radio-group" id="cp-gap-group">
+          <label class="radio-option" onclick="selectCP('gap','SHADOW RATE GAP')"><input type="radio" name="cp-gap"><span class="radio-dot"></span>SHADOW RATE GAP</label>
+          <label class="radio-option" onclick="selectCP('gap','RETENTION GAP')"><input type="radio" name="cp-gap"><span class="radio-dot"></span>RETENTION GAP</label>
+          <label class="radio-option" onclick="selectCP('gap','PRICING GAP')"><input type="radio" name="cp-gap"><span class="radio-dot"></span>PRICING GAP</label>
+          <label class="radio-option" onclick="selectCP('gap','OPS GAP')"><input type="radio" name="cp-gap"><span class="radio-dot"></span>OPS GAP</label>
+          <label class="radio-option" onclick="selectCP('gap','SCALE GAP')"><input type="radio" name="cp-gap"><span class="radio-dot"></span>SCALE GAP</label>
+        </div>
+
+        <div class="cp-step-label">STEP 2 — SELECT DAY</div>
+        <div class="radio-group" id="cp-day-group" style="flex-direction:row;gap:8px;">
+          <label class="radio-option" onclick="selectCP('day','MONDAY')" style="flex:1;"><input type="radio" name="cp-day"><span class="radio-dot"></span>MONDAY</label>
+          <label class="radio-option" onclick="selectCP('day','WEDNESDAY')" style="flex:1;"><input type="radio" name="cp-day"><span class="radio-dot"></span>WEDNESDAY</label>
+          <label class="radio-option" onclick="selectCP('day','FRIDAY')" style="flex:1;"><input type="radio" name="cp-day"><span class="radio-dot"></span>FRIDAY</label>
+        </div>
+
+        <div class="cp-step-label">STEP 3 — SEASONAL FRAME</div>
+        <div class="form-group">
+          <select id="cp-frame">
+            <option value="Future Pressure">Future Pressure</option>
+            <option value="Growth Illusion">Growth Illusion</option>
+            <option value="Operational Debt">Operational Debt</option>
+            <option value="Invisible Ceiling">Invisible Ceiling</option>
+            <option value="Acquisition Treadmill">Acquisition Treadmill</option>
+          </select>
+        </div>
+
+        <div class="cp-step-label">STEP 4 — CTA TYPE</div>
+        <div class="radio-group" id="cp-cta-group" style="flex-direction:row;gap:8px;">
+          <label class="radio-option" onclick="selectCP('cta','SMURF LURE')" id="cp-cta-smurf" style="flex:1;"><input type="radio" name="cp-cta"><span class="radio-dot"></span>SMURF LURE</label>
+          <label class="radio-option" onclick="selectCP('cta','HAND-RAISE')" id="cp-cta-handraise" style="flex:1;"><input type="radio" name="cp-cta"><span class="radio-dot"></span>HAND-RAISE</label>
+        </div>
+
+        <div class="cp-actions">
+          <button class="btn" onclick="saveToCalendar()">SAVE TO CALENDAR</button>
+          <button class="btn btn-gold" onclick="copyFullPost()">COPY FULL POST</button>
+        </div>
+      </div>
+
+      <div class="ciun-panel">
+        <div class="ciun-block">
+          <div class="ciun-label">C</div>
+          <div class="ciun-helper">Specific founder scenario. Present tense. 1-2 sentences.</div>
+          <textarea id="ciun-c" rows="3" oninput="updateCIUNCount('c')"></textarea>
+          <div class="ciun-count" id="ciun-c-count">0 chars</div>
+        </div>
+        <div class="ciun-block">
+          <div class="ciun-label">I</div>
+          <div class="ciun-helper">Non-obvious diagnostic truth. Must contain a number.</div>
+          <textarea id="ciun-i" rows="3" oninput="updateCIUNCount('i')"></textarea>
+          <div class="ciun-count" id="ciun-i-count">0 chars</div>
+        </div>
+        <div class="ciun-block">
+          <div class="ciun-label">U</div>
+          <div class="ciun-helper">Concrete lever. One action, specific.</div>
+          <textarea id="ciun-u" rows="3" oninput="updateCIUNCount('u')"></textarea>
+          <div class="ciun-count" id="ciun-u-count">0 chars</div>
+        </div>
+        <div class="ciun-block">
+          <div class="ciun-label">N</div>
+          <div class="ciun-helper">CTA or reframe. No trailing question marks.</div>
+          <textarea id="ciun-n" rows="3" oninput="updateCIUNCount('n')"></textarea>
+          <div class="ciun-count" id="ciun-n-count">0 chars</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- TAB 6: PROSPECT LEDGER   -->
+  <!-- ======================== -->
+  <section id="tab-prospect-ledger" class="tab-panel">
+    <div class="tab-title">PROSPECT LEDGER</div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-label" style="margin-bottom:12px;">ADD PROSPECT</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>X HANDLE</label>
+          <input type="text" id="pl-handle" placeholder="@username">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>ESTIMATED MRR</label>
+          <select id="pl-mrr">
+            <option value="$2K-$5K">$2K-$5K</option>
+            <option value="$5K-$10K">$5K-$10K</option>
+            <option value="$10K-$25K">$10K-$25K</option>
+            <option value="$25K-$50K">$25K-$50K</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>PRIMARY GAP</label>
+          <select id="pl-gap">
+            <option value="Shadow Rate Gap">Shadow Rate Gap</option>
+            <option value="Retention Gap">Retention Gap</option>
+            <option value="Pricing Gap">Pricing Gap</option>
+            <option value="Ops Gap">Ops Gap</option>
+            <option value="Scale Gap">Scale Gap</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>REVENUE SIGNAL (1-3)</label>
+          <input type="number" id="pl-revenue-signal" min="1" max="3" value="1">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>OP PAIN (1-3)</label>
+          <input type="number" id="pl-op-pain" min="1" max="3" value="1">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>ICP MATCH (0-2)</label>
+          <input type="number" id="pl-icp" min="0" max="2" value="1">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>ENGAGE WINDOW (0-2)</label>
+          <input type="number" id="pl-engage" min="0" max="2" value="1">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>NOTES</label>
+          <input type="text" id="pl-notes" placeholder="Optional">
+        </div>
+      </div>
+      <button class="btn" onclick="addProspect()">ADD PROSPECT</button>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div class="section-header" style="margin:0;border:none;">LEDGER</div>
+      <button class="btn btn-gold" onclick="exportLedger()">EXPORT LEDGER</button>
+    </div>
+
+    <div id="pl-table-container">
+      <div class="empty-state">No prospects in ledger. Add one above.</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- MODAL -->
+<div id="modal-overlay" onclick="closeModalIfOutside(event)">
+  <div id="modal-box">
+    <div id="modal-title">COMMENT TEMPLATE</div>
+    <div id="modal-content">
+      <label>COMMENT (EDITABLE)</label>
+      <textarea id="modal-textarea" rows="12"></textarea>
+    </div>
+    <div id="modal-actions">
+      <button class="btn" onclick="copyModalComment()">COPY COMMENT</button>
+      <button class="btn btn-gold" onclick="closeModal()">CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// STATE & STORAGE
+// ============================================================
+const LS = {
+  get: (k, def) => { try { const v = localStorage.getItem('sl_'+k); return v !== null ? JSON.parse(v) : def; } catch(e) { return def; } },
+  set: (k, v) => { try { localStorage.setItem('sl_'+k, JSON.stringify(v)); } catch(e) {} }
+};
+
+let state = {
+  activeTab: LS.get('activeTab', 'dashboard'),
+  accountHealth: LS.get('accountHealth', 'NOMINAL'),
+  activity: LS.get('activity', []),
+  calendarPosts: LS.get('calendarPosts', {}),
+  prospects: LS.get('prospects', []),
+  cpGap: null,
+  cpDay: null,
+  cpCTA: null,
+  srDeploymentBlock: '',
+  charMode: 'single',
+  threadTweets: ['']
+};
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.querySelector('[data-tab="'+id+'"]').classList.add('active');
+  state.activeTab = id;
+  LS.set('activeTab', id);
+  if (id === 'dashboard') refreshDashboard();
+  if (id === 'prospect-ledger') renderProspectTable();
+}
+
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => showTab(btn.dataset.tab));
+});
+
+// ============================================================
+// FLASH FEEDBACK
+// ============================================================
+function flashBtn(btn) {
+  btn.classList.add('flash');
+  setTimeout(() => btn.classList.remove('flash'), 200);
+}
+
+// ============================================================
+// LOG ACTIVITY
+// ============================================================
+function logActivity(action, desc) {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  const entry = { time: hh+':'+mm, action, desc, ts: now.getTime() };
+  state.activity.unshift(entry);
+  if (state.activity.length > 5) state.activity = state.activity.slice(0,5);
+  LS.set('activity', state.activity);
+}
+
+// ============================================================
+// TAB 1: DASHBOARD
+// ============================================================
+function refreshDashboard() {
+  // Weekly posts
+  const weekPosts = Object.values(state.calendarPosts).filter(p => p && p.status && p.status !== 'archived');
+  document.getElementById('dash-weekly-posts').textContent = weekPosts.length;
+
+  // T1 count
+  const t1 = state.prospects.filter(p => !p.archived && getTier(p) === 'T1');
+  document.getElementById('dash-t1-count').textContent = t1.length;
+
+  // Account health
+  const hs = document.getElementById('dash-health');
+  hs.value = state.accountHealth;
+
+  // Calendar cells
+  ['MONDAY','WEDNESDAY','FRIDAY'].forEach(day => {
+    const cellId = 'cal-'+day.toLowerCase();
+    const cell = document.getElementById(cellId);
+    const post = state.calendarPosts[day];
+    if (post && post.gap) {
+      const statusClass = post.status === 'READY' ? 'badge-blueprint' : post.status === 'POSTED' ? 'badge-grey' : 'badge-gold';
+      cell.innerHTML = `<div class="calendar-cell-gap">${post.gap}</div><span class="badge ${statusClass}">${post.status || 'DRAFT'}</span>`;
+    } else {
+      cell.innerHTML = '<div class="calendar-cell-empty">No post scheduled</div>';
+    }
+  });
+
+  // Activity feed
+  const feed = document.getElementById('activity-feed');
+  if (state.activity.length === 0) {
+    feed.innerHTML = '<div class="empty-state">No activity recorded.</div>';
+  } else {
+    feed.innerHTML = state.activity.map(a =>
+      `<div class="activity-item"><span class="activity-time">[${a.time}]</span> ${a.action} — ${a.desc}</div>`
+    ).join('');
+  }
+}
+
+document.getElementById('dash-health').addEventListener('change', function() {
+  state.accountHealth = this.value;
+  LS.set('accountHealth', state.accountHealth);
+  logActivity('HEALTH UPDATE', 'Account health set to ' + this.value);
+});
+
+function calClick(day) {
+  showTab('content-planner');
+  // Pre-select the day
+  selectCP('day', day);
+  // Visually select the radio
+  document.querySelectorAll('#cp-day-group .radio-option').forEach(opt => {
+    opt.classList.remove('selected');
+    if (opt.textContent.trim() === day) opt.classList.add('selected');
+  });
+}
+
+// ============================================================
+// TAB 2: SHADOW RATE CALCULATOR
+// ============================================================
+function fmtNum(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function calculateShadowRate() {
+  const rev = parseFloat(document.getElementById('sr-revenue').value) || 0;
+  const hrs = parseFloat(document.getElementById('sr-hours').value) || 0;
+  const gap = document.getElementById('sr-gap').value;
+  const lostHrs = parseFloat(document.getElementById('sr-lost-hours').value) || 0;
+
+  if (!rev || !hrs) {
+    document.getElementById('sr-output').textContent = 'SHADOW RATE DIAGNOSTIC\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nERROR: Enter Annual Revenue and Weekly Hours.';
+    return;
+  }
+
+  const shadowRate = rev / (hrs * 52);
+  const annualizedGapHrs = lostHrs * 52;
+  const gapCost = shadowRate * lostHrs * 52;
+  const opTax = (gapCost / rev) * 100;
+  const mrr = Math.round((rev / 12) / 100) * 100;
+  const mrrK = (mrr / 1000).toFixed(1);
+
+  const srFmt = shadowRate.toFixed(2);
+  const gapFmt = fmtNum(Math.round(gapCost));
+  const taxFmt = opTax.toFixed(1);
+
+  const deploymentBlock = `"At $${mrrK}K MRR, your Shadow Rate is $${srFmt}/hr.\n${lostHrs} hours/week on ${gap} = $${fmtNum(Math.round(gapCost/1000))}K/yr in operational drag.\nThat's ${taxFmt}% of your revenue working against you."`;
+
+  state.srDeploymentBlock = deploymentBlock;
+
+  const output = `SHADOW RATE DIAGNOSTIC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+INPUTS
+  Annual Revenue:       $${fmtNum(rev)}
+  Weekly Hours:         ${hrs} hrs
+  Gap Type:             ${gap}
+  Hours Lost to Gap:    ${lostHrs} hrs/wk
+
+RESULTS
+  Shadow Rate:          $${srFmt} / hr
+  Annualized Gap Hours: ${annualizedGapHrs} hrs/yr
+  Gap Cost:             $${gapFmt} / yr
+  Operational Tax:      ${taxFmt}%
+
+DEPLOYMENT BLOCK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${deploymentBlock}`;
+
+  document.getElementById('sr-output').textContent = output;
+  document.getElementById('sr-copy-btn').style.display = 'inline-block';
+
+  flashBtn(document.getElementById('sr-calculate'));
+  logActivity('SHADOW RATE', `Calculated: $${srFmt}/hr, ${taxFmt}% op tax`);
+}
+
+function copySRDeployment() {
+  if (!state.srDeploymentBlock) return;
+  navigator.clipboard.writeText(state.srDeploymentBlock).then(() => {
+    flashBtn(document.getElementById('sr-copy-btn'));
+    logActivity('COPY', 'Shadow Rate deployment block copied');
+  });
+}
+
+// ============================================================
+// TAB 3: VOICE LINTER
+// ============================================================
+const BANNED_WORDS = ['unleash','elevate','game-changer','delve','deep dive','journey','unlock','empower','transform','leverage','in conclusion',"it's important to note","it goes without saying","at the end of the day","circle back"];
+const EM_DASHES = ['\u2014','\u2013','\u2015'];
+const MOTIVATIONAL_WORDS = ['amazing','incredible','powerful','inspiring','motivating','believe'];
+const GENERIC_ICP = ['every entrepreneur','every business owner'];
+
+function runLinter() {
+  const text = document.getElementById('vl-input').value;
+  if (!text.trim()) return;
+
+  let score = 100;
+  const violations = { banned: [], emdash: [], voice: [] };
+
+  // Check banned words
+  BANNED_WORDS.forEach(word => {
+    const re = new RegExp(word.replace(/[-\/\\^$*+?.()|[\]{}]/g,'\\$&'),'gi');
+    const matches = text.match(re);
+    if (matches) {
+      violations.banned.push({ word, count: matches.length });
+      score -= 5 * matches.length;
+    }
+  });
+
+  // Check em-dashes
+  EM_DASHES.forEach(dash => {
+    const re = new RegExp(dash,'g');
+    const matches = text.match(re);
+    if (matches) {
+      const name = dash === '\u2014' ? 'U+2014 (—)' : dash === '\u2013' ? 'U+2013 (–)' : 'U+2015 (―)';
+      violations.emdash.push({ name, count: matches.length });
+      score -= 3 * matches.length;
+    }
+  });
+
+  // Check voice violations
+  MOTIVATIONAL_WORDS.forEach(word => {
+    const re = new RegExp('\\b'+word+'\\b','gi');
+    if (re.test(text)) {
+      if (!violations.voice.includes('Motivational tone detected')) {
+        violations.voice.push('Motivational tone detected');
+        score -= 10;
+      }
+    }
+  });
+
+  const trimmed = text.trim();
+  if (trimmed.endsWith('?')) {
+    violations.voice.push('Trailing coaching question detected');
+    score -= 10;
+  }
+
+  GENERIC_ICP.forEach(phrase => {
+    const re = new RegExp(phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g,'\\$&'),'gi');
+    if (re.test(text)) {
+      if (!violations.voice.includes('Generic ICP detected')) {
+        violations.voice.push('Generic ICP detected');
+        score -= 10;
+      }
+    }
+  });
+
+  score = Math.max(0, score);
+
+  // Display score
+  const scoreEl = document.getElementById('vl-score');
+  scoreEl.textContent = score + '/100';
+  if (score >= 85) {
+    scoreEl.style.color = 'var(--blueprint)';
+  } else if (score >= 70) {
+    scoreEl.style.color = 'var(--gold)';
+  } else {
+    scoreEl.style.color = 'var(--red)';
+  }
+
+  // Status badge
+  const badge = document.getElementById('vl-status-badge');
+  if (score >= 85) {
+    badge.innerHTML = '<span class="badge badge-blueprint">DEPLOYMENT READY</span>';
+  } else if (score >= 70) {
+    badge.innerHTML = '<span class="badge badge-gold">REQUIRES REVISION</span>';
+  } else {
+    badge.innerHTML = '<span class="badge badge-red">REWRITE NEEDED</span>';
+  }
+
+  // Violations block
+  const vEl = document.getElementById('vl-violations');
+  let html = '';
+
+  if (violations.banned.length === 0 && violations.emdash.length === 0 && violations.voice.length === 0) {
+    html = '<span style="color:var(--blueprint);">No violations detected.</span>';
+  } else {
+    if (violations.banned.length > 0) {
+      html += `<div class="violation-group-header">BANNED WORDS ━━━━━━━━━━━━━━━━━━━━━</div>`;
+      violations.banned.forEach(v => {
+        html += `<div class="violation-item">"${v.word}" — detected ${v.count > 1 ? v.count+' times' : 'in text'}</div>`;
+      });
+    }
+    if (violations.emdash.length > 0) {
+      html += `<div class="violation-group-header">EM-DASHES ━━━━━━━━━━━━━━━━━━━━━━━━</div>`;
+      violations.emdash.forEach(v => {
+        html += `<div class="violation-item">${v.name} detected: ${v.count} occurrence${v.count !== 1 ? 's' : ''}</div>`;
+      });
+    }
+    if (violations.voice.length > 0) {
+      html += `<div class="violation-group-header">VOICE VIOLATIONS ━━━━━━━━━━━━━━━━━</div>`;
+      violations.voice.forEach(v => {
+        html += `<div class="violation-item">${v}</div>`;
+      });
+    }
+  }
+
+  vEl.innerHTML = html;
+  flashBtn(document.getElementById('vl-lint-btn'));
+  logActivity('VOICE LINT', `Score: ${score}/100`);
+}
+
+// ============================================================
+// TAB 4: CHAR COUNTER
+// ============================================================
+function setMode(mode) {
+  state.charMode = mode;
+  document.getElementById('cc-single-mode').style.display = mode === 'single' ? 'block' : 'none';
+  document.getElementById('cc-thread-mode').style.display = mode === 'thread' ? 'block' : 'none';
+  document.getElementById('mode-single').classList.toggle('active', mode === 'single');
+  document.getElementById('mode-thread').classList.toggle('active', mode === 'thread');
+  if (mode === 'thread' && document.getElementById('thread-tweets-container').children.length === 0) {
+    addThreadTweet();
+  }
+}
+
+function getEmDashInfo(text) {
+  const found = [];
+  EM_DASHES.forEach(dash => {
+    const re = new RegExp(dash,'g');
+    let m;
+    while ((m = re.exec(text)) !== null) {
+      const code = dash.codePointAt(0).toString(16).toUpperCase().padStart(4,'0');
+      found.push('U+'+code+' at position '+m.index);
+    }
+  });
+  return found;
+}
+
+function hasSignalWords(text) {
+  return BANNED_WORDS.some(w => new RegExp(w.replace(/[-\/\\^$*+?.()|[\]{}]/g,'\\$&'),'gi').test(text));
+}
+
+function updateCharCount() {
+  const text = document.getElementById('cc-input').value;
+  const len = text.length;
+  const remaining = 280 - len;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const lines = text.split('\n').length;
+  const emDashes = getEmDashInfo(text);
+  const hasEM = emDashes.length > 0;
+  const hasSignal = hasSignalWords(text);
+
+  const countEl = document.getElementById('cc-count');
+  countEl.textContent = len + ' / 280';
+  if (len <= 260) countEl.style.color = 'var(--blueprint)';
+  else if (len <= 280) countEl.style.color = 'var(--gold)';
+  else countEl.style.color = 'var(--red)';
+
+  // Badges
+  const badges = document.getElementById('cc-badges');
+  const safe = len <= 280;
+  badges.innerHTML = `
+    <span class="badge ${safe ? 'badge-blueprint' : 'badge-red'}">X-SAFE: ${safe ? 'PASS' : 'FAIL'}</span>
+    <span class="badge ${hasEM ? 'badge-red' : 'badge-blueprint'}">EM-DASHES: ${hasEM ? 'DETECTED' : 'CLEAR'}</span>
+    <span class="badge ${hasSignal ? 'badge-gold' : 'badge-blueprint'}">SIGNAL WORDS: ${hasSignal ? 'DETECTED' : 'CLEAR'}</span>
+  `;
+
+  // Details
+  const emSection = emDashes.length > 0 ? emDashes.join('\n') : 'None detected.';
+  document.getElementById('cc-details').textContent =
+`CHARACTER BREAKDOWN
+━━━━━━━━━━━━━━━━━━
+Total chars:    ${len}
+Remaining:      ${remaining}
+Words:          ${words}
+Lines:          ${lines}
+
+EM-DASHES FOUND
+━━━━━━━━━━━━━━━
+${emSection}`;
+}
+
+function copyCleanText() {
+  const text = document.getElementById('cc-input').value;
+  const clean = text
+    .replace(/\u2014/g, ',')
+    .replace(/\u2013/g, '-')
+    .replace(/\u2015/g, '-');
+  navigator.clipboard.writeText(clean).then(() => {
+    flashBtn(document.querySelector('[onclick="copyCleanText()"]'));
+    logActivity('COPY', 'Clean text copied to clipboard');
+  });
+}
+
+function addThreadTweet() {
+  const container = document.getElementById('thread-tweets-container');
+  const idx = container.children.length;
+  const div = document.createElement('div');
+  div.className = 'thread-tweet';
+  div.dataset.index = idx;
+  div.innerHTML = `
+    <div class="thread-tweet-num">TWEET ${idx+1} <button class="thread-remove" onclick="removeThreadTweet(this)">REMOVE</button></div>
+    <textarea rows="5" placeholder="Tweet ${idx+1}..." oninput="updateThreadCount(this)"></textarea>
+    <div class="thread-tweet-count" style="color:var(--blueprint);">0 / 280</div>
+  `;
+  container.appendChild(div);
+}
+
+function removeThreadTweet(btn) {
+  const tweet = btn.closest('.thread-tweet');
+  tweet.remove();
+  // Renumber
+  document.querySelectorAll('.thread-tweet').forEach((t, i) => {
+    t.querySelector('.thread-tweet-num').childNodes[0].textContent = 'TWEET '+(i+1)+' ';
+    t.dataset.index = i;
+  });
+}
+
+function updateThreadCount(ta) {
+  const len = ta.value.length;
+  const countEl = ta.closest('.thread-tweet').querySelector('.thread-tweet-count');
+  countEl.textContent = len + ' / 280';
+  if (len <= 260) countEl.style.color = 'var(--blueprint)';
+  else if (len <= 280) countEl.style.color = 'var(--gold)';
+  else countEl.style.color = 'var(--red)';
+}
+
+// ============================================================
+// TAB 5: CONTENT PLANNER
+// ============================================================
+function selectCP(type, value) {
+  if (type === 'gap') {
+    state.cpGap = value;
+    document.querySelectorAll('#cp-gap-group .radio-option').forEach(opt => {
+      opt.classList.toggle('selected', opt.textContent.trim() === value);
+    });
+    // Auto-suggest CTA
+    const smurfGaps = ['SHADOW RATE GAP','PRICING GAP'];
+    if (smurfGaps.includes(value)) {
+      selectCP('cta','SMURF LURE');
+    } else {
+      selectCP('cta','HAND-RAISE');
+    }
+  } else if (type === 'day') {
+    state.cpDay = value;
+    document.querySelectorAll('#cp-day-group .radio-option').forEach(opt => {
+      opt.classList.toggle('selected', opt.textContent.trim() === value);
+    });
+  } else if (type === 'cta') {
+    state.cpCTA = value;
+    document.querySelectorAll('#cp-cta-group .radio-option').forEach(opt => {
+      opt.classList.toggle('selected', opt.textContent.trim() === value);
+    });
+  }
+}
+
+function updateCIUNCount(layer) {
+  const val = document.getElementById('ciun-'+layer).value;
+  document.getElementById('ciun-'+layer+'-count').textContent = val.length + ' chars';
+}
+
+// Auto-select seasonal frame based on month
+(function autoFrame() {
+  const month = new Date().getMonth(); // 0-indexed
+  const frames = {
+    0: 'Future Pressure', 1: 'Future Pressure',
+    2: 'Growth Illusion', 3: 'Growth Illusion',
+    4: 'Operational Debt', 5: 'Operational Debt',
+    6: 'Invisible Ceiling', 7: 'Invisible Ceiling',
+    8: 'Acquisition Treadmill', 9: 'Acquisition Treadmill',
+    10: 'Future Pressure', 11: 'Future Pressure'
+  };
+  const frameSelect = document.getElementById('cp-frame');
+  if (frameSelect) frameSelect.value = frames[month] || 'Future Pressure';
+})();
+
+function saveToCalendar() {
+  if (!state.cpGap || !state.cpDay) {
+    alert('Select a Gap and Day before saving.');
+    return;
+  }
+  const post = {
+    gap: state.cpGap,
+    day: state.cpDay,
+    frame: document.getElementById('cp-frame').value,
+    cta: state.cpCTA,
+    c: document.getElementById('ciun-c').value,
+    i: document.getElementById('ciun-i').value,
+    u: document.getElementById('ciun-u').value,
+    n: document.getElementById('ciun-n').value,
+    status: 'DRAFT',
+    ts: Date.now()
+  };
+  state.calendarPosts[state.cpDay] = post;
+  LS.set('calendarPosts', state.calendarPosts);
+  flashBtn(document.querySelector('[onclick="saveToCalendar()"]'));
+  logActivity('CALENDAR', `${state.cpGap} saved to ${state.cpDay} as DRAFT`);
+}
+
+function copyFullPost() {
+  const c = document.getElementById('ciun-c').value.trim();
+  const i = document.getElementById('ciun-i').value.trim();
+  const u = document.getElementById('ciun-u').value.trim();
+  const n = document.getElementById('ciun-n').value.trim();
+  if (!c && !i && !u && !n) return;
+  const post = [c, i, u, n].filter(Boolean).join('\n\n');
+  navigator.clipboard.writeText(post).then(() => {
+    flashBtn(document.querySelector('[onclick="copyFullPost()"]'));
+    logActivity('COPY', 'Full CIUN post copied to clipboard');
+  });
+}
+
+// ============================================================
+// TAB 6: PROSPECT LEDGER
+// ============================================================
+function getTier(p) {
+  const conf = (parseInt(p.revenueSignal)||0) + (parseInt(p.opPain)||0) + (parseInt(p.icpMatch)||0) + (parseInt(p.engageWindow)||0);
+  p.confidence = conf;
+  if (conf >= 8) return 'T1';
+  if (conf >= 5) return 'T2';
+  return 'T3';
+}
+
+function addProspect() {
+  const handle = document.getElementById('pl-handle').value.trim();
+  if (!handle) return;
+
+  const p = {
+    id: Date.now(),
+    handle,
+    mrr: document.getElementById('pl-mrr').value,
+    gap: document.getElementById('pl-gap').value,
+    revenueSignal: parseInt(document.getElementById('pl-revenue-signal').value)||1,
+    opPain: parseInt(document.getElementById('pl-op-pain').value)||1,
+    icpMatch: parseInt(document.getElementById('pl-icp').value)||1,
+    engageWindow: parseInt(document.getElementById('pl-engage').value)||1,
+    notes: document.getElementById('pl-notes').value,
+    status: 'NEW',
+    archived: false
+  };
+  p.confidence = p.revenueSignal + p.opPain + p.icpMatch + p.engageWindow;
+
+  state.prospects.push(p);
+  LS.set('prospects', state.prospects);
+  renderProspectTable();
+  flashBtn(document.querySelector('[onclick="addProspect()"]'));
+  logActivity('PROSPECT ADDED', `${handle} — ${getTier(p)} — ${p.gap}`);
+
+  // Reset form
+  document.getElementById('pl-handle').value = '';
+  document.getElementById('pl-notes').value = '';
+}
+
+function renderProspectTable() {
+  const container = document.getElementById('pl-table-container');
+  const active = state.prospects.filter(p => !p.archived);
+
+  if (active.length === 0) {
+    container.innerHTML = '<div class="empty-state">No prospects in ledger. Add one above.</div>';
+    return;
+  }
+
+  // Sort: T1 first, then by confidence desc
+  const sorted = [...active].sort((a,b) => {
+    const tierOrder = { T1:0, T2:1, T3:2 };
+    const ta = getTier(a), tb = getTier(b);
+    if (tierOrder[ta] !== tierOrder[tb]) return tierOrder[ta] - tierOrder[tb];
+    return b.confidence - a.confidence;
+  });
+
+  const rows = sorted.map(p => {
+    const tier = getTier(p);
+    const tierClass = tier === 'T1' ? 'badge-t1' : tier === 'T2' ? 'badge-t2' : 'badge-t3';
+    const statuses = ['NEW','COMMENTED','REPLIED','CONVERTED','SKIP'];
+    const statusOpts = statuses.map(s => `<option value="${s}" ${p.status===s?'selected':''}>${s}</option>`).join('');
+    return `<tr>
+      <td style="font-weight:700;color:var(--blueprint);">${escHtml(p.handle)}</td>
+      <td>${escHtml(p.mrr)}</td>
+      <td>${escHtml(p.gap)}</td>
+      <td style="text-align:center;">${p.confidence}</td>
+      <td><span class="badge ${tierClass}">${tier}</span></td>
+      <td>
+        <select class="status-select" onchange="updateProspectStatus(${p.id}, this.value)">${statusOpts}</select>
+      </td>
+      <td>
+        <button class="action-btn action-btn-comment" onclick="openCommentModal(${p.id})">COMMENT</button>
+        <button class="action-btn action-btn-archive" onclick="archiveProspect(${p.id})">ARCHIVE</button>
+      </td>
+    </tr>`;
+  }).join('');
+
+  container.innerHTML = `<table class="pl-table">
+    <thead><tr>
+      <th>HANDLE</th><th>MRR RANGE</th><th>GAP</th><th>CONFIDENCE</th><th>TIER</th><th>STATUS</th><th>ACTIONS</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function updateProspectStatus(id, status) {
+  const p = state.prospects.find(x => x.id === id);
+  if (!p) return;
+  p.status = status;
+  LS.set('prospects', state.prospects);
+  logActivity('STATUS UPDATE', `${p.handle} set to ${status}`);
+}
+
+function archiveProspect(id) {
+  const p = state.prospects.find(x => x.id === id);
+  if (!p) return;
+  p.archived = true;
+  LS.set('prospects', state.prospects);
+  renderProspectTable();
+  logActivity('ARCHIVED', p.handle+' removed from ledger');
+}
+
+function exportLedger() {
+  const active = state.prospects.filter(p => !p.archived);
+  if (active.length === 0) return;
+
+  const sorted = [...active].sort((a,b) => {
+    const tierOrder = { T1:0, T2:1, T3:2 };
+    const ta = getTier(a), tb = getTier(b);
+    if (tierOrder[ta] !== tierOrder[tb]) return tierOrder[ta] - tierOrder[tb];
+    return b.confidence - a.confidence;
+  });
+
+  const date = new Date().toISOString().split('T')[0];
+  let report = `SOVEREIGN LEDGER — OPERATIONS INTELLIGENCE REPORT\n`;
+  report += `Generated: ${date}\n`;
+  report += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+  report += `ACTIVE PROSPECTS: ${active.length}\n`;
+  report += `T1: ${active.filter(p=>getTier(p)==='T1').length}  T2: ${active.filter(p=>getTier(p)==='T2').length}  T3: ${active.filter(p=>getTier(p)==='T3').length}\n\n`;
+  report += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+  sorted.forEach(p => {
+    report += `${getTier(p)} | ${p.handle}\n`;
+    report += `MRR: ${p.mrr}  |  Gap: ${p.gap}  |  Confidence: ${p.confidence}\n`;
+    report += `Status: ${p.status}  |  Scores: Rev=${p.revenueSignal} Pain=${p.opPain} ICP=${p.icpMatch} Engage=${p.engageWindow}\n`;
+    if (p.notes) report += `Notes: ${p.notes}\n`;
+    report += `\n`;
+  });
+
+  navigator.clipboard.writeText(report).then(() => {
+    flashBtn(document.querySelector('[onclick="exportLedger()"]'));
+    logActivity('EXPORT', 'Operations Intelligence Report copied');
+  });
+}
+
+// ============================================================
+// COMMENT MODAL
+// ============================================================
+const COMMENT_TEMPLATES = {
+  'Shadow Rate Gap': (p) => {
+    const mrrRange = p.mrr;
+    return `Solo SaaS founders at ${mrrRange} typically run a Shadow Rate of $55-$90/hr.
+
+If the friction you're describing is consuming 10-15 hours/week, that's $28K-$70K/yr in misallocated founder time — before you factor in what that time isn't building.
+
+The first fix isn't a hire. It's a playbook that makes the first hire a 2-hour onboarding, not a 2-month handoff.
+
+The ops debt is already priced into your growth ceiling.`;
+  },
+  'Retention Gap': (p) => {
+    const mrrRange = p.mrr;
+    return `Acquisition doesn't compound if retention leaks.
+
+At ${mrrRange}, a 3-5% monthly churn rate means you're replacing 36-60% of your revenue annually just to stay flat — before you count acquisition cost.
+
+Net Revenue Retention below 100% means growth is a treadmill, not a ramp.
+
+The retention math runs before the acquisition math. That's the diagnostic.`;
+  },
+  'Pricing Gap': (p) => {
+    return `Competing on price at your current point signals the market hasn't received the value proof — not that the price is wrong.
+
+Founders who raise prices 20-30% without losing customers typically find retention improves simultaneously. The price filtered the wrong ICP.
+
+The diagnostic question isn't "what will they pay?" It's "what does staying at this price cost you in customer quality?"
+
+Price anchors ICP. ICP anchors LTV. The math flows from the first decision.`;
+  },
+  'Ops Gap': (p) => {
+    const mrrRange = p.mrr;
+    return `"Everything's in my head" is an ops liability that compounds with every new customer.
+
+The cost isn't the chaos now. It's the founder time required to rebuild the system every time you try to delegate or hire. At ${mrrRange}, that's a structural tax on capacity.
+
+Ops debt has a Shadow Rate too. Every hour of tribal-knowledge maintenance is a dollar cost to the business, not just a time cost.
+
+The system doesn't need to be perfect. It needs to exist before the next hire.`;
+  },
+  'Scale Gap': (p) => {
+    const mrrRange = p.mrr;
+    return `"I'm the bottleneck" is a structural diagnosis, not a workload one.
+
+At ${mrrRange}, the ceiling isn't effort — it's the number of decisions that require your context to execute. That number doesn't shrink with more customers; it compounds.
+
+Founders who break this ceiling build a decision layer, not a delegation layer. The difference is 6-12 months of compressed growth.
+
+The question isn't how to work more. It's which decisions to eliminate entirely.`;
+  }
+};
+
+function openCommentModal(id) {
+  const p = state.prospects.find(x => x.id === id);
+  if (!p) return;
+
+  const templateFn = COMMENT_TEMPLATES[p.gap] || COMMENT_TEMPLATES['Shadow Rate Gap'];
+  const comment = templateFn(p);
+
+  document.getElementById('modal-title').textContent = `COMMENT TEMPLATE — ${p.handle} — ${p.gap.toUpperCase()}`;
+  document.getElementById('modal-textarea').value = comment;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function closeModalIfOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+function copyModalComment() {
+  const text = document.getElementById('modal-textarea').value;
+  navigator.clipboard.writeText(text).then(() => {
+    flashBtn(document.querySelector('[onclick="copyModalComment()"]'));
+    logActivity('COPY', 'Comment template copied to clipboard');
+  });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  // Restore active tab
+  showTab(state.activeTab);
+
+  // Init char counter
+  updateCharCount();
+
+  // Init dashboard
+  if (state.activeTab === 'dashboard') refreshDashboard();
+  if (state.activeTab === 'prospect-ledger') renderProspectTable();
+
+  // Thread mode: add initial tweet if in thread mode
+  if (state.charMode === 'thread') {
+    setMode('thread');
+  }
+}
+
+init();
+</script>
+</body>
+</html>
