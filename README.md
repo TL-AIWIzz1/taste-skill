@@ -53,7 +53,9 @@ The taste skill has three settings at the top of the file. Change these numbers 
 
 The [`design-md/`](design-md/) folder is a vendored collection of **73 `DESIGN.md` files** — plain-text design-system specs (colors, type, components, layout) for real products like Claude, Stripe, Apple, Figma, Vercel, Linear, and Tesla.
 
-While the skills above teach general design craft, a `DESIGN.md` pins the *look* of a specific brand. Copy one into your project and tell your AI to build against it. See [design-md/README.md](design-md/README.md) for the full index.
+While the skills above teach general design craft, a `DESIGN.md` pins the *look* of a specific brand. See [design-md/README.md](design-md/README.md) for the full index.
+
+**It's wired into the skills automatically.** Name a brand in your prompt (e.g. "make it look like Stripe", "a Linear-style dashboard") and the taste-skill's [Brand Reference Protocol](taste-skill/SKILL.md) loads the matching `DESIGN.md` before generating — using it as the source of truth for the brand *look* while the skill still enforces engineering quality. The redesign-skill uses it as a target aesthetic too. You can also just copy a `DESIGN.md` into your project and reference it directly.
 
 Sourced from [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) (MIT).
 

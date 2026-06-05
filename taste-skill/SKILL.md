@@ -5,6 +5,27 @@ description: Senior UI/UX Engineer. Architect digital interfaces overriding defa
 
 # High-Agency Frontend Skill
 
+## 0. BRAND REFERENCE PROTOCOL (design-md)
+A companion library of **`DESIGN.md`** files ships alongside this skill in the **`design-md/`** directory (73 real design systems — `claude`, `stripe`, `apple`, `figma`, `vercel`, `linear.app`, `tesla`, ...; see `design-md/README.md` for the index). Each file is an authoritative brand spec: exact palette, typography, components, spacing, and do's/don'ts. When a generation maps to a known brand, that spec is the source of truth for the *look*; this skill remains the source of truth for *engineering quality*.
+
+**ACTIVATE when ANY is true** (otherwise skip to Section 1 and use the defaults):
+* The user names a product in the library ("make it look like Stripe", "a Linear-style dashboard", "Apple-clean").
+* The user asks to match a real product's aesthetic and a close analog exists in `design-md/`.
+* The user points directly at a `DESIGN.md` file.
+
+**PROTOCOL [MANDATORY when activated]:**
+1. **RESOLVE:** Map the request to exactly one folder under `design-md/` (exact match, else closest analog). If nothing genuinely fits, do NOT force it — skip this section and use defaults.
+2. **LOAD:** Read `design-md/<brand>/DESIGN.md` IN FULL before writing a single line of code. Never reconstruct a brand from memory; read the file.
+3. **PRECEDENCE (highest wins):**
+    1. Explicit user instructions in the chat.
+    2. The loaded `DESIGN.md` — for ALL *aesthetic* decisions (color, typography, component styling, spacing, motion feel).
+    3. Sections 1–9 of this skill — for ALL *engineering* decisions (RSC safety, performance, interaction states, accessibility), and as the aesthetic default for anything the `DESIGN.md` leaves unspecified.
+    * Aesthetic conflict → `DESIGN.md` wins. Code-quality / a11y / performance conflict → this skill wins.
+4. **CALIBRATE DIALS:** Infer `DESIGN_VARIANCE`, `MOTION_INTENSITY`, and `VISUAL_DENSITY` from the spec's "Visual Theme & Atmosphere" (e.g. Linear → low variance + low density; an editorial studio → high variance) UNLESS the user set them explicitly. A brand request counts as an explicit override of the 8/6/4 baseline.
+5. **OVERRIDE BANS WITH AUTHENTIC TOKENS:** The global bans in Sections 3 and 7 (Inter, "AI Purple", pure black, oversized gradient text) are anti-*slop* guards, not anti-*brand* guards. If the loaded `DESIGN.md` defines such a value as part of its genuine identity (e.g. Stripe's signature indigo, a brand that truly ships Inter), honor the real brand token. Never introduce a banned pattern that is NOT in the brand spec.
+
+**FALLBACK:** If `design-md/` is not present (skill copied without the library), skip this section silently and proceed with Sections 1–9. The library lives at `github.com/VoltAgent/awesome-design-md`.
+
 ## 1. ACTIVE BASELINE CONFIGURATION
 * DESIGN_VARIANCE: 8 (1=Perfect Symmetry, 10=Artsy Chaos)
 * MOTION_INTENSITY: 6 (1=Static/No movement, 10=Cinematic/Magic Physics)
@@ -217,6 +238,7 @@ Implement these specific micro-animations when constructing Bento grids (e.g., R
 
 ## 10. FINAL PRE-FLIGHT CHECK
 Evaluate your code against this matrix before outputting. This is the **last** filter you apply to your logic.
+- [ ] If a brand was referenced, did you LOAD and follow its `design-md/<brand>/DESIGN.md` (palette, type, components) instead of guessing (Section 0)?
 - [ ] Is global state used appropriately to avoid deep prop-drilling rather than arbitrarily?
 - [ ] Is mobile layout collapse (`w-full`, `px-4`, `max-w-7xl mx-auto`) guaranteed for high-variance designs?
 - [ ] Do full-height sections safely use `min-h-[100dvh]` instead of the bugged `h-screen`?

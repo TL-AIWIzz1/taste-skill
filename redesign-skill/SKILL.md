@@ -13,6 +13,8 @@ When applied to an existing project, follow this sequence:
 2. **Diagnose** — Run through the audit below. List every generic pattern, weak point, and missing state you find.
 3. **Fix** — Apply targeted upgrades working with the existing stack. Do not rewrite from scratch. Improve what's there.
 
+**Target aesthetic (optional).** If the user wants the redesign to match a specific brand ("make it feel like Linear", "more Stripe-like"), check the companion `design-md/` library — 73 ready-made `DESIGN.md` brand specs (see `design-md/README.md` for the index). Read the closest match in full and treat its palette, typography, and component rules as the target the fixes below should move the UI toward. If no brand is requested, or the library is absent, just apply the audit's general standards.
+
 ## Design Audit
 
 ### Typography
