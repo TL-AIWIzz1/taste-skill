@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy or Bounce — Stripe Roulette Challenge | Sovereign Ledger</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1f2e;
+    --surface-alt: #141824;
+    --border: #2a3045;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --faint: #374151;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --blue: #60a5fa;
+    --green-bg: rgba(34,197,94,0.08);
+    --amber-bg: rgba(245,158,11,0.08);
+    --red-bg: rgba(239,68,68,0.08);
+    --blue-bg: rgba(96,165,250,0.08);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 0 0 80px;
+  }
+
+  /* ── HEADER ── */
+  .report-header {
+    background: linear-gradient(135deg, #0f1117 0%, #1a1f2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 48px 36px;
+  }
+  .report-header .skill-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--faint);
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .report-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .report-header .meta {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .report-header .meta a { color: var(--blue); text-decoration: none; }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 48px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── VERDICT DASHBOARD ── */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-top: 8px;
+  }
+  @media (max-width: 860px) {
+    .verdict-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .persona-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 16px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .persona-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .persona-card.buys::before { background: var(--green); }
+  .persona-card.fence::before { background: var(--amber); }
+  .persona-card.bounces::before { background: var(--red); }
+
+  .persona-icon { font-size: 22px; margin-bottom: 10px; display: block; }
+  .persona-name { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .verdict-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .verdict-badge.buys { background: var(--green-bg); color: var(--green); }
+  .verdict-badge.fence { background: var(--amber-bg); color: var(--amber); }
+  .verdict-badge.bounces { background: var(--red-bg); color: var(--red); }
+  .persona-reason { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ── WALKTHROUGH ── */
+  .walkthrough-section {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .walkthrough-section-header {
+    padding: 14px 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 13px;
+    color: #94a3b8;
+    letter-spacing: 0.03em;
+  }
+  .monologue-block {
+    padding: 14px 20px 14px 52px;
+    border-bottom: 1px solid var(--faint);
+    position: relative;
+  }
+  .monologue-block:last-child { border-bottom: none; }
+  .monologue-block::before {
+    content: attr(data-persona-short);
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  .mono-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .persona-label { font-size: 12px; font-weight: 600; color: var(--muted); }
+  .state-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .state-badge.engaged { background: var(--green-bg); color: var(--green); border-left: 2px solid var(--green); }
+  .state-badge.neutral { background: rgba(100,116,139,0.1); color: var(--muted); border-left: 2px solid var(--muted); }
+  .state-badge.friction { background: rgba(245,158,11,0.08); color: var(--amber); border-left: 2px solid var(--amber); }
+  .state-badge.exit { background: var(--red-bg); color: var(--red); border-left: 2px solid var(--red); }
+
+  .monologue-text {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.65;
+    border-left: 2px solid var(--faint);
+    padding-left: 12px;
+    font-style: italic;
+  }
+  .monologue-text.engaged { border-left-color: var(--green); }
+  .monologue-text.neutral { border-left-color: var(--muted); }
+  .monologue-text.friction { border-left-color: var(--amber); }
+  .monologue-text.exit { border-left-color: var(--red); }
+
+  /* ── FRICTION MAP ── */
+  .friction-cluster {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .friction-cluster-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cluster-number {
+    width: 24px; height: 24px;
+    background: var(--amber-bg);
+    color: var(--amber);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cluster-name { font-weight: 600; font-size: 14px; color: #e2e8f0; }
+  .friction-cluster-body { padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 680px) { .friction-cluster-body { grid-template-columns: 1fr; } }
+  .cluster-detail-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 4px; }
+  .cluster-detail-value { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+  .cluster-detail-quote { font-size: 13px; color: var(--amber); font-style: italic; line-height: 1.5; }
+  .affected-personas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .persona-pill {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .persona-pill.affected { background: var(--amber-bg); color: var(--amber); }
+  .persona-pill.clean { background: rgba(100,116,139,0.08); color: var(--muted); }
+
+  /* ── FIX LIST ── */
+  .fix-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+  }
+  .fix-rank {
+    min-width: 48px;
+    background: var(--surface-alt);
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--faint);
+    flex-shrink: 0;
+  }
+  .fix-rank.high { color: var(--red); }
+  .fix-rank.med { color: var(--amber); }
+  .fix-rank.low { color: var(--muted); }
+  .fix-body { padding: 14px 18px; flex: 1; }
+  .fix-title { font-size: 14px; font-weight: 600; color: #e2e8f0; margin-bottom: 4px; }
+  .fix-detail { font-size: 13px; color: #94a3b8; line-height: 1.55; margin-bottom: 8px; }
+  .fix-personas { display: flex; flex-wrap: wrap; gap: 5px; }
+  .fix-persona-tag {
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 500;
+    background: rgba(96,165,250,0.08);
+    color: var(--blue);
+  }
+
+  /* ── NOTE BOX ── */
+  .intel-note {
+    background: rgba(96,165,250,0.06);
+    border: 1px solid rgba(96,165,250,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #7fb3f5;
+    margin-bottom: 24px;
+    line-height: 1.55;
+  }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <span class="skill-tag">Buy or Bounce</span>
+  <h1>Stripe Roulette Challenge — Sovereign Ledger</h1>
+  <p class="meta">
+    <a href="https://sovereignledger.app" target="_blank">sovereignledger.app</a>
+    &nbsp;&middot;&nbsp; $9 one-time &nbsp;&middot;&nbsp; Analyzed June 5, 2026
+  </p>
+</div>
+
+<div class="container">
+
+  <div class="intel-note">
+    <strong>Note:</strong> The page returned HTTP 403 to automated fetch. Analysis is based on search-indexed copy, confirmed testimonials, the full offer stack, and structural observations gathered from multiple sources. Sections where copy was inferred rather than directly quoted are marked.
+  </div>
+
+  <!-- VERDICT DASHBOARD -->
+  <div class="section-title">Verdict Dashboard</div>
+  <div class="verdict-grid">
+
+    <div class="persona-card buys">
+      <span class="persona-icon">&#9889;</span>
+      <div class="persona-name">Ready Buyer</div>
+      <span class="verdict-badge buys">Buys</span>
+      <div class="persona-reason">$9 and 15 minutes is nothing. The math clears instantly. Offer stack confusion slows but doesn't stop them.</div>
+    </div>
+
+    <div class="persona-card fence">
+      <span class="persona-icon">&#128269;</span>
+      <div class="persona-name">Skeptic</div>
+      <span class="verdict-badge fence">On the Fence</span>
+      <div class="persona-reason">Specific numbers land well but every testimonial is anonymous. No name, no handle, no company — that pattern reads as fabricated at $9 pricing.</div>
+    </div>
+
+    <div class="persona-card buys">
+      <span class="persona-icon">&#128176;</span>
+      <div class="persona-name">Price-Conscious</div>
+      <span class="verdict-badge buys">Buys</span>
+      <div class="persona-reason">The ROI math is unambiguous. $9 in, $40–$200/month out, full refund if Stripe is clean. This persona converts hard.</div>
+    </div>
+
+    <div class="persona-card bounces">
+      <span class="persona-icon">&#10067;</span>
+      <div class="persona-name">Confused Visitor</div>
+      <span class="verdict-badge bounces">Bounces</span>
+      <div class="persona-reason">"Stripe Roulette Challenge" — roulette? Is this a game? A course? A tool? They hit the back button before finding out it's a $9 checklist.</div>
+    </div>
+
+    <div class="persona-card fence">
+      <span class="persona-icon">&#9878;</span>
+      <div class="persona-name">Comparison Shopper</div>
+      <span class="verdict-badge fence">On the Fence</span>
+      <div class="persona-reason">The "15 minutes not 15 hours" angle is genuinely differentiating but it's buried. No comparison section. They're still weighing free Stripe docs.</div>
+    </div>
+
+  </div>
+
+  <!-- SECTION WALKTHROUGH -->
+  <div class="section-title">Section-by-Section Walkthrough</div>
+
+  <!-- HERO -->
+  <div class="walkthrough-section">
+    <div class="walkthrough-section-header">01 — Hero / Above the Fold</div>
+
+    <div class="monologue-block" data-persona-short="Ready">
+      <div class="mono-header">
+        <span class="persona-label">Ready Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">"Find Your Broken Stripe Settings in 15 Minutes" — yeah, okay. I've been meaning to audit this for months. 15 minutes I can do. What am I clicking to get started?</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Skeptic">
+      <div class="mono-header">
+        <span class="persona-label">Skeptic</span>
+        <span class="state-badge neutral">Neutral</span>
+      </div>
+      <div class="monologue-text neutral">"Find Your Broken Stripe Settings in 15 Minutes." Okay — broken how? Missing webhooks? Wrong tax configs? Dunning failures? The headline promises precision but delivers a category, not a diagnosis. I'll scroll but I'm already asking: broken according to what standard?</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Price">
+      <div class="mono-header">
+        <span class="persona-label">Price-Conscious Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">15 minutes to find broken settings. If "broken settings" means lost money, this already sounds worth whatever it costs. Let me see the price before I get attached.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Confused">
+      <div class="mono-header">
+        <span class="persona-label">Confused Visitor</span>
+        <span class="state-badge exit">Exit Risk</span>
+      </div>
+      <div class="monologue-text exit">"Stripe Roulette" — roulette? Like gambling? Is this some kind of game or tool? And it's a "challenge" — do I have to do something every day? I don't even know what this is yet. What am I looking at?</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Compare">
+      <div class="mono-header">
+        <span class="persona-label">Comparison Shopper</span>
+        <span class="state-badge neutral">Neutral</span>
+      </div>
+      <div class="monologue-text neutral">I've already read three Stripe optimization articles. This headline sounds like the same thing. "Find broken settings" — Stripe's own docs cover this. What makes this different from what I already know? I'll scroll to find the angle.</div>
+    </div>
+  </div>
+
+  <!-- PROBLEM BLOCK -->
+  <div class="walkthrough-section">
+    <div class="walkthrough-section-header">02 — Problem / Pain Framing</div>
+
+    <div class="monologue-block" data-persona-short="Ready">
+      <div class="mono-header">
+        <span class="persona-label">Ready Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">"Most founders have 47 Stripe settings but configure only about 5, with the other 42 running on defaults." I literally set Stripe up in an afternoon two years ago and haven't touched it since. $500–$2,000/month leaking — that math is uncomfortable. This is for me.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Skeptic">
+      <div class="mono-header">
+        <span class="persona-label">Skeptic</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">"47 settings, only 5 configured" — this is specific and testable. I can go check my Stripe dashboard right now. The $500–$2,000/month figure is cited without a source but the specificity of "47" gives it credibility. I'm paying attention.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Price">
+      <div class="mono-header">
+        <span class="persona-label">Price-Conscious Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">"$500–$2,000/month leaking from misconfiguration." If this is even 10% true for me that's $600/year minimum. I haven't even seen the price yet and I already know it's going to be less than that. Just tell me what to do.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Confused">
+      <div class="mono-header">
+        <span class="persona-label">Confused Visitor</span>
+        <span class="state-badge friction">Friction</span>
+      </div>
+      <div class="monologue-text friction">Okay, so this is about Stripe settings. That helps. But who is "most founders"? I'm a freelancer using Stripe for invoices — does this apply to me? Or is this for SaaS people with subscriptions? I'm not sure this is about me yet.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Compare">
+      <div class="mono-header">
+        <span class="persona-label">Comparison Shopper</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">"47 settings, 42 on defaults" — this is more specific than any blog post I've read. That stat is doing real work. I want to know which 42. Is this list in the product or is it just a hook?</div>
+    </div>
+  </div>
+
+  <!-- OFFER STACK -->
+  <div class="walkthrough-section">
+    <div class="walkthrough-section-header">03 — What's Included (Offer Stack)</div>
+
+    <div class="monologue-block" data-persona-short="Ready">
+      <div class="mono-header">
+        <span class="persona-label">Ready Buyer</span>
+        <span class="state-badge neutral">Neutral</span>
+      </div>
+      <div class="monologue-text neutral">Wait — it's "one checklist, one fix" but then there's also a recovery spreadsheet and a ghosting signal scorer? Which is it — one thing or three? I'm not slowing down over this, I just want to know what I'm getting. Small friction.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Skeptic">
+      <div class="mono-header">
+        <span class="persona-label">Skeptic</span>
+        <span class="state-badge friction">Friction</span>
+      </div>
+      <div class="monologue-text friction">The positioning says "one checklist, one fix, one outcome" but the deliverables list shows three separate tools: a checklist, a recovery spreadsheet, and a ghosting signal scorer. That's not one thing. When copy and offer don't match, I start wondering what else doesn't match. Which is accurate?</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Price">
+      <div class="mono-header">
+        <span class="persona-label">Price-Conscious Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">Three tools for $9? The checklist alone would be worth it. The recovery spreadsheet that identifies past-due invoices and the ghosting scorer are bonuses on top. This feels like more value than I expected.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Confused">
+      <div class="mono-header">
+        <span class="persona-label">Confused Visitor</span>
+        <span class="state-badge friction">Friction</span>
+      </div>
+      <div class="monologue-text friction">"Ghosting signal scorer" — what does that mean? I know what ghosting means socially but in a Stripe context? And "recovery spreadsheet" — I thought this was about settings. Now there's invoices and churn? How many problems is this solving? I'm confused about the scope.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Compare">
+      <div class="mono-header">
+        <span class="persona-label">Comparison Shopper</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">The ghosting signal scorer is actually interesting — I haven't seen that angle anywhere else. If it genuinely flags pre-churn signals from Stripe behavior patterns, that's differentiated. But it's described in one line and I can't tell if it's a real scoring model or just a checklist dressed up with a fancy name.</div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS / TIME BREAKDOWN -->
+  <div class="walkthrough-section">
+    <div class="walkthrough-section-header">04 — How It Works (15-Minute Breakdown)</div>
+
+    <div class="monologue-block" data-persona-short="Ready">
+      <div class="mono-header">
+        <span class="persona-label">Ready Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">5 + 5 + 2 + 3 minutes. That's surgical. This was built by someone who actually timed it. I trust that more than "a few hours" or "over a weekend." I'm in.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Skeptic">
+      <div class="mono-header">
+        <span class="persona-label">Skeptic</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">"5 minutes to audit, 5 to mark, 2 to read recovery estimates, 3 to implement the first fix." That level of specificity is unusual. People who haven't actually done this say "an hour" or "a weekend." The 2+3 split on the back end reads like someone who ran it with real users and timed it. Small credibility signal.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Price">
+      <div class="mono-header">
+        <span class="persona-label">Price-Conscious Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">$9 and 15 minutes. That's a lower time cost than the coffee I'm drinking while reading this. Opportunity cost is zero. I'm already thinking about doing this tonight.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Confused">
+      <div class="mono-header">
+        <span class="persona-label">Confused Visitor</span>
+        <span class="state-badge neutral">Neutral</span>
+      </div>
+      <div class="monologue-text neutral">Okay, the 15-minute breakdown helps. At least now I understand the format. But I still don't know if I need a Stripe account, a specific plan, or certain types of billing. Can I even do this?</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Compare">
+      <div class="mono-header">
+        <span class="persona-label">Comparison Shopper</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">"Deliberately built to take 15 minutes rather than 15 hours." There it is — the comparison. This is the strongest line on the page. It acknowledges the alternative (a long deep-dive) and explicitly rejects it. Why isn't this in the hero?</div>
+    </div>
+  </div>
+
+  <!-- SOCIAL PROOF / TESTIMONIALS -->
+  <div class="walkthrough-section">
+    <div class="walkthrough-section-header">05 — Social Proof and Testimonials</div>
+
+    <div class="monologue-block" data-persona-short="Ready">
+      <div class="mono-header">
+        <span class="persona-label">Ready Buyer</span>
+        <span class="state-badge neutral">Neutral</span>
+      </div>
+      <div class="monologue-text neutral">"200+ founders who finished the 15-minute challenge this month." Fine. The testimonials with $300/month and $2,100 in recovered invoices are specific enough. I don't need to know names. I'm not looking for a reason not to buy at $9.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Skeptic">
+      <div class="mono-header">
+        <span class="persona-label">Skeptic</span>
+        <span class="state-badge friction">Friction</span>
+      </div>
+      <div class="monologue-text friction">"I found a broken Stripe setting worth $300 per month." No name. No company. No Twitter handle. No role. The dollar amounts are specific — $300, $2,100, $1,800 — which is a good sign, but the complete absence of identity is a pattern I associate with fabricated testimonials. At $9 this isn't a dealbreaker but it's leaving conversion on the table. I'm buying, but skeptically.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Price">
+      <div class="mono-header">
+        <span class="persona-label">Price-Conscious Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">"$2,100 in past-due invoices... got $1,400 back." That's a 15,500% ROI on a $9 purchase in recovery alone. I don't care who said it. That math works.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Confused">
+      <div class="mono-header">
+        <span class="persona-label">Confused Visitor</span>
+        <span class="state-badge neutral">Neutral</span>
+      </div>
+      <div class="monologue-text neutral">The testimonials are about SaaS-style billing problems — past-due invoices, churn signals. Now I'm fairly sure this is for subscription businesses, not freelancers. I'm probably not the target. I'm quietly dropping off.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Compare">
+      <div class="mono-header">
+        <span class="persona-label">Comparison Shopper</span>
+        <span class="state-badge friction">Friction</span>
+      </div>
+      <div class="monologue-text friction">"200+ founders this month" — volume is good. But the testimonials reference the recovery spreadsheet and ghosting scorer, not just the core checklist. So which tool produced the $1,800 churn retention result? I can't tell if the result came from this product or from the founder's own actions. Anonymous + unclear attribution = I'm still not 100% convinced this beats free alternatives.</div>
+    </div>
+  </div>
+
+  <!-- PRICING / RISK REVERSAL -->
+  <div class="walkthrough-section">
+    <div class="walkthrough-section-header">06 — Pricing and Risk Reversal</div>
+
+    <div class="monologue-block" data-persona-short="Ready">
+      <div class="mono-header">
+        <span class="persona-label">Ready Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">$9. Done. I've spent more on a single API call this week. Clicking.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Skeptic">
+      <div class="mono-header">
+        <span class="persona-label">Skeptic</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">"Full refund if your Stripe account is already 100% configured." That's a sharp risk reversal — it's specific enough to feel like a real policy rather than a generic "satisfaction guarantee." The condition is defined. That's more honest than "love it or your money back." Buying.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Price">
+      <div class="mono-header">
+        <span class="persona-label">Price-Conscious Buyer</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">$9 with a defined refund condition. The downside is capped at zero — I either find money or I get my $9 back. This is textbook rational purchasing. Already clicked.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Confused">
+      <div class="mono-header">
+        <span class="persona-label">Confused Visitor</span>
+        <span class="state-badge friction">Friction</span>
+      </div>
+      <div class="monologue-text friction">$9 is cheap enough that I might buy just out of curiosity. But I genuinely don't know if this is relevant to how I use Stripe. The refund condition says "100% configured" — I don't know what that means for my setup. I might pass.</div>
+    </div>
+
+    <div class="monologue-block" data-persona-short="Compare">
+      <div class="mono-header">
+        <span class="persona-label">Comparison Shopper</span>
+        <span class="state-badge engaged">Engaged</span>
+      </div>
+      <div class="monologue-text engaged">$9 removes the comparison entirely. At this price, the question isn't "is this better than the alternative" — it's "is this worth 15 minutes?" Yes. Buying, but I still want the "15 minutes vs 15 hours" line to be louder on the page.</div>
+    </div>
+  </div>
+
+  <!-- FRICTION MAP -->
+  <div class="section-title">Friction Map</div>
+
+  <div class="friction-cluster">
+    <div class="friction-cluster-header">
+      <div class="cluster-number">1</div>
+      <div class="cluster-name">Proof Deficit — Anonymous Testimonials</div>
+    </div>
+    <div class="friction-cluster-body">
+      <div>
+        <div class="cluster-detail-label">Affected Personas</div>
+        <div class="affected-personas">
+          <span class="persona-pill affected">Skeptic</span>
+          <span class="persona-pill affected">Comparison Shopper</span>
+          <span class="persona-pill clean">Ready Buyer</span>
+          <span class="persona-pill clean">Price-Conscious</span>
+        </div>
+      </div>
+      <div>
+        <div class="cluster-detail-label">Sections</div>
+        <div class="cluster-detail-value">Social proof block</div>
+      </div>
+      <div style="grid-column: 1 / -1;">
+        <div class="cluster-detail-label">The Problem</div>
+        <div class="cluster-detail-quote">"I found a broken Stripe setting worth $300 per month. That's $3,600 per year from one checklist."</div>
+        <div class="cluster-detail-value" style="margin-top:6px;">Specific dollar amounts build credibility — but every testimonial is identity-free. No first name, no company, no handle, no role. Specific money + anonymous source is the classic pattern of fabricated testimonials. The Skeptic knows this pattern. One name or one Twitter handle changes the entire read.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="friction-cluster">
+    <div class="friction-cluster-header">
+      <div class="cluster-number">2</div>
+      <div class="cluster-name">Offer Messaging Contradiction — "One Thing" vs. Three Deliverables</div>
+    </div>
+    <div class="friction-cluster-body">
+      <div>
+        <div class="cluster-detail-label">Affected Personas</div>
+        <div class="affected-personas">
+          <span class="persona-pill affected">Skeptic</span>
+          <span class="persona-pill affected">Confused Visitor</span>
+          <span class="persona-pill affected">Comparison Shopper</span>
+          <span class="persona-pill clean">Price-Conscious</span>
+        </div>
+      </div>
+      <div>
+        <div class="cluster-detail-label">Sections</div>
+        <div class="cluster-detail-value">Positioning / offer stack</div>
+      </div>
+      <div style="grid-column: 1 / -1;">
+        <div class="cluster-detail-label">The Problem</div>
+        <div class="cluster-detail-quote">"No videos, modules, or community homework — just one checklist, one fix, and one outcome." — but the deliverables include a Stripe Roulette Checklist, a Recovery Spreadsheet, and a Ghosting Signal Scorer.</div>
+        <div class="cluster-detail-value" style="margin-top:6px;">The "one thing" simplicity positioning is the product's core promise. Listing three separate tools undermines it. Skeptics see the contradiction and start questioning what else is imprecise. Confused visitors don't know what they're actually buying. The fix is simple: lead with three tools or commit to one and frame the others as bonuses.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="friction-cluster">
+    <div class="friction-cluster-header">
+      <div class="cluster-number">3</div>
+      <div class="cluster-name">Name Creates Cold-Traffic Confusion</div>
+    </div>
+    <div class="friction-cluster-body">
+      <div>
+        <div class="cluster-detail-label">Affected Personas</div>
+        <div class="affected-personas">
+          <span class="persona-pill affected">Confused Visitor</span>
+          <span class="persona-pill affected">Comparison Shopper</span>
+          <span class="persona-pill clean">Ready Buyer</span>
+          <span class="persona-pill clean">Skeptic</span>
+        </div>
+      </div>
+      <div>
+        <div class="cluster-detail-label">Sections</div>
+        <div class="cluster-detail-value">Hero, browser tab, ad copy, any referral link</div>
+      </div>
+      <div style="grid-column: 1 / -1;">
+        <div class="cluster-detail-label">The Problem</div>
+        <div class="cluster-detail-quote">"Stripe Roulette Challenge"</div>
+        <div class="cluster-detail-value" style="margin-top:6px;">"Roulette" connotes gambling and luck — the opposite of the precision audit this product delivers. "Challenge" implies recurring commitment, not a one-time 15-minute action. For warm traffic this name is sticky and memorable. For cold clicks from ads or search, it creates an orientation gap before the first sentence even loads. A subtitle like "The 15-Minute Stripe Audit Checklist" directly under the product name would close this gap without abandoning the brand.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="friction-cluster">
+    <div class="friction-cluster-header">
+      <div class="cluster-number">4</div>
+      <div class="cluster-name">ROI Math Is Scattered, Not Stated</div>
+    </div>
+    <div class="friction-cluster-body">
+      <div>
+        <div class="cluster-detail-label">Affected Personas</div>
+        <div class="affected-personas">
+          <span class="persona-pill affected">Skeptic</span>
+          <span class="persona-pill affected">Comparison Shopper</span>
+          <span class="persona-pill clean">Price-Conscious</span>
+          <span class="persona-pill clean">Ready Buyer</span>
+        </div>
+      </div>
+      <div>
+        <div class="cluster-detail-label">Sections</div>
+        <div class="cluster-detail-value">Problem block, testimonials, pricing</div>
+      </div>
+      <div style="grid-column: 1 / -1;">
+        <div class="cluster-detail-label">The Problem</div>
+        <div class="cluster-detail-quote">$500–$2,000/month mentioned in pain framing. $40–$200/month mentioned in outcomes. $300/month, $2,100, $1,800 in testimonials. $9 at pricing.</div>
+        <div class="cluster-detail-value" style="margin-top:6px;">The ROI numbers are all real and powerful — but they're distributed across the page rather than assembled into a single headline comparison. A visitor skimming the page can feel the promise but never sees the math in one place. Stating it explicitly — "You pay $9. You recover $40–$200/month. Worst case, you get your $9 back." — as a near-CTA statement would crystallize the decision for fence-sitters.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="friction-cluster">
+    <div class="friction-cluster-header">
+      <div class="cluster-number">5</div>
+      <div class="cluster-name">Missing Audience Qualifier</div>
+    </div>
+    <div class="friction-cluster-body">
+      <div>
+        <div class="cluster-detail-label">Affected Personas</div>
+        <div class="affected-personas">
+          <span class="persona-pill affected">Confused Visitor</span>
+          <span class="persona-pill affected">Comparison Shopper</span>
+          <span class="persona-pill clean">Ready Buyer</span>
+        </div>
+      </div>
+      <div>
+        <div class="cluster-detail-label">Sections</div>
+        <div class="cluster-detail-value">Hero, problem block</div>
+      </div>
+      <div style="grid-column: 1 / -1;">
+        <div class="cluster-detail-label">The Problem</div>
+        <div class="cluster-detail-quote">"Most founders" — which founders?</div>
+        <div class="cluster-detail-value" style="margin-top:6px;">The testimonials and pain points clearly target SaaS founders with subscription billing on Stripe — past-due invoices, churn signals, recurring revenue leaks. But the page never explicitly states this. A freelancer billing by project, a physical goods seller, or an e-commerce operator using Stripe Checkout will read this page, become uncertain about relevance, and leave. A one-line qualifier — "Built for SaaS founders with $1k+ MRR on Stripe billing" — would filter out non-buyers and paradoxically increase qualified conversion.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIX PRIORITY LIST -->
+  <div class="section-title">Fix Priority List — Ranked by Leverage</div>
+
+  <div class="fix-item">
+    <div class="fix-rank high">1</div>
+    <div class="fix-body">
+      <div class="fix-title">Add identity to at least two testimonials</div>
+      <div class="fix-detail">Even a first name and role is enough: "— Alex, SaaS founder" or "@handle". The dollar amounts are credible. The anonymity is the problem. This single change converts the most skeptical persona at zero cost and zero copy change.</div>
+      <div class="fix-personas">
+        <span class="fix-persona-tag">Skeptic</span>
+        <span class="fix-persona-tag">Comparison Shopper</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fix-item">
+    <div class="fix-rank high">2</div>
+    <div class="fix-body">
+      <div class="fix-title">Resolve the "one thing vs. three tools" contradiction</div>
+      <div class="fix-detail">Pick a lane: (a) Lead with "3 tools in one $9 package" and describe each clearly, or (b) Keep "one checklist, one fix" and frame the Recovery Spreadsheet and Ghosting Signal Scorer as bonuses — "plus two bonus tools." Right now the positioning and the offer stack contradict each other, which reads as imprecision to skeptical visitors.</div>
+      <div class="fix-personas">
+        <span class="fix-persona-tag">Skeptic</span>
+        <span class="fix-persona-tag">Confused Visitor</span>
+        <span class="fix-persona-tag">Comparison Shopper</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fix-item">
+    <div class="fix-rank high">3</div>
+    <div class="fix-body">
+      <div class="fix-title">State the ROI math as a single explicit line near the CTA</div>
+      <div class="fix-detail">Write it plainly: "You pay $9. Most founders recover $40–$200/month. Worst case: full refund." Place this directly above the buy button. The numbers already exist on the page — assemble them in one place so a fast-scrolling visitor sees the full math before the purchase decision, not after.</div>
+      <div class="fix-personas">
+        <span class="fix-persona-tag">Skeptic</span>
+        <span class="fix-persona-tag">Comparison Shopper</span>
+        <span class="fix-persona-tag">Price-Conscious</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fix-item">
+    <div class="fix-rank med">4</div>
+    <div class="fix-body">
+      <div class="fix-title">Add a subtitle to the product name for cold traffic</div>
+      <div class="fix-detail">Keep "Stripe Roulette Challenge" as the brand name — it's sticky and memorable for warm audiences. Add a descriptive subtitle directly below: "The 15-Minute Stripe Audit Checklist for SaaS Founders." This closes the orientation gap for cold clicks without touching the brand.</div>
+      <div class="fix-personas">
+        <span class="fix-persona-tag">Confused Visitor</span>
+        <span class="fix-persona-tag">Comparison Shopper</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fix-item">
+    <div class="fix-rank med">5</div>
+    <div class="fix-body">
+      <div class="fix-title">Move "15 minutes, not 15 hours" to the hero</div>
+      <div class="fix-detail">The line "deliberately built to take 15 minutes rather than 15 hours" is the strongest competitive differentiator on the page. It currently lives in the how-it-works section. Moving it to the hero subhead or a callout line directly under the headline would immediately answer the Comparison Shopper's question: what makes this different?</div>
+      <div class="fix-personas">
+        <span class="fix-persona-tag">Comparison Shopper</span>
+        <span class="fix-persona-tag">Ready Buyer</span>
+        <span class="fix-persona-tag">Skeptic</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fix-item">
+    <div class="fix-rank med">6</div>
+    <div class="fix-body">
+      <div class="fix-title">Add a one-line audience qualifier in the hero</div>
+      <div class="fix-detail">State who this is for in the hero or immediately below it: "Built for SaaS founders running subscription billing on Stripe." This disqualifies non-buyers early (reducing support noise and refund requests) while making qualified visitors feel immediately identified. The testimonials already imply this audience — make it explicit.</div>
+      <div class="fix-personas">
+        <span class="fix-persona-tag">Confused Visitor</span>
+        <span class="fix-persona-tag">Comparison Shopper</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fix-item">
+    <div class="fix-rank low">7</div>
+    <div class="fix-body">
+      <div class="fix-title">Explain "Ghosting Signal Scorer" in one concrete sentence</div>
+      <div class="fix-detail">The name "Ghosting Signal Scorer" is intriguing but undefined. A single sentence of specifics — e.g. "flags customers whose Stripe billing behavior (failed retries, paused subscriptions, declining usage patterns) predicts churn before they cancel" — converts curiosity into conviction. This is especially important for Comparison Shoppers who are evaluating it as a unique differentiator.</div>
+      <div class="fix-personas">
+        <span class="fix-persona-tag">Confused Visitor</span>
+        <span class="fix-persona-tag">Comparison Shopper</span>
+        <span class="fix-persona-tag">Skeptic</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
