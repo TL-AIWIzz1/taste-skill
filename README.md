@@ -49,6 +49,14 @@ The taste skill has three settings at the top of the file. Change these numbers 
 - 4-7: Normal spacing. Like a typical app or website.
 - 8-10: Dense and compact. Dashboards, data-heavy interfaces.
 
+## Design Reference Library (design-md)
+
+The [`design-md/`](design-md/) folder is a vendored collection of **73 `DESIGN.md` files** — plain-text design-system specs (colors, type, components, layout) for real products like Claude, Stripe, Apple, Figma, Vercel, Linear, and Tesla.
+
+While the skills above teach general design craft, a `DESIGN.md` pins the *look* of a specific brand. Copy one into your project and tell your AI to build against it. See [design-md/README.md](design-md/README.md) for the full index.
+
+Sourced from [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) (MIT).
+
 ## Examples
 
 Created with taste-skill:
