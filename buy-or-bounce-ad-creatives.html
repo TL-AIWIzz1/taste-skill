@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy or Bounce — 10 Ad Creatives | Stripe Roulette</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f1117;--surface:#1a1f2e;--surface2:#141824;--border:#2a3045;
+  --text:#e2e8f0;--muted:#64748b;--faint:#374151;
+  --green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#60a5fa;--purple:#a78bfa;
+  --green-bg:rgba(34,197,94,.08);--amber-bg:rgba(245,158,11,.08);
+  --red-bg:rgba(239,68,68,.08);--blue-bg:rgba(96,165,250,.08);--purple-bg:rgba(167,139,250,.08);
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;line-height:1.6;padding-bottom:80px}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#0f1117,#1a1f2e);border-bottom:1px solid var(--border);padding:36px 48px 30px}
+.hdr-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--faint);padding:3px 10px;border-radius:4px;margin-bottom:14px}
+.hdr h1{font-size:24px;font-weight:700;color:#f1f5f9;letter-spacing:-.02em;margin-bottom:4px}
+.hdr .meta{font-size:12px;color:var(--muted)}
+.hdr .meta a{color:var(--blue);text-decoration:none}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 48px}
+
+/* SECTION LABEL */
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:44px 0 18px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+/* RESEARCH BOX */
+.research-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:4px}
+.r-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.r-card-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.r-card-title{font-size:13px;font-weight:600;color:#e2e8f0;margin-bottom:4px}
+.r-card-body{font-size:12px;color:#94a3b8;line-height:1.5}
+.r-card-cite{font-size:11px;color:var(--muted);margin-top:6px;font-style:italic}
+.r-card-cite a{color:var(--blue);text-decoration:none}
+.r-card.highlight{border-left:3px solid var(--purple)}
+
+/* RANKING TABLE */
+.rank-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.rank-table th{padding:10px 14px;background:var(--surface2);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;border-bottom:1px solid var(--border)}
+.rank-table td{padding:10px 14px;border-bottom:1px solid var(--faint);font-size:13px;vertical-align:middle}
+.rank-table tr:last-child td{border-bottom:none}
+.rank-table tr:hover td{background:rgba(255,255,255,.02)}
+.rank-num{font-weight:800;font-size:16px;color:var(--faint)}
+.rank-num.t1{color:var(--green)}
+.rank-num.t2{color:#86efac}
+.rank-num.t3{color:#bbf7d0}
+.rank-num.b10{color:var(--red)}
+.ad-label{font-weight:600;color:#e2e8f0}
+.ad-hook{font-size:11px;color:var(--muted)}
+.verdict-sm{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:3px}
+.verdict-sm.top{background:var(--green-bg);color:var(--green)}
+.verdict-sm.mid{background:var(--amber-bg);color:var(--amber)}
+.verdict-sm.low{background:var(--red-bg);color:var(--red)}
+.flag-chip{display:inline-block;font-size:10px;font-weight:600;background:var(--red-bg);color:var(--red);padding:1px 6px;border-radius:3px;margin-left:6px}
+.persona-dots{display:flex;gap:4px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot.buy{background:var(--green)}
+.dot.fence{background:var(--amber)}
+.dot.bounce{background:var(--red)}
+.dot.na{background:var(--faint)}
+
+/* AD CARDS */
+.ad-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:20px;overflow:hidden}
+.ad-card-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:14px}
+.ad-num{width:28px;height:28px;border-radius:50%;background:var(--faint);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);flex-shrink:0}
+.ad-num.top{background:var(--green-bg);color:var(--green)}
+.ad-num.mid{background:var(--amber-bg);color:var(--amber)}
+.ad-num.low{background:var(--red-bg);color:var(--red)}
+.ad-header-text{flex:1}
+.ad-headline{font-size:14px;font-weight:700;color:#e2e8f0}
+.ad-hook-tag{font-size:11px;color:var(--muted);margin-top:2px}
+.ad-rank-badge{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap}
+
+.ad-body{display:grid;grid-template-columns:1fr 2fr;gap:0}
+@media(max-width:720px){.ad-body{grid-template-columns:1fr}}
+
+.ad-meta{padding:16px 18px;border-right:1px solid var(--faint)}
+.ad-meta-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px;margin-top:12px}
+.ad-meta-label:first-child{margin-top:0}
+.ad-meta-value{font-size:12px;color:#94a3b8;line-height:1.5}
+.ad-meta-value.flag{color:var(--red)}
+.ad-meta-value.strong{color:var(--green)}
+.cta-box{display:inline-block;background:var(--faint);padding:4px 10px;border-radius:4px;font-size:12px;font-weight:600;color:#e2e8f0;margin-top:2px}
+
+.personas-col{padding:0}
+.persona-row{display:grid;grid-template-columns:110px 72px 1fr;gap:10px;align-items:start;padding:11px 18px;border-bottom:1px solid var(--faint)}
+.persona-row:last-child{border-bottom:none}
+.p-name{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.p-badge{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:3px;display:inline-block;width:fit-content;margin-top:2px}
+.p-badge.click{background:var(--green-bg);color:var(--green)}
+.p-badge.fence{background:var(--amber-bg);color:var(--amber)}
+.p-badge.skip{background:var(--red-bg);color:var(--red)}
+.p-badge.watch{background:var(--blue-bg);color:var(--blue)}
+.p-mono{font-size:12px;color:#94a3b8;font-style:italic;line-height:1.55;border-left:2px solid var(--faint);padding-left:10px}
+.p-mono.click{border-left-color:var(--green)}
+.p-mono.fence{border-left-color:var(--amber)}
+.p-mono.skip{border-left-color:var(--red)}
+.p-mono.watch{border-left-color:var(--blue)}
+
+/* CROSS-CREATIVE ISSUES */
+.issue-block{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:10px;display:flex;gap:14px}
+.issue-icon{font-size:18px;flex-shrink:0;padding-top:2px}
+.issue-body{}
+.issue-title{font-size:13px;font-weight:600;color:#e2e8f0;margin-bottom:3px}
+.issue-detail{font-size:12px;color:#94a3b8;line-height:1.5}
+.issue-ads{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.issue-ad-tag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600;background:var(--amber-bg);color:var(--amber)}
+
+/* WINNER/LOSER CALLOUT */
+.callout-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.callout{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px}
+.callout.green-c{border-top:3px solid var(--green)}
+.callout.red-c{border-top:3px solid var(--red)}
+.callout-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.callout-title{font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:6px}
+.callout-reason{font-size:12px;color:#94a3b8;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <span class="hdr-tag">Buy or Bounce + Deep Research</span>
+  <h1>10 Ad Creatives — Stripe Roulette Challenge</h1>
+  <p class="meta">Sovereign Ledger &nbsp;&middot;&nbsp; 5 buyer personas &times; 10 ads &nbsp;&middot;&nbsp; June 5, 2026 &nbsp;&middot;&nbsp; Grounded in 4-angle deep research synthesis</p>
+</div>
+
+<div class="wrap">
+
+<!-- RESEARCH INTEL -->
+<div class="sec-label">Deep Research — What the Evidence Says</div>
+<div class="research-grid">
+
+  <div class="r-card highlight">
+    <div class="r-card-label">Hook Psychology</div>
+    <div class="r-card-title">Specific numbers + outcome-first = measurable CTR lift</div>
+    <div class="r-card-body">B2B ad testing shows outcome-first hooks outperform feature-focused copy by ~11% CVR. Specific numbers ("$300/month") consistently outperform vague claims ("significant savings") — specificity invites confidence, vagueness invites skepticism. Emotional hooks drive 7x greater long-term effectiveness vs. purely rational appeals.</div>
+    <div class="r-card-cite">Sources: <a href="https://growthmethod.com/conversion-copywriting/" target="_blank">Growth Method CRO</a> &middot; <a href="https://www.linkedin.com/pulse/binet-field-b2b-advertising-why-emotion-matters-rob-ellis" target="_blank">Binet &amp; Field B2B</a></div>
+  </div>
+
+  <div class="r-card highlight">
+    <div class="r-card-label">Diagnosis vs. Outcome Copy</div>
+    <div class="r-card-title">Diagnosis framing converts analytical buyers at higher rates</div>
+    <div class="r-card-body">Problem-framing ("here's why your X is broken") outperforms solution-framing for technical/analytical buyers who need to self-diagnose before they can accept a solution. Wynter B2B message testing documented 40–73% conversion improvements when copy moved from vague to specific pain-point clarity. Emotional triggers — frustration, powerlessness, cost-of-inaction — convert previously unresponsive audiences.</div>
+    <div class="r-card-cite">Sources: <a href="https://wynter.com/case-studies/appcues" target="_blank">Wynter/Appcues</a> &middot; <a href="https://conversionsciences.com/how-to-use-emotional-triggers-to-increase-conversions/" target="_blank">Conversion Sciences</a></div>
+  </div>
+
+  <div class="r-card highlight">
+    <div class="r-card-label">Price Anchoring</div>
+    <div class="r-card-title">Extreme contrast ($9 vs $2,000) works — but only if comparison is fair</div>
+    <div class="r-card-body">Contrast pricing with extreme differentials (showing expensive anchor first) increases willingness to purchase the low-cost option. However, Skeptics will reject comparisons they perceive as unfair — a $9 checklist IS NOT the same answer as a $2,000 consultant audit. The "same answer, different price" framing risks credibility with analytically-inclined buyers who know the difference in depth.</div>
+    <div class="r-card-cite">Sources: Cialdini contrast principle &middot; <a href="https://www.phoebelown.com/blog/the-ultimate-guide-to-ab-testing-saas-copy-2025" target="_blank">SaaS Copy Testing</a></div>
+  </div>
+
+  <div class="r-card highlight">
+    <div class="r-card-label">Visual Formats + Benchmarks</div>
+    <div class="r-card-title">Data viz drives 317% completion lift; UI screenshots underperform</div>
+    <div class="r-card-body">Data visualizations increase article completion by 317% for technical audiences. Product screenshots consistently underperform vs. contextual/lifestyle imagery (137% CVR lift in documented tests). LinkedIn top-tier CTR threshold: 1.46%+ (vs. 0.44–0.65% average). Ad creative accounts for 47% of total ad effectiveness. Most LinkedIn creatives cluster at 0.40–0.60% CTR; breaking above 1.46% requires a strong emotional + specific hook.</div>
+    <div class="r-card-cite">Sources: <a href="https://infogram.com/blog/how-data-visualization-impacts-engagement/" target="_blank">Infogram data viz</a> &middot; <a href="https://www.cognism.com/reports/study/linkedin-ad-creative-peformance-2026" target="_blank">Cognism 761-Ad Study</a> &middot; <a href="https://directiveconsulting.com/blog/performance-creative-what-it-is-and-how-to-do-it/" target="_blank">Directive Creative Impact</a></div>
+  </div>
+
+</div>
+
+<!-- RANKING TABLE -->
+<div class="sec-label">Overall Ranking — Predicted Click Intent</div>
+<table class="rank-table">
+  <thead>
+    <tr>
+      <th>#</th><th>Ad</th><th>Hook Type</th><th>Verdict</th><th>Persona Spread</th><th>Flag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="rank-num t1">1</span></td>
+      <td><span class="ad-label">Ad 6 — Flat MRR Chart</span><br><span class="ad-hook">"Your MRR is flat. You cannot see why."</span></td>
+      <td>Emotional pain + data viz</td>
+      <td><span class="verdict-sm top">Top performer</span></td>
+      <td><div class="persona-dots"><div class="dot buy" title="Ready: Click"></div><div class="dot buy" title="Skeptic: Click"></div><div class="dot fence" title="Price: Fence"></div><div class="dot fence" title="Confused: Fence"></div><div class="dot fence" title="Compare: Fence"></div></div></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="rank-num t1">2</span></td>
+      <td><span class="ad-label">Ad 4 — Failed Payment Retries</span><br><span class="ad-hook">"Retries give up after 1 attempt by default."</span></td>
+      <td>Specific revelation / education</td>
+      <td><span class="verdict-sm top">Top performer</span></td>
+      <td><div class="persona-dots"><div class="dot buy" title="Ready: Click"></div><div class="dot buy" title="Skeptic: Click"></div><div class="dot buy" title="Price: Click"></div><div class="dot fence" title="Confused: Fence"></div><div class="dot buy" title="Compare: Click"></div></div></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="rank-num t2">3</span></td>
+      <td><span class="ad-label">Ad 9 — 47-Setting Circular Chart</span><br><span class="ad-hook">"47 settings run your revenue. You configured 5."</span></td>
+      <td>Specific numbers + data viz</td>
+      <td><span class="verdict-sm top">Strong</span></td>
+      <td><div class="persona-dots"><div class="dot buy" title="Ready: Click"></div><div class="dot buy" title="Skeptic: Engaged"></div><div class="dot buy" title="Price: Click"></div><div class="dot fence" title="Confused: Fence"></div><div class="dot buy" title="Compare: Interested"></div></div></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="rank-num t2">4</span></td>
+      <td><span class="ad-label">Ad 5 — Same Answer, Different Price</span><br><span class="ad-hook">"Same answer, different price."</span></td>
+      <td>Direct comparison + price anchor</td>
+      <td><span class="verdict-sm top">Strong</span></td>
+      <td><div class="persona-dots"><div class="dot buy" title="Ready: Click"></div><div class="dot bounce" title="Skeptic: Exit"></div><div class="dot buy" title="Price: Strong click"></div><div class="dot fence" title="Confused: Fence"></div><div class="dot buy" title="Compare: Strong click"></div></div></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="rank-num t3">5</span></td>
+      <td><span class="ad-label">Ad 2 — 15 Minutes, One Fix</span><br><span class="ad-hook">"15 minutes. One fix today."</span></td>
+      <td>Outcome-first + time-specific</td>
+      <td><span class="verdict-sm mid">Solid</span></td>
+      <td><div class="persona-dots"><div class="dot buy" title="Ready: Click"></div><div class="dot fence" title="Skeptic: Neutral"></div><div class="dot buy" title="Price: Click"></div><div class="dot buy" title="Confused: Click"></div><div class="dot fence" title="Compare: Neutral"></div></div></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="rank-num t3">6</span></td>
+      <td><span class="ad-label">Ad 1 — Not Acquisition / Not Product</span><br><span class="ad-hook">"It is not your acquisition. It is a billing setting."</span></td>
+      <td>Elimination diagnosis + anaphora</td>
+      <td><span class="verdict-sm mid">Solid</span></td>
+      <td><div class="persona-dots"><div class="dot buy" title="Ready: Click"></div><div class="dot fence" title="Skeptic: Friction"></div><div class="dot fence" title="Price: Neutral"></div><div class="dot fence" title="Confused: Neutral"></div><div class="dot bounce" title="Compare: Skip"></div></div></td>
+      <td><span class="flag-chip">Refund mismatch</span></td>
+    </tr>
+    <tr>
+      <td><span class="rank-num">7</span></td>
+      <td><span class="ad-label">Ad 7 — 40K MRR Leak Math</span><br><span class="ad-hook">"40K MRR, 4% churn, $1,600/month."</span></td>
+      <td>Scale-specific math + data viz</td>
+      <td><span class="verdict-sm mid">Niche strong</span></td>
+      <td><div class="persona-dots"><div class="dot fence" title="Ready: Segment-specific"></div><div class="dot fence" title="Skeptic: Will click to verify"></div><div class="dot buy" title="Price: Click"></div><div class="dot bounce" title="Confused: Exit"></div><div class="dot fence" title="Compare: Interested"></div></div></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="rank-num">8</span></td>
+      <td><span class="ad-label">Ad 3 — Roulette Wheel / 42 Doing</span><br><span class="ad-hook">"You know 5. What are the other 42 doing."</span></td>
+      <td>Curiosity gap + numbers</td>
+      <td><span class="verdict-sm mid">Curiosity-driven</span></td>
+      <td><div class="persona-dots"><div class="dot buy" title="Ready: Click"></div><div class="dot fence" title="Skeptic: Friction"></div><div class="dot fence" title="Price: Neutral"></div><div class="dot bounce" title="Confused: Exit"></div><div class="dot fence" title="Compare: Interested"></div></div></td>
+      <td><span class="flag-chip">Logic gap</span></td>
+    </tr>
+    <tr>
+      <td><span class="rank-num">9</span></td>
+      <td><span class="ad-label">Ad 10 — Recover $40–200 per Fix</span><br><span class="ad-hook">"Recover 40 to 200 dollars per fix."</span></td>
+      <td>Outcome-first + process flow</td>
+      <td><span class="verdict-sm low">Weak</span></td>
+      <td><div class="persona-dots"><div class="dot buy" title="Ready: Click"></div><div class="dot bounce" title="Skeptic: Number conflict"></div><div class="dot bounce" title="Price: Confused by numbers"></div><div class="dot fence" title="Confused: Neutral"></div><div class="dot fence" title="Compare: Neutral"></div></div></td>
+      <td><span class="flag-chip">Number conflict</span></td>
+    </tr>
+    <tr>
+      <td><span class="rank-num b10">10</span></td>
+      <td><span class="ad-label">Ad 8 — Forensic Revenue Diagnostics</span><br><span class="ad-hook">"Forensic revenue diagnostics for Stripe."</span></td>
+      <td>Authority / credibility</td>
+      <td><span class="verdict-sm low">Lowest</span></td>
+      <td><div class="persona-dots"><div class="dot fence" title="Ready: Confused"></div><div class="dot bounce" title="Skeptic: Credibility failure"></div><div class="dot bounce" title="Price: Mismatch"></div><div class="dot bounce" title="Confused: Exit"></div><div class="dot fence" title="Compare: Weak"></div></div></td>
+      <td><span class="flag-chip">Expectation mismatch</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- BEST / WORST -->
+<div class="sec-label">Standout Extremes</div>
+<div class="callout-grid">
+  <div class="callout green-c">
+    <div class="callout-label">Best Performer — Predicted</div>
+    <div class="callout-title">Ad 6: "Your MRR is flat. You cannot see why."</div>
+    <div class="callout-reason">Opens with the most emotionally resonant specific scenario in the set. The flat MRR chart ($24,680, 128 new customers +12%, 92% retention, 0% MRR movement) is a data visualization that makes a technical audience feel seen. The elimination logic — acquisition is fine, retention is solid, but revenue won't move — mirrors exactly how a founder in this situation thinks. Research confirms both emotional hooks and data visualization independently lift CTR for technical audiences. Together they make this the highest-signal creative in the set. Limitation: narrow fit — only speaks to founders with specifically flat MRR.</div>
+  </div>
+  <div class="callout red-c">
+    <div class="callout-label">Lowest Performer — Predicted</div>
+    <div class="callout-title">Ad 8: "Forensic revenue diagnostics for Stripe."</div>
+    <div class="callout-reason">"Forensic-accounting rigor" does not describe a $9 self-serve checklist. The Skeptic persona immediately flags the expectation mismatch. "We apply forensic-accounting rigor" uses "we" — implying a team of analysts — when the product is a solo-run checklist. The shield badge ("Forensic-first. Data-driven. Stripe experts.") is self-credentialing with no verification. The visual is the blandest in the set. According to the Cognism 761-ad benchmark study, most LinkedIn creatives cluster at 0.40–0.60% CTR — this ad has no hook strong enough to break above that floor.</div>
+  </div>
+</div>
+
+<!-- PER-AD ANALYSIS -->
+<div class="sec-label">Per-Ad Analysis — All 10 Creatives</div>
+
+<!-- AD 1 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num mid">1</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"It is not your acquisition. It is not your product. It is a billing setting."</div>
+      <div class="ad-hook-tag">Hook: Elimination diagnosis + anaphora &nbsp;&middot;&nbsp; Rank: #6</div>
+    </div>
+    <div class="ad-rank-badge">#6 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">Text-heavy, two-icon body, white/purple</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value strong">Anaphora is sticky and memorable. The three-step elimination mirrors how a frustrated founder actually thinks. Audience qualifier ("Solo SaaS founder running on Stripe") is visible.</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value flag">Ad says "30-day refund if you find nothing" — the landing page says "email us if 100% configured." These are different promises. Skeptics who read both will distrust one.</div>
+      <div class="ad-meta-label">Missing</div>
+      <div class="ad-meta-value">No recovery amount shown. No comparison to alternatives. No ROI signal before CTA.</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">Run the Audit. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">I've been blaming acquisition and product for six months. "It is a billing setting" — that's the one thing I haven't checked. I'm clicking before I finish reading.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge fence">Friction</span></div>
+        <div class="p-mono fence">The logic is clean — eliminate acquisition, eliminate product, land on billing. That works. But the ad says "30-day refund" and I know the landing page says something different. Which one is true? Small inconsistency, significant trust cost.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">The refund mention is good but "$9" only appears in the CTA. No recovery amount anywhere. I know there's money at stake but I can't calculate the ROI from this ad alone.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">Three negatives before the answer. If I'm already frustrated and in-context, the anaphora lands. If I'm seeing this cold, I need to know what "billing setting" means before I care.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge skip">Skips</span></div>
+        <div class="p-mono skip">No comparison to what else I might use. I already know the problem is probably somewhere in my stack. I need to see why this is better than Stripe's own docs or a free audit guide.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD 2 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num mid">2</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"15 minutes. One fix today."</div>
+      <div class="ad-hook-tag">Hook: Outcome-first + time-specific + ROI range &nbsp;&middot;&nbsp; Rank: #5</div>
+    </div>
+    <div class="ad-rank-badge">#5 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">Text left + Stripe UI mockup + coin arrow chart right</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value strong">Broadest persona coverage in the set. Specific time (15 min), specific recovery ($40–200/mo), visible price ($9). "Start the Audit" CTA is the most action-oriented phrasing. Stripe UI visual signals format clearly.</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value">"One fix today" conflicts with the three-tool offer on the landing page. UI screenshots underperform vs. contextual imagery per research. Recovery range ($40–200) is wide — analytical buyers want the mechanism, not the range.</div>
+      <div class="ad-meta-label">Missing</div>
+      <div class="ad-meta-value">No comparison angle. No specificity about WHICH setting leaks WHICH money.</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">Start the Audit. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">15 minutes, one fix, $9. Everything I need to decide is right here. "Start the Audit" — yes.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">"One setting change can recover 40 to 200 dollars a month." Okay — which setting? What's the range driven by? The recovery range is too wide to be useful without a mechanism. I'll click to find out but I want more specificity.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">$9 entry, $40–200/month recovery. Even the low end is 4.4x ROI in month one. Everything I need is in this ad. Clicking.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">"One fix today" is the clearest format signal in the set. I know exactly what I'm getting before I click. The Stripe dashboard mockup confirms it's about Stripe settings specifically.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">I already know Stripe has settings I might be missing. This ad doesn't tell me why this is better than the Stripe docs page I already have open. "15 minutes" is a differentiator but it's not framed as one.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD 3 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num mid">3</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"47 settings run your revenue. You know 5. What are the other 42 doing."</div>
+      <div class="ad-hook-tag">Hook: Curiosity gap + specific numbers + roulette visual &nbsp;&middot;&nbsp; Rank: #8</div>
+    </div>
+    <div class="ad-rank-badge">#8 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">Large text left + roulette wheel right (1–5 highlighted)</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value strong">Strongest curiosity gap hook in the set. "What are the other 42 doing?" is unresolved tension that demands a click. The roulette wheel connects brand name to product concept visually — the only ad that does this.</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value flag">Logic inconsistency: headline asks about 42 unknown settings, but the body says the audit only checks the "5 that matter most." If you're only auditing 5, why is the 42 the hook? Skeptics will notice this. Also: no recovery amount shown.</div>
+      <div class="ad-meta-label">Missing</div>
+      <div class="ad-meta-value">Recovery amount. Resolution to the curiosity gap (ad promises to reveal 42, product only covers 5).</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">Discover the Leaks. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">"What are the other 42 doing?" — I need to know. The curiosity gap works because I already believe there's a problem. Clicking to find out what I'm missing.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge fence">Friction</span></div>
+        <div class="p-mono fence">The headline asks about 42 unknown settings. The body says the audit checks "the 5 that matter most." Those are incompatible promises. You're not answering the curiosity gap — you're only checking 5 of the 47, not uncovering the 42 mysteries. I notice this kind of mismatch.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">Curious about the 42 but no recovery number in this ad. I can't calculate ROI. The CTA says $9 which is fine, but I came here for the math and this ad doesn't give it.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge skip">Skips</span></div>
+        <div class="p-mono skip">47 settings, 5 I know, 42 unknown, a roulette wheel — I've just processed four abstract numbers and a metaphor. I don't know what to click or why. Exit.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">The hook is more interesting than generic Stripe advice content. But I want the list — which 5 settings? "Discover the Leaks" tells me nothing about how this is different from reading Stripe's blog.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD 4 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num top">4</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"Failed payment retries give up after 1 attempt by default."</div>
+      <div class="ad-hook-tag">Hook: Specific verifiable revelation — checkable Stripe default &nbsp;&middot;&nbsp; Rank: #2</div>
+    </div>
+    <div class="ad-rank-badge">#2 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">Browser mockup (Retry attempts: 1, card + X icon) + explanation</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value strong">Only ad making a specific, falsifiable, immediately verifiable claim about a real Stripe default. "Retry attempts: 1" triggers an immediate "wait, is mine set to 1?" response in every Stripe user. Research confirms specific verifiable claims outperform vague ones. Creates micro-urgency without manufactured scarcity.</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value">Product screenshot underperforms vs. contextual imagery per research. Founders who already know their retry settings may not self-qualify. Might feel narrow — "what about the other 4 settings?"</div>
+      <div class="ad-meta-label">Missing</div>
+      <div class="ad-meta-value">No emotional resonance beyond the technical trigger. No comparison angle.</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">Check Your Settings. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">"Retry attempts: 1." I'm opening my Stripe dashboard in another tab right now. And then I'm clicking this ad to see what else I'm missing.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">This is a real, checkable Stripe setting. I can verify this claim without buying anything. The fact that it's stated as a specific default rather than a vague warning means someone actually audited Stripe's defaults. That's earned credibility. Best proof signal in the entire set.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">"Each one leaks 40 to 200 dollars a month when misconfigured." If even 2 of the 5 settings are wrong, that's $80–400/month from a $9 buy. The math is right there.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">"Failed payment retries" is specific enough for any Stripe user to understand without prior context. But "1 attempt" — is that bad? I might not know enough to feel the urgency.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">I've read Stripe's docs and never seen a simple statement about "1 retry by default" as an explicit problem. This specific claim is differentiated from anything in Stripe's own documentation. Clicking to see what the other 4 are.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD 5 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num top">5</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"Same answer, different price."</div>
+      <div class="ad-hook-tag">Hook: Direct comparison + extreme price anchor &nbsp;&middot;&nbsp; Rank: #4</div>
+    </div>
+    <div class="ad-rank-badge">#4 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">Clean comparison table: $2,000 / 2 weeks / black box vs. $9 / 15 min / full transparency</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value strong">Textbook price anchoring — shows expensive option first, then $9 lands as relief. "Black box" vs "full transparency" is the best contrast line in the set. Comparison Shopper's ideal ad. Clean visual hierarchy.</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value flag">The "same answer" claim is the credibility risk. A $9 self-serve checklist IS NOT the same depth as a $2,000 consultant audit. Skeptics will reject this framing as dishonest. Presupposes the viewer has already considered hiring a consultant — many haven't.</div>
+      <div class="ad-meta-label">Missing</div>
+      <div class="ad-meta-value">Recovery amount. Specificity about what the "answer" actually is. Qualification for cold audiences who haven't thought about consultant alternatives.</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">Choose the Audit. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">I was literally thinking about finding a consultant. $2,000 and 2 weeks is a real reference point for me. This lands hard. Clicking.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge skip">Exits</span></div>
+        <div class="p-mono skip">"Same answer." No it's not. A $9 checklist is not the same answer as a $2,000 consultant audit. One is 15 minutes and a list of settings. The other is weeks of bespoke analysis and recommendations. This comparison is dishonest framing and I'm done with this brand.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">Best ad in the set for me. $2,000 anchor makes $9 feel nearly free. "Full transparency" vs "black box" tells me I'm not just paying for someone else's process — I'm seeing the work. Clicking immediately.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">The comparison table actually helps me understand what this is — an alternative to hiring someone. That context helps. But I haven't been considering a consultant, so the anchor doesn't land with full force for me.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">This is exactly the comparison I was making in my head. "Black box" vs "full transparency" is the differentiator I needed. The price difference makes the decision trivial. Clicking.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD 6 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num top">6</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"Your MRR is flat. You cannot see why."</div>
+      <div class="ad-hook-tag">Hook: Emotional pain + diagnostic framing + data visualization &nbsp;&middot;&nbsp; Rank: #1</div>
+    </div>
+    <div class="ad-rank-badge">#1 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">Flat MRR chart ($24,680, flat) + stats dashboard (128 new customers +12%, 92% retention +3%, MRR movement 0%)</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value strong">Most emotionally resonant ad in the set. The elimination logic (acquisition fine, retention solid, revenue flat) mirrors how a frustrated founder actually thinks. The data visualization aligns with research showing 317% engagement lift for technical audiences. The scenario is hyper-specific and makes the right founder feel completely seen.</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value">Narrow targeting — only speaks to founders with specifically FLAT MRR. The $24,680 MRR figure may not resonate at very different scales. No recovery amount shown. No comparison to alternatives.</div>
+      <div class="ad-meta-label">Missing</div>
+      <div class="ad-meta-value">Recovery outcome. Price anchor. Works best as retargeting creative, not cold audience.</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">Find the Setting. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">That's my chart. Acquisition is up 12%, retention is 92%, and my MRR is sitting completely flat. I have been staring at that dashboard for weeks. This ad is reading my screen. Clicking immediately.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">The data visualization is specific — 128 customers, 92% retention, 0% MRR movement. Those aren't round numbers. This looks like a real Stripe/ChartMogul dashboard. And the logic is airtight: if acquisition is up and retention is up and revenue is flat, the leak must be in billing. I believe this.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">The pain is real for me but no price or recovery amount visible until the CTA. I have to get all the way to "Find the Setting. 9 dollars." to know what this costs. Fine — $9 is still a pleasant surprise. But I'm slightly hesitant mid-ad.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">"Your MRR is flat" is universally understood. The dashboard chart gives context. But I need to know what MRR means and what Stripe has to do with it to feel the pain. If I know both, this is compelling. If not, I'm reading numbers.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">The scenario is specific and credible. But I've already seen blog posts about flat MRR and billing issues. This ad doesn't tell me why this audit finds what those posts don't. No differentiation hook.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD 7 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num mid">7</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"40K MRR, 4 percent involuntary churn, 1,600 dollars a month."</div>
+      <div class="ad-hook-tag">Hook: Scale-specific math + three-tile data visualization &nbsp;&middot;&nbsp; Rank: #7</div>
+    </div>
+    <div class="ad-rank-badge">#7 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">Three visual tiles: MRR $40K (chart), Involuntary churn 4% (donut), Leak $1,600/mo (bucket icon)</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value strong">Math transparency — 40K × 4% = $1,600 is shown, not claimed. "Calculate Your Leak" is the most personalized and action-specific CTA in the entire set. Three-tile visualization is clear at small ad sizes. "Leak math at your scale" signals audience awareness.</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value">Resonance is tightly MRR-tied — at $5K MRR the leak is $200/mo (less urgent); at $100K it's $4K/mo (much more urgent). The specific $40K anchor misses both ends. "Involuntary churn" is slightly technical. "Stripe misconfiguration is the culprit" overstates — involuntary churn has other causes too.</div>
+      <div class="ad-meta-label">Opportunity</div>
+      <div class="ad-meta-value">A/B test this ad with different MRR anchors ($10K, $20K, $80K) across audience segments. The math format is the right approach — the specific anchor is the variable to optimize.</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">Calculate Your Leak. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge fence">Segment-specific</span></div>
+        <div class="p-mono fence">If my MRR is near $40K, this hits perfectly. If I'm at $8K or $120K, the numbers feel like they're for someone else. The math is right — the anchor is the variable.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge fence">Watches</span></div>
+        <div class="p-mono fence">"Stripe misconfiguration is the culprit" for 4% involuntary churn — that's partially true but overstated. Card networks fail. Banks decline. Stripe isn't always the problem. I'll click to see if the product is more nuanced than the ad.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">$1,600/month leak, $9 to find it. Even if only half the leak is fixable, that's $800/month recovery from $9. The math is unambiguous for anyone near this MRR level.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge skip">Exits</span></div>
+        <div class="p-mono skip">40K MRR, 4% churn, $1,600, involuntary churn, Stripe misconfiguration — five pieces of technical context I need to have simultaneously to feel this. I don't have enough context. Leaving.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge fence">Interested</span></div>
+        <div class="p-mono fence">The "Calculate Your Leak" CTA implies there's a dynamic calculation tool — which would be a strong differentiator if true. If it's just a fixed-number checklist, the CTA over-promises. Clicking to check.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD 8 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num low">8</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"Forensic revenue diagnostics for Stripe."</div>
+      <div class="ad-hook-tag">Hook: Authority / credibility — self-credentialing &nbsp;&middot;&nbsp; Rank: #10 (lowest)</div>
+    </div>
+    <div class="ad-rank-badge">#10 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">Text-only, shield trust badge, minimal visual</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value">"Not a course. Not a consultant. A precision audit tool." — the negation positioning is the strongest copy element in this ad and worth preserving.</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value flag">Critical: "Forensic-accounting rigor" for a $9 self-serve checklist creates a massive expectation mismatch. "We apply forensic-accounting rigor" — "we" implies a team, but this is a self-run product. Shield badge with "Forensic-first. Data-driven. Stripe experts." is self-credentialing with zero verification. Blandest visual in the set. Research confirms most LinkedIn creatives cluster at 0.40–0.60% CTR — this ad has no hook to break above the floor.</div>
+      <div class="ad-meta-label">Missing</div>
+      <div class="ad-meta-value">Everything that makes the other ads work: specific claim, recovery number, comparison, emotional resonance, data visualization, time specificity.</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">Run the Forensic Audit. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge fence">Confused</span></div>
+        <div class="p-mono fence">"Forensic revenue diagnostics" sounds more like a $5,000 engagement than a $9 checklist. What exactly is forensic about this? And what does it actually do? I need to know before I click.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge skip">Exits</span></div>
+        <div class="p-mono skip">"We apply forensic-accounting rigor to your billing settings." For $9? Forensic accounting is a professional discipline that costs thousands of dollars and requires licensed practitioners. Either this is a massive exaggeration or I don't understand what I'm buying. Either way, I'm gone.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge skip">Exits</span></div>
+        <div class="p-mono skip">"Forensic" rigor plus $9. These don't go together. Something is either wrong with the price or wrong with the claim. I'm not clicking to find out which.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge skip">Exits</span></div>
+        <div class="p-mono skip">"Forensic revenue diagnostics." I don't know what this means, I don't know who it's for, and the text-only format gives me nothing to grab onto. Leaving.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge fence">Skeptical</span></div>
+        <div class="p-mono fence">"Not a course. Not a consultant." — okay, that's clear positioning. But "forensic-accounting rigor" at $9 is a comparison I can't make work. A $2,000 forensic audit vs. a $9 one? The language claims one tier, the price signals another.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD 9 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num top">9</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"47 Stripe settings run your revenue. You configured 5."</div>
+      <div class="ad-hook-tag">Hook: Specific numbers + circular data visualization + "See the 5" CTA &nbsp;&middot;&nbsp; Rank: #3</div>
+    </div>
+    <div class="ad-rank-badge">#3 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">Circular settings chart (5 purple / 42 grey, numbered 1–47, "47 Settings" center) + three-bullet body</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value strong">Best visual creative in the set. The circular chart communicates the scale problem (5 vs. 42) without text, which aligns with research on data visualization driving 317% technical audience engagement lift. "See the 5 Settings" is the most specific and curiosity-driving CTA in the entire set. Clean three-bullet body (42 on defaults / most defaults leak money / audit checks the 5 that matter most).</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value">Same logic gap as Ad 3: headline is about all 47 and the unknown 42, but the audit only covers 5. This is forgivable when framed as "the 5 that matter most" — but careful readers notice. Chart may lose detail at small display sizes.</div>
+      <div class="ad-meta-label">Missing</div>
+      <div class="ad-meta-value">Recovery amount. The "why these 5?" mechanism is not explained. Emotional hook — this is purely rational/diagnostic.</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">See the 5 Settings. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">The chart makes it immediately clear: 5 purple, 42 grey. I've configured the 5 I know about. "See the 5 Settings" — yes, show me specifically which ones. The visual does the work before I read a word.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge click">Engaged</span></div>
+        <div class="p-mono click">The chart is specific and the body is honest — "the audit checks the 5 that move revenue most" acknowledges prioritization rather than claiming to check all 47. That's more credible than Ad 3's version. The visual data is falsifiable. Clicking.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">"See the 5 Settings. 9 dollars." — specific product, specific price, specific action. Everything I need. Clicking.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">The chart helps more than text would. I can see immediately it's about a 5 vs. 47 setting gap. But I still need to know what Stripe settings do and why they matter to my revenue before I'll click.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge click">Interested</span></div>
+        <div class="p-mono click">The circular visualization is the most distinctive creative format in the set. Nothing in Stripe's own documentation or generic audit blog posts presents it this way. The "5 that move revenue most" framing signals curation, not just a settings dump. More differentiated than Ad 3.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD 10 -->
+<div class="ad-card">
+  <div class="ad-card-header">
+    <div class="ad-num low">10</div>
+    <div class="ad-header-text">
+      <div class="ad-headline">"Recover 40 to 200 dollars per fix."</div>
+      <div class="ad-hook-tag">Hook: Outcome-first + process flow diagram &nbsp;&middot;&nbsp; Rank: #9</div>
+    </div>
+    <div class="ad-rank-badge">#9 / 10</div>
+  </div>
+  <div class="ad-body">
+    <div class="ad-meta">
+      <div class="ad-meta-label">Format</div>
+      <div class="ad-meta-value">4-step horizontal process flow: Misconfigured setting → Audit → 15-min scan → Recover $40–200</div>
+      <div class="ad-meta-label">Strength</div>
+      <div class="ad-meta-value strong">"Run the 15-Minute Audit" is the best CTA text in the entire set — specific, action-oriented, time-anchored. The process flow is the clearest format explanation of any ad in the set. Good for Confused Visitors who need to understand HOW the product works.</div>
+      <div class="ad-meta-label">Weakness</div>
+      <div class="ad-meta-value flag">Critical number conflict: headline says "Recover 40 to 200 dollars per fix" — the bottom box says "One misconfigured setting costs you 500 to 2,000 dollars a month." If one setting costs $500–2,000/month, why does the headline say you only recover $40–200? The Skeptic and Price-Conscious personas will catch this immediately. Which number is right? This inconsistency actively damages credibility.</div>
+      <div class="ad-meta-label">Fix</div>
+      <div class="ad-meta-value">Either: (a) align headline to "Recover 500 to 2,000 dollars a month" OR (b) use both numbers with context: "Find settings costing $500–$2,000/month. The first fix returns $40–$200 immediately." Don't let the numbers contradict each other.</div>
+      <div class="ad-meta-label">CTA</div>
+      <div class="cta-box">Run the 15-Minute Audit. 9 dollars.</div>
+    </div>
+    <div class="personas-col">
+      <div class="persona-row">
+        <div class="p-name">Ready Buyer</div>
+        <div><span class="p-badge click">Clicks</span></div>
+        <div class="p-mono click">The 4-step flow makes the process clear. I know exactly what happens when I buy. "Run the 15-Minute Audit" — yes. Not reading the bottom box carefully enough to notice the number conflict.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Skeptic</div>
+        <div><span class="p-badge skip">Exits</span></div>
+        <div class="p-mono skip">Headline: recover $40–200 per fix. Bottom box: one setting costs $500–2,000 a month. These are completely different numbers describing the same scenario. Which is it? A setting that costs $2,000/month to have wrong returns only $200 when fixed? That math doesn't work. Something is off. I'm not buying from someone who can't keep their own numbers straight.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Price-Conscious</div>
+        <div><span class="p-badge skip">Confused</span></div>
+        <div class="p-mono skip">I'm trying to calculate ROI and there are two different cost numbers in the same ad. $40–200 recovery in the headline, $500–2,000 cost in the body. I don't know which number to use. This is the one ad in the set where the numbers actively prevent me from deciding.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Confused Visitor</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">The 4-step process is the clearest "this is what you get" explanation in the set. If I'm confused about the product format, this ad is the most useful. The number inconsistency is over my head — I'm reading for format, not math.</div>
+      </div>
+      <div class="persona-row">
+        <div class="p-name">Comparison Shopper</div>
+        <div><span class="p-badge fence">Neutral</span></div>
+        <div class="p-mono fence">Process flow is a useful format for showing how this is different from just reading a blog. But the number conflict makes me question whether this was carefully produced. Sloppy numbers in an ad about finding billing errors is an ironic red flag.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CROSS-CREATIVE ISSUES -->
+<div class="sec-label">Cross-Creative Issues — Fix These Across the Set</div>
+
+<div class="issue-block">
+  <div class="issue-icon">&#9888;&#65039;</div>
+  <div class="issue-body">
+    <div class="issue-title">Refund promise mismatch — ad vs. landing page</div>
+    <div class="issue-detail">Ad 1 says "30-day refund if you find nothing." The landing page says "email us and we'll refund the $9 if your Stripe account is already 100% configured." These are different conditions. Anyone who reads both will notice. Align the refund language exactly — use the same condition in both the ad and the page.</div>
+    <div class="issue-ads"><span class="issue-ad-tag">Ad 1</span></div>
+  </div>
+</div>
+
+<div class="issue-block">
+  <div class="issue-icon">&#9888;&#65039;</div>
+  <div class="issue-body">
+    <div class="issue-title">$40–200 recovery vs. $500–2,000 cost — pick one number story</div>
+    <div class="issue-detail">The product uses both "costs you $500–2,000/month" (the problem) and "recover $40–200/fix" (the solution) across the ad set. In the same ad (Ad 10) these appear side-by-side and directly contradict each other. The product needs a consistent number narrative: Is the monthly cost $500–2,000? Is the per-fix recovery $40–200? Are these separate things? Clarify and use each number in its correct context throughout the set.</div>
+    <div class="issue-ads"><span class="issue-ad-tag">Ad 10</span><span class="issue-ad-tag">Ads 2, 4, 7</span></div>
+  </div>
+</div>
+
+<div class="issue-block">
+  <div class="issue-icon">&#9888;&#65039;</div>
+  <div class="issue-body">
+    <div class="issue-title">47/42 headline hook vs. audit-only-checks-5 body — logic gap</div>
+    <div class="issue-detail">Ads 3 and 9 use "what are the other 42 doing?" as a curiosity hook, but the product only audits 5 settings. This creates a promise-delivery mismatch. The fix is simple: either reframe the headline as "5 settings control most of your revenue — do you know which ones?" or lean into the 47/5 contrast honestly: "47 settings. We found the 5 that leak the most."</div>
+    <div class="issue-ads"><span class="issue-ad-tag">Ad 3</span><span class="issue-ad-tag">Ad 9</span></div>
+  </div>
+</div>
+
+<div class="issue-block">
+  <div class="issue-icon">&#128161;</div>
+  <div class="issue-body">
+    <div class="issue-title">No recovery amount in ads 1, 3, 6, 8 — missing ROI signal for Price-Conscious</div>
+    <div class="issue-detail">Four ads give the Price-Conscious buyer no way to calculate ROI before the CTA. These personas need the math to decide. Adding even a brief "$40–200/month recovery" line to each of these ads would recover the Price-Conscious persona across the set. This is the fastest copy addition available.</div>
+    <div class="issue-ads"><span class="issue-ad-tag">Ad 1</span><span class="issue-ad-tag">Ad 3</span><span class="issue-ad-tag">Ad 6</span><span class="issue-ad-tag">Ad 8</span></div>
+  </div>
+</div>
+
+<div class="issue-block">
+  <div class="issue-icon">&#128161;</div>
+  <div class="issue-body">
+    <div class="issue-title">Research finding not leveraged: UI screenshots underperform vs. contextual imagery</div>
+    <div class="issue-detail">Research (137% CVR lift documented) shows product screenshots underperform vs. lifestyle/contextual imagery showing the product in real workflows. Ads 2, 4, and 9 use UI mockups. The highest-performing creative in the set (Ad 6) uses a data visualization representing a real founder scenario — not a product screenshot. Test replacing UI mockups with founder-context visuals: a laptop open with a flat MRR chart visible, a founder's hands on a keyboard, or an annotated Stripe dashboard screenshot rather than a clean illustration.</div>
+    <div class="issue-ads"><span class="issue-ad-tag">Ad 2</span><span class="issue-ad-tag">Ad 4</span><span class="issue-ad-tag">Ad 9</span></div>
+  </div>
+</div>
+
+<div class="issue-block">
+  <div class="issue-icon">&#128161;</div>
+  <div class="issue-body">
+    <div class="issue-title">Ad 7 "Calculate Your Leak" CTA over-promises if there's no dynamic calculator</div>
+    <div class="issue-detail">"Calculate Your Leak" implies a personalized calculation tool — a dynamic input where the founder enters their MRR and gets a specific leak estimate. If the landing page is a static checklist, this CTA creates an expectation gap. Either build a quick MRR leak calculator to make the CTA accurate, or change to "Find Your Leak. 9 dollars." — which doesn't imply interactivity.</div>
+    <div class="issue-ads"><span class="issue-ad-tag">Ad 7</span></div>
+  </div>
+</div>
+
+</div><!-- end wrap -->
+</body>
+</html>
