@@ -114,7 +114,53 @@ subreddit + 1 per thread. Free key (≈100 credits) at https://scrapecreators.co
 `Tunnel connection failed: 403` because `api.scrapecreators.com` is not on the
 egress allow-list — use path A here.
 
+## Run: Competitor Ad Teardown × VOC (merged dashboard)
+
+A second dashboard merges a **Meta Ad Library competitor teardown** with the
+Reddit VOC, so you can see what competitors actually advertise vs. what
+customers actually say. Driver + template:
+
+```bash
+cd .claude/skills/run-reddit-research-agent
+node render-teardown.mjs sample/collagen-teardown.json teardown-template.html sample/teardown.html
+node shoot.mjs sample/teardown.html sample/teardown.png
+```
+
+`teardown-template.html` has four `<!-- REPEAT -->` blocks in order
+**ads → plays → gaps → angles**; `render-teardown.mjs` fills them from a JSON
+(`sample/collagen-teardown.json` is a real, worked example). Sections:
+1. **Competitor ads working now** — ranked by *days live* (longevity ≈ the ad
+   converts), each linked to the Meta Ad Library.
+2. **Recurring plays** — patterns across their library.
+3. **VOC × Ad gap** — real Reddit pains tagged `Ignored by their ads` /
+   `Heavily run`. This is the whitespace.
+4. **Your openings** — 8–10 angles aimed at the gaps, in customer language.
+
+### Fetching ad data (hosted environment)
+
+Use the `Scrape_Creators` Facebook Ad Library MCP tools (server-side, so they
+work here — same reason the Reddit MCP does):
+- `mcp__Scrape_Creators__v1_facebook_adLibrary_search_companies` → get a
+  brand's `page_id`.
+- `mcp__Scrape_Creators__v1_facebook_adLibrary_company_ads` (`pageId` or
+  `companyName`, `status: ACTIVE`, `trim: true`) → their live ads. Each ad has
+  `start_date` (epoch), `is_active`, `publisher_platform`, `snapshot.body.text`,
+  `snapshot.cta_text`, and `url`. **Days live = (now − start_date) / 86400** —
+  sort descending to surface winners.
+- `..._search_ads` (keyword) and `..._ad_transcript` (video ads) also exist.
+
+Large libraries blow the tool-output limit and get saved to a file; parse with
+`jq` (see how `collagen-teardown.json` was built).
+
 ## Gotchas
+
+- **B2B SaaS barely advertises on Meta.** Confirmed live: ChurnKey has no ad
+  page; Userpilot's page has 0 active ads. The Ad Library is rich for
+  **DTC/consumer** brands (supplements, beauty, apparel) and thin for B2B SaaS —
+  pick the teardown target accordingly.
+- **Ad Library shows creative, copy, start date, platforms — not spend or
+  impressions** for normal (non-political) ads. Use *longevity* and *number of
+  active variants* as the "what's working" proxy.
 
 - **The Python fetch script can't reach the API from this hosted environment.**
   `api.scrapecreators.com` is not on the egress allow-list, so

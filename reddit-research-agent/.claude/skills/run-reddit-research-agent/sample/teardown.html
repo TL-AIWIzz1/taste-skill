@@ -1,0 +1,377 @@
+<!doctype html>
+<!--
+  COMPETITOR AD TEARDOWN × VOC — TEMPLATE
+  =======================================
+  Merged dashboard: Meta Ad Library competitor teardown + Reddit voice-of-customer.
+  Fill every {{PLACEHOLDER}} and clone each <!-- REPEAT --> block. Rules:
+    - Ad copy is the REAL ad body from the Ad Library; link href = the ad's
+      facebook.com/ads/library URL.
+    - VOC quotes are REAL verbatim Reddit comments; link href = the comment permalink.
+    - "Days live" = how long the ad has been running (longevity = it's working).
+    - Section order of REPEAT blocks: ads -> hooks -> gaps -> angles.
+  Self-contained: no external fonts/scripts/network. Opens offline.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ad Teardown × VOC — Collagen</title>
+<style>
+  :root{
+    --bg:#080b10; --bg2:#0b1018; --panel:#0f1620; --panel2:#121b27;
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+    --ink:#eaf0f7; --muted:#93a1b5; --faint:#5d6b80;
+    --accent:#34e2e4; --accent2:#7c8bff;
+    --pain:#ff6f61; --desire:#46e0a0; --obj:#b794f6; --gold:#f7c948;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.5; letter-spacing:.1px;
+    background-image:
+      radial-gradient(900px 500px at 12% -8%, rgba(52,226,228,.10), transparent 60%),
+      radial-gradient(900px 600px at 100% 0%, rgba(124,139,255,.10), transparent 55%),
+      linear-gradient(180deg,var(--bg),var(--bg2));
+    background-attachment:fixed;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:34px 26px 90px}
+  .mono{font-family:var(--mono)}
+
+  .topbar{display:flex; align-items:flex-end; justify-content:space-between;
+    gap:20px; padding-bottom:22px; border-bottom:1px solid var(--line); flex-wrap:wrap}
+  .brand .dot{display:inline-block; width:9px; height:9px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 12px var(--accent); margin-right:9px;
+    vertical-align:middle; animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .brand .label{font-family:var(--mono); font-size:12px; letter-spacing:.24em;
+    text-transform:uppercase; color:var(--muted)}
+  h1{margin:.32em 0 0; font-size:42px; line-height:1.05; font-weight:680; letter-spacing:-.5px}
+  h1 .accent{background:linear-gradient(95deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  .runline{font-family:var(--mono); font-size:11.5px; color:var(--faint); text-align:right}
+  .hint{margin-top:14px; font-family:var(--mono); font-size:11.5px; color:var(--faint)}
+  .hint b{color:var(--accent); font-weight:500}
+
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0 12px}
+  .stat{background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px; position:relative; overflow:hidden}
+  .stat::after{content:""; position:absolute; left:0; right:0; bottom:0; height:2px;
+    background:linear-gradient(90deg,var(--accent),transparent)}
+  .stat .num{font-family:var(--mono); font-size:34px; font-weight:600; letter-spacing:-1px}
+  .stat .cap{font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--muted); margin-top:4px}
+
+  section{margin-top:46px}
+  .shead{display:flex; align-items:baseline; gap:14px; margin-bottom:18px}
+  .shead .idx{font-family:var(--mono); font-size:12px; color:var(--faint)}
+  .shead h2{margin:0; font-size:22px; font-weight:640; letter-spacing:-.2px}
+  .shead .sub{color:var(--muted); font-size:13.5px; margin-left:auto; font-family:var(--mono)}
+  .rule{flex:1; height:1px; background:var(--line)}
+
+  .grid{display:grid; gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+
+  .card{background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px; position:relative}
+  .card .top{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+  .rank{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--bg);
+    background:var(--accent2); width:26px; height:26px; border-radius:7px; display:grid; place-items:center; flex:none}
+  .ctitle{font-weight:620; font-size:15.5px}
+
+  a.quote{display:block; text-decoration:none; color:var(--ink);
+    border-left:2px solid var(--line2); padding:5px 8px 5px 14px; margin:10px 0;
+    border-radius:0 8px 8px 0; transition:border-color .15s,color .15s,background .15s}
+  a.quote .qt{font-size:14.5px; font-style:italic}
+  a.quote .qt::before{content:"\201C"} a.quote .qt::after{content:"\201D"}
+  a.quote .ext{display:block; margin-top:7px; font-family:var(--mono); font-size:10.5px; color:var(--faint); transition:color .15s}
+  a.quote .ext::before{content:"\2197  "}
+  a.quote:hover{border-left-color:var(--accent); color:#fff; background:rgba(52,226,228,.06)}
+  a.quote:hover .ext{color:var(--accent)}
+  .meta{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px}
+  .tag{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);
+    background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:999px; padding:3px 9px}
+  .tag.hot{color:var(--gold); border-color:rgba(247,201,72,.4); background:rgba(247,201,72,.07)}
+  .tag.cta{color:var(--accent2); border-color:rgba(124,139,255,.4)}
+  .tag.plat{color:var(--accent); border-color:rgba(52,226,228,.3)}
+
+  .meter{height:5px; border-radius:3px; background:rgba(255,255,255,.06); margin-top:12px; overflow:hidden}
+  .meter > i{display:block; height:100%; width:calc(var(--v,60)*1%); border-radius:3px;
+    background:linear-gradient(90deg,var(--gold),#ffe39a)}
+
+  /* recurring plays */
+  .plays{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+  .play{display:flex; gap:11px; align-items:flex-start; padding:13px 15px; background:rgba(255,255,255,.025);
+    border:1px solid var(--line); border-radius:11px}
+  .play .hk{color:var(--accent); font-family:var(--mono); flex:none}
+  .play b{display:block; font-size:14px; font-weight:620; margin-bottom:3px}
+  .play span.d{color:var(--muted); font-size:12.5px}
+
+  /* gap map */
+  .gap .rank{background:var(--pain)}
+  .gap a.quote:hover{border-left-color:var(--pain); background:rgba(255,111,97,.06)}
+  .gap a.quote:hover .ext{color:var(--pain)}
+  .status{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; padding:3px 9px; border-radius:999px; border:1px solid var(--line)}
+  .status.ignored{color:var(--pain); border-color:rgba(255,111,97,.45); background:rgba(255,111,97,.08)}
+  .status.run{color:var(--desire); border-color:rgba(70,224,160,.35); background:rgba(70,224,160,.06)}
+
+  .hero{margin-top:60px; padding:30px 26px 32px; border-radius:20px; border:1px solid var(--line2);
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(700px 320px at 15% -20%,rgba(124,139,255,.16),transparent 60%),
+      radial-gradient(700px 320px at 100% 120%,rgba(52,226,228,.14),transparent 60%),
+      linear-gradient(180deg,#0d141e,#0a0f17)}
+  .hero .badge{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--bg);
+    background:linear-gradient(95deg,var(--accent),var(--accent2)); padding:5px 12px; border-radius:999px; font-weight:600}
+  .hero h2{font-size:30px; margin:14px 0 4px; letter-spacing:-.5px}
+  .hero p.lead{color:var(--muted); margin:0 0 22px; max-width:640px; font-size:14.5px}
+  .angles{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  .angle{background:rgba(10,15,23,.6); border:1px solid var(--line2); border-radius:14px; padding:18px;
+    position:relative; transition:transform .15s,border-color .15s}
+  .angle:hover{transform:translateY(-3px); border-color:rgba(52,226,228,.5)}
+  .angle .n{position:absolute; top:14px; right:16px; font-family:var(--mono); font-size:11px; color:var(--faint)}
+  .angle .name{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:9px}
+  .angle .hook{font-size:18px; font-weight:600; line-height:1.28; letter-spacing:-.2px}
+  .angle .from{margin-top:11px; font-size:12px; color:var(--faint); font-style:italic; border-top:1px dashed var(--line); padding-top:9px}
+  .angle .from a{color:var(--muted); text-decoration:none; border-bottom:1px dotted var(--faint)}
+  .angle .from a:hover{color:var(--accent); border-color:var(--accent)}
+  .angle .from b{color:var(--muted); font-style:normal; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase}
+
+  footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:11px; color:var(--faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
+
+  @media(max-width:820px){
+    .stats{grid-template-columns:repeat(2,1fr)} .g2,.angles,.plays{grid-template-columns:1fr}
+    h1{font-size:32px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="label"><span class="dot"></span>Competitor Ad Teardown × VOC</span>
+      <h1>Collagen <span class="accent">Intel Report</span></h1>
+      <div class="hint"><b>Everything is clickable</b> — ads open in the Meta Ad Library, quotes open the exact Reddit comment ↗</div>
+    </div>
+    <div class="runline">Ancient Nutrition · Meta Ad Library  vs.  r/Supplements + r/SkincareAddiction VOC<br>2026-06-23</div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num">30</div><div class="cap">Competitor ads live</div></div>
+    <div class="stat"><div class="num">98d</div><div class="cap">Longest-running ad</div></div>
+    <div class="stat"><div class="num">2</div><div class="cap">VOC threads mined</div></div>
+    <div class="stat"><div class="num">28</div><div class="cap">Customer quotes</div></div>
+  </div>
+
+  <!-- ============ 01 · ADS THAT ARE WORKING ============ -->
+  <section>
+    <div class="shead"><span class="idx">01</span><h2>Competitor Ads Working Right Now</h2>
+      <span class="rule"></span><span class="sub">// ranked by days live — longevity = it converts</span></div>
+    <div class="grid g2">
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">1</span><span class="ctitle">Ancient Nutrition</span><span class="tag hot">98 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1237620931915718"><span class="qt">Say goodbye to stress snacking! • Clinically backed yeast peptides • Calming L-theanine • Superfood extracts. Balance cortisol, maintain a healthy weight. Are you ready to take control of your cravings?</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG · Threads · +2</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:98"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">2</span><span class="ctitle">Ancient Nutrition</span><span class="tag hot">96 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=926984583311174"><span class="qt">Brain Health &amp; Muscle &amp; Recovery — I am so in! Did you know women naturally have up to 80% lower creatine stores than men? … I'm loving the new Creatine + Collagen + Electrolytes from Ancient Nutrition. (Paid Partner)</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG · Threads · +2</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:96"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">3</span><span class="ctitle">Ancient Nutrition</span><span class="tag hot">77 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1458438789066567"><span class="qt">"I have tried several flavors of collagen protein powders and Ancient Nutrition is by far the best tasting. Now I am afraid it will be out of stock often because other people will find out the same thing!" — Pat R.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Shop now</span></div>
+        <div class="meter"><i style="--v:77"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">4</span><span class="ctitle">Ancient Nutrition</span><span class="tag hot">33 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=2113611139494947"><span class="qt">Multi Collagen Protein racks up 10 types of collagen from four real food sources, including clinically studied fermented eggshell membrane collagen known for joint support. We've also added clinically studied probiotics &amp; vitamin C — full-body support.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG · Threads · +2</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:33"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">5</span><span class="ctitle">Ancient Nutrition</span><span class="tag hot">33 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1309222761353498"><span class="qt">One daily supplement for your muscles and your mind, with a side of hydration. This 3-in-1 formula combines 5g creatine monohydrate, fermented eggshell membrane collagen and real food electrolytes. Bonus: Lemon flavor is delicious.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG · Threads · +2</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:33"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">6</span><span class="ctitle">Ancient Nutrition</span><span class="tag hot">33 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1557576769413177"><span class="qt">Save $10 with code: GET10. It's a great time to stock up on collagen, greens, probiotics, vitamins and more this spring.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Shop now</span></div>
+        <div class="meter"><i style="--v:33"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">7</span><span class="ctitle">Ancient Nutrition</span><span class="tag hot">27 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=2231297397408153"><span class="qt">Multi Collagen Protein Gel Packs combine craveworthy taste with grab-and-go simplicity: no mixing, no water, no capsules.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG · Threads · +2</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:27"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">8</span><span class="ctitle">Ancient Nutrition</span><span class="tag hot">25 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=4053012341671818"><span class="qt">Support hair, skin, nails &amp; joints with 10 types of collagen from 4 real food sources. NEW limited-time Lemon Iced Tea.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG · Threads · +2</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:25"></i></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ============ 02 · RECURRING PLAYS ============ -->
+  <section>
+    <div class="shead"><span class="idx">02</span><h2>Plays They Run Over and Over</h2>
+      <span class="rule"></span><span class="sub">// the patterns across their library</span></div>
+    <div class="plays">
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Bundle, don't sell collagen alone</b><span class="d">Their long-runners pair collagen with creatine, electrolytes, probiotics &amp; vitamin C — sold as "full-body support," not just skin.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>"10 types from 4 real food sources"</b><span class="d">An ingredient-authority line repeated across ads — fermented eggshell membrane = the joint hook.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Format &amp; flavor novelty</b><span class="d">Gel packs ("no mixing, no water"), Lemon Iced Tea limited drops — convenience and seasonality as the angle.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Creator / UGC paid partners</b><span class="d">Testimonial-style posts ("I am so in!", recipe shakes) do the persuading instead of brand voice.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Scarcity + promo</b><span class="d">"afraid it'll be out of stock" social proof and GET10 discount codes drive urgency.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Lead with cortisol &amp; weight</b><span class="d">Their single longest-running ad (98 days) isn't about collagen at all — it's stress-snacking / weight control.</span></div></div>
+      
+    </div>
+  </section>
+
+  <!-- ============ 03 · VOC x AD GAP ============ -->
+  <section>
+    <div class="shead"><span class="idx">03</span><h2>Where Customer Pain Meets (and Misses) Their Ads</h2>
+      <span class="rule"></span><span class="sub">// real Reddit pain vs. what competitors actually run</span></div>
+    <div class="grid g2">
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">1</span><span class="ctitle">"Can't tell if it's working"</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npqbtua/"><span class="qt">It never feels like it's doing anything until I stop taking it. Huge difference in my appearance.</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status ignored">Ignored by their ads</span><span class="tag">The #1 customer doubt. Every ad assumes it works — none reframe the "feels like nothing" experience.</span></div>
+      </div>
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">2</span><span class="ctitle">"Just expensive flavored water"</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npp8urv/"><span class="qt">farmers found a way to turn waste product into something you will pay a premium for through strong marketing.</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status ignored">Ignored by their ads</span><span class="tag">The loudest skeptic objection — never rebutted. Wide-open angle to confront it head-on.</span></div>
+      </div>
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">3</span><span class="ctitle">Takes months before anything shows</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oetcjoq/"><span class="qt">Took maybe 3-4 months before I really noticed … collagen isnt a quick fix thing, it builds up</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status ignored">Ignored by their ads</span><span class="tag">No ad sets the 90-day expectation — so early quitters churn before results land.</span></div>
+      </div>
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">4</span><span class="ctitle">Too expensive to stay consistent</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oers09b/"><span class="qt">Small skin benefits, but I noticed my joint pain got soooomuch better. I wish I could afford it all the time.</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status ignored">Only a $10 code</span><span class="tag">Price is a real barrier; they answer it with GET10, not cost-per-day value framing.</span></div>
+      </div>
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">5</span><span class="ctitle">Joint-pain relief</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npp2bbl/"><span class="qt">Collagen no question reduces (to zero) my joint pain. When I'm not taking it, [it] is there. When I am, it's not.</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status run">Heavily run</span><span class="tag">They own this (eggshell membrane). It's table stakes — competing here is fighting uphill.</span></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ============ HERO · YOUR OPENINGS ============ -->
+  <section class="hero" id="angles">
+    <span class="badge">&#9670; The Opening</span>
+    <h2>Ad Angles That Beat Them to It</h2>
+    <p class="lead">Each hook targets a real customer pain the competitor's ads <b>don't</b> address yet — phrased in the
+      customer's own words. The whitespace, ready to test.</p>
+    <div class="angles">
+      
+      <div class="angle">
+        <span class="n">01</span>
+        <div class="name">The 90-Day Promise</div>
+        <div class="hook">Don't judge collagen in a week — here's the day it actually clicked for real users.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oetcjoq/">VOC · takes months &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">02</span>
+        <div class="name">More Than Flavored Water</div>
+        <div class="hook">Sceptical it's just expensive flavored water? Good. Here's what changed their mind.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npp8urv/">VOC · scam objection &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">03</span>
+        <div class="name">You'll Notice When You Stop</div>
+        <div class="hook">It never feels like it's doing much — until the week you run out.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npqbtua/">VOC · can't tell it works &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">04</span>
+        <div class="name">Cost Per Day, Not Per Tub</div>
+        <div class="hook">The people who quit loved it but couldn't afford it. Reframe the price they actually pay per scoop.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oers09b/">VOC · too expensive &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">05</span>
+        <div class="name">Marine, If You're Picky About Skin</div>
+        <div class="hook">They push bovine + eggshell for joints. Own the skin crowd with marine collagen instead.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oesv3k9/">VOC · marine for skin &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">06</span>
+        <div class="name">Clean Peptides, No Filler</div>
+        <div class="hook">No beauty-blend garbage, no Nestle, no lead-lawsuit brands — just hydrolyzed peptides.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oesq3n2/">VOC · brand distrust &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">07</span>
+        <div class="name">Nails First, Skin Later</div>
+        <div class="hook">"I actually have nails now." Lead with the benefit people feel in weeks, not months.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oerv5bz/">VOC · stronger nails &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">08</span>
+        <div class="name">Pair It With Vitamin C</div>
+        <div class="hook">Collagen barely works naked — here's the vitamin-C stack that makes it count.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/nq0lxtp/">VOC · make it work &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">09</span>
+        <div class="name">Skip the Stack You Won't Use</div>
+        <div class="hook">Don't want a 6-in-1 muscle-mind-hydration bundle? Just clean collagen, dosed right.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npodzk2/">VOC · sub-dosing &#8599;</a></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <footer>
+    <span>Meta Ad Library + Reddit VOC · Ancient Nutrition · Meta Ad Library  vs.  r/Supplements + r/SkincareAddiction VOC</span>
+    <span>Collagen · generated 2026-06-23</span>
+  </footer>
+
+</div>
+</body>
+</html>

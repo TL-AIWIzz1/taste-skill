@@ -1,0 +1,103 @@
+{
+  "topic": "Collagen",
+  "brand_line": "Ancient Nutrition · Meta Ad Library  vs.  r/Supplements + r/SkincareAddiction VOC",
+  "generated_at": "2026-06-23",
+  "stats": { "ads": 30, "longest": 98, "threads": 2, "quotes": 28 },
+
+  "ads": [
+    {
+      "brand": "Ancient Nutrition", "days": 98, "cta": "Learn more", "platforms": "FB · IG · Threads · +2",
+      "copy": "Say goodbye to stress snacking! • Clinically backed yeast peptides • Calming L-theanine • Superfood extracts. Balance cortisol, maintain a healthy weight. Are you ready to take control of your cravings?",
+      "url": "https://www.facebook.com/ads/library?id=1237620931915718"
+    },
+    {
+      "brand": "Ancient Nutrition", "days": 96, "cta": "Learn more", "platforms": "FB · IG · Threads · +2",
+      "copy": "Brain Health & Muscle & Recovery — I am so in! Did you know women naturally have up to 80% lower creatine stores than men? … I'm loving the new Creatine + Collagen + Electrolytes from Ancient Nutrition. (Paid Partner)",
+      "url": "https://www.facebook.com/ads/library?id=926984583311174"
+    },
+    {
+      "brand": "Ancient Nutrition", "days": 77, "cta": "Shop now", "platforms": "FB · IG",
+      "copy": "\"I have tried several flavors of collagen protein powders and Ancient Nutrition is by far the best tasting. Now I am afraid it will be out of stock often because other people will find out the same thing!\" — Pat R.",
+      "url": "https://www.facebook.com/ads/library?id=1458438789066567"
+    },
+    {
+      "brand": "Ancient Nutrition", "days": 33, "cta": "Learn more", "platforms": "FB · IG · Threads · +2",
+      "copy": "Multi Collagen Protein racks up 10 types of collagen from four real food sources, including clinically studied fermented eggshell membrane collagen known for joint support. We've also added clinically studied probiotics & vitamin C — full-body support.",
+      "url": "https://www.facebook.com/ads/library?id=2113611139494947"
+    },
+    {
+      "brand": "Ancient Nutrition", "days": 33, "cta": "Learn more", "platforms": "FB · IG · Threads · +2",
+      "copy": "One daily supplement for your muscles and your mind, with a side of hydration. This 3-in-1 formula combines 5g creatine monohydrate, fermented eggshell membrane collagen and real food electrolytes. Bonus: Lemon flavor is delicious.",
+      "url": "https://www.facebook.com/ads/library?id=1309222761353498"
+    },
+    {
+      "brand": "Ancient Nutrition", "days": 33, "cta": "Shop now", "platforms": "FB · IG",
+      "copy": "Save $10 with code: GET10. It's a great time to stock up on collagen, greens, probiotics, vitamins and more this spring.",
+      "url": "https://www.facebook.com/ads/library?id=1557576769413177"
+    },
+    {
+      "brand": "Ancient Nutrition", "days": 27, "cta": "Learn more", "platforms": "FB · IG · Threads · +2",
+      "copy": "Multi Collagen Protein Gel Packs combine craveworthy taste with grab-and-go simplicity: no mixing, no water, no capsules.",
+      "url": "https://www.facebook.com/ads/library?id=2231297397408153"
+    },
+    {
+      "brand": "Ancient Nutrition", "days": 25, "cta": "Learn more", "platforms": "FB · IG · Threads · +2",
+      "copy": "Support hair, skin, nails & joints with 10 types of collagen from 4 real food sources. NEW limited-time Lemon Iced Tea.",
+      "url": "https://www.facebook.com/ads/library?id=4053012341671818"
+    }
+  ],
+
+  "plays": [
+    { "name": "Bundle, don't sell collagen alone", "note": "Their long-runners pair collagen with creatine, electrolytes, probiotics & vitamin C — sold as \"full-body support,\" not just skin." },
+    { "name": "\"10 types from 4 real food sources\"", "note": "An ingredient-authority line repeated across ads — fermented eggshell membrane = the joint hook." },
+    { "name": "Format & flavor novelty", "note": "Gel packs (\"no mixing, no water\"), Lemon Iced Tea limited drops — convenience and seasonality as the angle." },
+    { "name": "Creator / UGC paid partners", "note": "Testimonial-style posts (\"I am so in!\", recipe shakes) do the persuading instead of brand voice." },
+    { "name": "Scarcity + promo", "note": "\"afraid it'll be out of stock\" social proof and GET10 discount codes drive urgency." },
+    { "name": "Lead with cortisol & weight", "note": "Their single longest-running ad (98 days) isn't about collagen at all — it's stress-snacking / weight control." }
+  ],
+
+  "gaps": [
+    {
+      "name": "\"Can't tell if it's working\"", "ignored": true, "status": "Ignored by their ads",
+      "quote": "It never feels like it's doing anything until I stop taking it. Huge difference in my appearance.",
+      "url": "https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npqbtua/",
+      "note": "The #1 customer doubt. Every ad assumes it works — none reframe the \"feels like nothing\" experience."
+    },
+    {
+      "name": "\"Just expensive flavored water\"", "ignored": true, "status": "Ignored by their ads",
+      "quote": "farmers found a way to turn waste product into something you will pay a premium for through strong marketing.",
+      "url": "https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npp8urv/",
+      "note": "The loudest skeptic objection — never rebutted. Wide-open angle to confront it head-on."
+    },
+    {
+      "name": "Takes months before anything shows", "ignored": true, "status": "Ignored by their ads",
+      "quote": "Took maybe 3-4 months before I really noticed … collagen isnt a quick fix thing, it builds up",
+      "url": "https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oetcjoq/",
+      "note": "No ad sets the 90-day expectation — so early quitters churn before results land."
+    },
+    {
+      "name": "Too expensive to stay consistent", "ignored": true, "status": "Only a $10 code",
+      "quote": "Small skin benefits, but I noticed my joint pain got soooomuch better. I wish I could afford it all the time.",
+      "url": "https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oers09b/",
+      "note": "Price is a real barrier; they answer it with GET10, not cost-per-day value framing."
+    },
+    {
+      "name": "Joint-pain relief", "ignored": false, "status": "Heavily run",
+      "quote": "Collagen no question reduces (to zero) my joint pain. When I'm not taking it, [it] is there. When I am, it's not.",
+      "url": "https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npp2bbl/",
+      "note": "They own this (eggshell membrane). It's table stakes — competing here is fighting uphill."
+    }
+  ],
+
+  "angles": [
+    { "name": "The 90-Day Promise", "hook": "Don't judge collagen in a week — here's the day it actually clicked for real users.", "source": "VOC · takes months", "url": "https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oetcjoq/" },
+    { "name": "More Than Flavored Water", "hook": "Sceptical it's just expensive flavored water? Good. Here's what changed their mind.", "source": "VOC · scam objection", "url": "https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npp8urv/" },
+    { "name": "You'll Notice When You Stop", "hook": "It never feels like it's doing much — until the week you run out.", "source": "VOC · can't tell it works", "url": "https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npqbtua/" },
+    { "name": "Cost Per Day, Not Per Tub", "hook": "The people who quit loved it but couldn't afford it. Reframe the price they actually pay per scoop.", "source": "VOC · too expensive", "url": "https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oers09b/" },
+    { "name": "Marine, If You're Picky About Skin", "hook": "They push bovine + eggshell for joints. Own the skin crowd with marine collagen instead.", "source": "VOC · marine for skin", "url": "https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oesv3k9/" },
+    { "name": "Clean Peptides, No Filler", "hook": "No beauty-blend garbage, no Nestle, no lead-lawsuit brands — just hydrolyzed peptides.", "source": "VOC · brand distrust", "url": "https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oesq3n2/" },
+    { "name": "Nails First, Skin Later", "hook": "\"I actually have nails now.\" Lead with the benefit people feel in weeks, not months.", "source": "VOC · stronger nails", "url": "https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/comment/oerv5bz/" },
+    { "name": "Pair It With Vitamin C", "hook": "Collagen barely works naked — here's the vitamin-C stack that makes it count.", "source": "VOC · make it work", "url": "https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/nq0lxtp/" },
+    { "name": "Skip the Stack You Won't Use", "hook": "Don't want a 6-in-1 muscle-mind-hydration bundle? Just clean collagen, dosed right.", "source": "VOC · sub-dosing", "url": "https://www.reddit.com/r/Supplements/comments/1p18dvs/comment/npodzk2/" }
+  ]
+}
