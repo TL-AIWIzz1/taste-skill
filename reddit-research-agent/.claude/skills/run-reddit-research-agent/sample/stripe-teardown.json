@@ -1,0 +1,103 @@
+{
+  "topic": "Stripe Revenue Leaks",
+  "brand_line": "Offer: Stripe Roulette Challenge ($9)  ·  Meta Ad Library competitors  +  r/stripe · r/SaaS · r/ecommerce VOC",
+  "generated_at": "2026-06-23",
+  "stats": { "ads": 23, "longest": 73, "threads": 4, "quotes": 41 },
+
+  "ads": [
+    {
+      "brand": "HL Hunt Pay", "days": 71, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Stop Letting Your Payment Processor Control Your Business. One shutdown… one frozen account… and your revenue is gone overnight. That's the reality with traditional processors. HL Hunt fixes that.",
+      "url": "https://www.facebook.com/ads/library?id=1680355886335370"
+    },
+    {
+      "brand": "Sticky.io", "days": 48, "cta": "See details", "platforms": "FB · IG",
+      "copy": "When declines are part of the game, every approval matters. Issuer sensitivity, stricter controls, and higher scrutiny mean more payments fail, even when customers are ready to buy. But not every failed payment should be lost revenue.",
+      "url": "https://www.facebook.com/ads/library?id=836994519450755"
+    },
+    {
+      "brand": "Sticky.io", "days": 43, "cta": "See details", "platforms": "FB · IG",
+      "copy": "Most lost customers aren't churn. They're lost to failed payments, expired cards, and small issues that quietly add up. That silent churn eats into revenue you've already earned.",
+      "url": "https://www.facebook.com/ads/library?id=982591157646884"
+    },
+    {
+      "brand": "SamCart", "days": 34, "cta": "Sign up", "platforms": "FB · IG",
+      "copy": "You don't need more leads. You need a better system behind the sale. Most business owners hit a ceiling and think the answer is more traffic. It's not. It's making more from the customers you already have.",
+      "url": "https://www.facebook.com/ads/library?id=947326881625592"
+    },
+    {
+      "brand": "PayPro Global", "days": 21, "cta": "See details", "platforms": "FB · IG",
+      "copy": "Don't click if you're happy losing 20% of your SaaS users to failed payments.",
+      "url": "https://www.facebook.com/ads/library?id=1551664036376953"
+    },
+    {
+      "brand": "Pushpay", "days": 8, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Everygift … helps recover failed payments, update expiring cards, and capture intended giving. Bear Creek Church saw a 30% increase in realized giving.",
+      "url": "https://www.facebook.com/ads/library?id=856770203723452"
+    },
+    {
+      "brand": "Paddle", "days": 5, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Revenue doesn't disappear all at once. It quietly leaks, inhibiting your growth and LTV. Find and fix your revenue gaps easily with Paddle.",
+      "url": "https://www.facebook.com/ads/library?id=979261724874102"
+    },
+    {
+      "brand": "Paddle", "days": 4, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Revenue leaks slowly, churn is often silent, failed payments are overlooked. Codeway recovered half a million with greater data visibility. How much could you recover?",
+      "url": "https://www.facebook.com/ads/library?id=1685914882460443"
+    }
+  ],
+
+  "plays": [
+    { "name": "\"Revenue quietly leaks\"", "note": "Paddle & Sticky.io both lead with slow-leak language — \"revenue doesn't disappear all at once, it leaks.\" The dominant framing in the category." },
+    { "name": "Failed payments = silent churn", "note": "\"Most lost customers aren't churn… revenue you've already earned.\" Recover-what-you-have, not win-new." },
+    { "name": "Processor-freedom / anti-freeze fear", "note": "HL Hunt's longest-runner (71d): \"one frozen account and your revenue is gone overnight.\" Plays the shutdown fear." },
+    { "name": "Optimize, don't acquire", "note": "SamCart: \"You don't need more leads… make more from the customers you already have.\"" },
+    { "name": "Pattern-interrupt negative hook", "note": "PayPro Global: \"Don't click if you're happy losing 20% of your SaaS users to failed payments.\"" },
+    { "name": "They all sell a TOOL or a SWITCH", "note": "Every competitor's fix is buy-our-platform or switch-merchant-of-record. None offer a cheap DIY audit of the Stripe you already run." }
+  ],
+
+  "gaps": [
+    {
+      "name": "\"I didn't even notice Stripe was taking it\"", "ignored": true, "status": "Whitespace — nobody runs this",
+      "quote": "What we didn't notice is that Stripe actually takes money from you… gross volume $100,000 vs net volume $91,000.",
+      "url": "https://www.reddit.com/r/ecommerce/comments/15djkjv/stripe_fees_are_a_little_bit_crazy_i_didnt_even/",
+      "note": "The offer's exact wedge. Competitors sell recovery tools; none say \"audit the settings you already have.\""
+    },
+    {
+      "name": "It's the Stripe defaults, not bad luck", "ignored": true, "status": "Only gestured at",
+      "quote": "5–10% is unfortunately common if you're just relying on Stripe defaults … you usually find one category doing most of the damage.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/",
+      "note": "Paddle/Sticky hint at the leak but pitch a platform, not a 15-minute settings fix. The DIY angle is open."
+    },
+    {
+      "name": "Specific money-saving settings", "ignored": true, "status": "Whitespace — nobody runs this",
+      "quote": "change your checkout setting so that you manually accept the payment instead of automatically … If you don't accept the payment = no fees.",
+      "url": "https://www.reddit.com/r/ecommerce/comments/16j0ied/comment/k0pitmw/",
+      "note": "Concrete fixes (manual capture, currency, Radar, Link) are pure whitespace — no ad teaches a single one."
+    },
+    {
+      "name": "\"My revenue would double or triple\"", "ignored": false, "status": "Crowded — everyone runs this",
+      "quote": "my revenue would likely double or triple if more of these payments went through.",
+      "url": "https://www.reddit.com/r/stripe/comments/1s2wp37/80_of_my_stripe_payments_are_failing/",
+      "note": "Failed-payment recovery is the saturated angle (Sticky, Paddle, PayPro all here). Differentiate on \"fix-it-yourself, today, $9.\""
+    },
+    {
+      "name": "Fear: the processor will freeze you", "ignored": false, "status": "Owned by HL Hunt (71d)",
+      "quote": "80% failed means your account is getting limited soon or later",
+      "url": "https://www.reddit.com/r/stripe/comments/1s2wp37/comment/ocbqqdq/",
+      "note": "Account-stability fear is taken and off-message for a $9 settings audit — don't fight here; acknowledge and redirect."
+    }
+  ],
+
+  "angles": [
+    { "name": "You Didn't Even Notice", "hook": "Gross $100k, net $91k. Stripe's been skimming through settings you never touched — find them in 15 minutes.", "source": "VOC · hidden fees", "url": "https://www.reddit.com/r/ecommerce/comments/15djkjv/stripe_fees_are_a_little_bit_crazy_i_didnt_even/" },
+    { "name": "It's Not Bad Luck, It's Your Defaults", "hook": "Losing 5–10% a month isn't normal — it's 42 Stripe settings still on default. One of them is doing most of the damage.", "source": "VOC · Stripe defaults", "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/" },
+    { "name": "Don't Switch Processors — Fix the One You Have", "hook": "Before you rip out Stripe, spend $9 and 15 minutes. Most founders find a setting worth $40–$200/mo.", "source": "VOC · leaving Stripe", "url": "https://www.reddit.com/r/stripe/comments/1phnfj4/great_alternatives_to_stripe/" },
+    { "name": "The 15-Minute Stripe Audit", "hook": "47 settings. You configured 5. The other 42 run on defaults that cost you money. Here's the checklist.", "source": "VOC · settings to check", "url": "https://www.reddit.com/r/stripe/comments/1s2wp37/comment/occ7nsp/" },
+    { "name": "One Setting Killed the Refund Fee", "hook": "Cancelled orders were costing $44 a pop — until I flipped to manual capture. You're probably paying it too.", "source": "VOC · refund fees", "url": "https://www.reddit.com/r/ecommerce/comments/16j0ied/comment/k0pitmw/" },
+    { "name": "Recover Revenue You Already Earned", "hook": "Failed payments are money you already won. Get it back without bolting on another monthly tool.", "source": "VOC · failed-payment recovery", "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5dcu36/" },
+    { "name": "Double Revenue Without More Traffic", "hook": "Founders watched revenue jump just by fixing retries and declines — zero extra ad spend.", "source": "VOC · revenue would double", "url": "https://www.reddit.com/r/stripe/comments/1s2wp37/80_of_my_stripe_payments_are_failing/" },
+    { "name": "80% Failing? It's a Setting.", "hook": "Card-testers and prepaid cards tank your approval rate. Radar rules fixed it — here's the 2-minute change.", "source": "VOC · Radar / prepaid", "url": "https://www.reddit.com/r/stripe/comments/1s2wp37/comment/ocbj25w/" },
+    { "name": "Stop Guessing Which Setting Is Broken", "hook": "It's almost always one decline category quietly bleeding you. Find yours in 15 minutes for $9.", "source": "VOC · one category does the damage", "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/" }
+  ]
+}
