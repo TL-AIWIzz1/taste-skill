@@ -67,10 +67,39 @@ ScrapeCreators Reddit API — the *same two endpoints* `fetch_reddit.py` calls
 representative comment subset); `voc.json` is the synthesized analysis; all
 permalinks are real and clickable.
 
-## Live fetch (needs a key) — the data half
+## Live fetch — running a fresh report
 
-Not exercised by the agent path above (it requires a paid key). To pull fresh
-data instead of the sample:
+There are two ways to pull fresh Reddit data. **In this hosted Claude Code
+environment, use the MCP path** — the standalone script's API host is blocked by
+the egress policy here (see Gotchas).
+
+### A. MCP path (works in this environment — preferred)
+
+The `Scrape_Creators` MCP exposes the *same two endpoints* the script calls, but
+server-side, so it isn't subject to this container's outbound policy. To run a
+report for topic `<TOPIC>` across 1–2 subreddits:
+
+1. **Search** each subreddit:
+   `mcp__Scrape_Creators__v1_reddit_subreddit_search` with
+   `{ subreddit, query: <TOPIC>, sort: "relevance", timeframe: "year" }`.
+   Rank the returned `posts` by `num_comments` (most discussion = most VOC gold)
+   and pick the top N (4–8).
+2. **Pull comments** on each picked thread:
+   `mcp__Scrape_Creators__v1_reddit_post_comments` with `{ url, trim: true }`.
+   Keep each comment's `url`/`permalink` — that's the clickable deep-link.
+3. **Synthesize** a `voc.json` (same shape as `sample/voc.json`): mine pains,
+   desires, objections, swipe phrases, and 8–10 ad angles. Every quote must be
+   **verbatim** from the JSON and carry its **real permalink**. Skip
+   `[deleted]`/`[removed]`/bot comments.
+4. **Render + shoot:**
+   ```bash
+   cd .claude/skills/run-reddit-research-agent
+   node render.mjs sample/voc.json && node shoot.mjs
+   ```
+   (or write your `voc.json` elsewhere and pass its path to `render.mjs`).
+5. Read `sample/dashboard.png` and hand the user `dashboard.html` + the angle.
+
+### B. Standalone script (for a normal machine, not this sandbox)
 
 ```bash
 echo 'YOUR_SCRAPECREATORS_KEY' > scrapecreators-key.txt   # gitignored; never commit
@@ -78,14 +107,20 @@ python3 fetch_reddit.py --query "collagen" \
   --subreddits Supplements SkincareAddiction --threads 8
 ```
 
-It writes a `runs/<slug>-<stamp>/` folder (raw JSON) and prints the path. Then
-you (Claude) read that JSON, write a `voc.json` like `sample/voc.json`, and run
-`render.mjs` / `shoot.mjs` pointed at it. Cost ≈ 1 credit per subreddit + 1 per
-thread (default run ≈ 10). Get a free key (≈100 credits) at
-https://scrapecreators.com.
+It writes a `runs/<slug>-<stamp>/` folder (raw JSON) and prints the path; then
+synthesize a `voc.json` from it and render as above. Cost ≈ 1 credit per
+subreddit + 1 per thread. Free key (≈100 credits) at https://scrapecreators.com.
+**This path fails inside the hosted environment** with
+`Tunnel connection failed: 403` because `api.scrapecreators.com` is not on the
+egress allow-list — use path A here.
 
 ## Gotchas
 
+- **The Python fetch script can't reach the API from this hosted environment.**
+  `api.scrapecreators.com` is not on the egress allow-list, so
+  `fetch_reddit.py` dies with `Tunnel connection failed: 403 Forbidden`. The
+  ScrapeCreators **MCP** is unaffected (server-side) — use the MCP path above
+  for live fetches here.
 - **`runs/` is gitignored; `sample/` is not.** Render output for the live
   pipeline lands in `runs/` and won't be committed. The committed reference
   lives in this skill's `sample/` dir on purpose.
