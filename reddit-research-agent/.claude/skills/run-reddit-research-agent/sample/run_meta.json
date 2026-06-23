@@ -1,0 +1,30 @@
+{
+  "query": "collagen",
+  "subreddits": ["Supplements", "SkincareAddiction"],
+  "sort": "relevance",
+  "timeframe": "year",
+  "generated_at": "2026-06-23T19:50:00+00:00",
+  "threads_pulled": 2,
+  "comments_analyzed": 28,
+  "subreddits_hit": 2,
+  "credits_used": 4,
+  "_note": "Sample run captured via the ScrapeCreators Reddit API (same two endpoints fetch_reddit.py calls). Real threads, real permalinks. Comment lists trimmed to a representative subset so the fixture stays small; intensities/synthesis live in fixtures/voc.json.",
+  "threads": [
+    {
+      "rank": 1,
+      "title": "Is collagen actually doing anything for anyone or am I just drinking expensive flavored water?",
+      "url": "https://www.reddit.com/r/Supplements/comments/1p18dvs/is_collagen_actually_doing_anything_for_anyone_or/",
+      "subreddit": "Supplements",
+      "votes": 286,
+      "num_comments": 247
+    },
+    {
+      "rank": 2,
+      "title": "[Personal]Has anyone actually noticed a difference from collagen drinks over time?",
+      "url": "https://www.reddit.com/r/SkincareAddiction/comments/1sepn5z/personalhas_anyone_actually_noticed_a_difference/",
+      "subreddit": "SkincareAddiction",
+      "votes": 146,
+      "num_comments": 126
+    }
+  ]
+}

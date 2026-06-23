@@ -1,0 +1,298 @@
+<!doctype html>
+<!--
+  REDDIT VOC DASHBOARD — TEMPLATE
+  ================================
+  Clone this file into the run folder as dashboard.html and fill every
+  {{PLACEHOLDER}} and every block marked <!-- REPEAT --> with synthesized
+  content from the run's JSON. Keep the CSS untouched. Rules:
+    - Every quote must be a REAL verbatim string from a comment/post in the JSON.
+    - Every quote shows its subreddit tag. Never invent a quote.
+    - Add or remove cards to fit the evidence (don't pad to a fixed count,
+      except the ad-angles hero which should land 8-10 angles).
+    - Intensity/frequency bars: set the inline --v (0-100) to reflect how
+      often / how strongly the theme showed up. Be honest, not uniform.
+  Self-contained: no external fonts, scripts, or network calls. Opens offline.
+
+  CLICKABLE QUOTES — the demo's killer detail:
+    - Every comment in thread-NN.json carries a `permalink` = the canonical URL
+      of that exact comment on Reddit. Put it in the quote's href.
+    - For a quote taken from the POST BODY (selftext) rather than a comment, use
+      the thread's `url` instead (links to the post).
+    - Swipe phrases link the same way — href = the source comment's permalink.
+    - Each ad angle's "Built from" cites a real comment; link it to that permalink.
+-->
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reddit VOC — {{TOPIC}}</title>
+<style>
+  :root{
+    --bg:#080b10; --bg2:#0b1018; --panel:#0f1620; --panel2:#121b27;
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+    --ink:#eaf0f7; --muted:#93a1b5; --faint:#5d6b80;
+    --accent:#34e2e4; --accent2:#7c8bff;
+    --pain:#ff6f61; --desire:#46e0a0; --obj:#b794f6; --gold:#f7c948;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.5; letter-spacing:.1px;
+    background-image:
+      radial-gradient(900px 500px at 12% -8%, rgba(52,226,228,.10), transparent 60%),
+      radial-gradient(900px 600px at 100% 0%, rgba(124,139,255,.10), transparent 55%),
+      linear-gradient(180deg,var(--bg),var(--bg2));
+    background-attachment:fixed;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:34px 26px 90px}
+  .mono{font-family:var(--mono)}
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--faint)}
+
+  /* ---- Top bar ---- */
+  .topbar{display:flex; align-items:flex-end; justify-content:space-between;
+    gap:20px; padding-bottom:22px; border-bottom:1px solid var(--line); flex-wrap:wrap}
+  .brand .dot{display:inline-block; width:9px; height:9px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 12px var(--accent); margin-right:9px;
+    vertical-align:middle; animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .brand .label{font-family:var(--mono); font-size:12px; letter-spacing:.24em;
+    text-transform:uppercase; color:var(--muted)}
+  h1{margin:.32em 0 0; font-size:42px; line-height:1.05; font-weight:680;
+    letter-spacing:-.5px}
+  h1 .accent{background:linear-gradient(95deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  .runline{font-family:var(--mono); font-size:11.5px; color:var(--faint); text-align:right}
+  .hint{margin-top:14px; font-family:var(--mono); font-size:11.5px; color:var(--faint)}
+  .hint b{color:var(--accent); font-weight:500}
+
+  /* ---- Stat strip ---- */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0 12px}
+  .stat{background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px;
+    position:relative; overflow:hidden}
+  .stat::after{content:""; position:absolute; left:0; right:0; bottom:0; height:2px;
+    background:linear-gradient(90deg,var(--accent),transparent)}
+  .stat .num{font-family:var(--mono); font-size:34px; font-weight:600; letter-spacing:-1px}
+  .stat .cap{font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--muted); margin-top:4px}
+
+  /* ---- Section scaffolding ---- */
+  section{margin-top:46px}
+  .shead{display:flex; align-items:baseline; gap:14px; margin-bottom:18px}
+  .shead .idx{font-family:var(--mono); font-size:12px; color:var(--faint)}
+  .shead h2{margin:0; font-size:22px; font-weight:640; letter-spacing:-.2px}
+  .shead .sub{color:var(--muted); font-size:13.5px; margin-left:auto;
+    font-family:var(--mono)}
+  .rule{flex:1; height:1px; background:var(--line)}
+
+  .grid{display:grid; gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+
+  .card{background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px;
+    position:relative}
+  .card .top{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+  .rank{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--bg);
+    background:var(--pain); width:26px; height:26px; border-radius:7px;
+    display:grid; place-items:center; flex:none}
+  .ctitle{font-weight:620; font-size:15.5px}
+
+  /* clickable quote — opens the exact comment on Reddit */
+  a.quote{display:block; text-decoration:none; color:var(--ink);
+    border-left:2px solid var(--line2); padding:5px 8px 5px 14px; margin:10px 0;
+    border-radius:0 8px 8px 0; transition:border-color .15s,color .15s,background .15s}
+  a.quote .qt{font-size:15px; font-style:italic}
+  a.quote .qt::before{content:"\201C"} a.quote .qt::after{content:"\201D"}
+  a.quote .ext{display:block; margin-top:7px; font-family:var(--mono); font-size:10.5px;
+    letter-spacing:.04em; color:var(--faint); transition:color .15s}
+  a.quote .ext::before{content:"\2197  "}
+  a.quote:hover{border-left-color:var(--accent); color:#fff; background:rgba(52,226,228,.06)}
+  a.quote:hover .ext{color:var(--accent)}
+  .meta{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px}
+  .tag{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em;
+    color:var(--muted); background:rgba(255,255,255,.04);
+    border:1px solid var(--line); border-radius:999px; padding:3px 9px}
+  .tag.sub{color:var(--accent); border-color:rgba(52,226,228,.3)}
+
+  /* intensity meter */
+  .meter{height:5px; border-radius:3px; background:rgba(255,255,255,.06); margin-top:12px; overflow:hidden}
+  .meter > i{display:block; height:100%; width:calc(var(--v,60)*1%);
+    border-radius:3px; background:linear-gradient(90deg,var(--pain),#ffb199)}
+  .desire .meter > i{background:linear-gradient(90deg,var(--desire),#9cf6cf)}
+  .desire a.quote{border-left-color:rgba(70,224,160,.4)}
+  .desire a.quote:hover{border-left-color:var(--desire); background:rgba(70,224,160,.06)}
+  .desire a.quote:hover .ext{color:var(--desire)}
+  .obj .meter > i{background:linear-gradient(90deg,var(--obj),#d6c4ff)}
+  .obj a.quote:hover{border-left-color:var(--obj); background:rgba(183,148,246,.06)}
+  .obj a.quote:hover .ext{color:var(--obj)}
+  .obj .rank{background:var(--obj)}
+  .desire .rank{background:var(--desire)}
+
+  /* ---- Swipe file ---- */
+  .swipe{background:
+      linear-gradient(180deg,rgba(247,201,72,.06),transparent),
+      linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid rgba(247,201,72,.22); border-radius:16px; padding:22px}
+  .swipe .grid{grid-template-columns:repeat(2,1fr); gap:10px}
+  a.phrase{display:flex; gap:11px; align-items:flex-start; padding:11px 13px; text-decoration:none;
+    color:var(--ink); background:rgba(255,255,255,.025); border:1px solid var(--line);
+    border-radius:10px; font-size:14px; transition:border-color .15s,background .15s,transform .12s}
+  a.phrase .mk{color:var(--gold); font-family:var(--mono); flex:none}
+  a.phrase:hover{border-color:rgba(247,201,72,.55); background:rgba(247,201,72,.09); transform:translateX(2px)}
+
+  /* ---- HERO: ad angles ---- */
+  .hero{margin-top:60px; padding:30px 26px 32px; border-radius:20px;
+    border:1px solid var(--line2); position:relative; overflow:hidden;
+    background:
+      radial-gradient(700px 320px at 15% -20%,rgba(124,139,255,.16),transparent 60%),
+      radial-gradient(700px 320px at 100% 120%,rgba(52,226,228,.14),transparent 60%),
+      linear-gradient(180deg,#0d141e,#0a0f17)}
+  .hero .badge{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono);
+    font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--bg);
+    background:linear-gradient(95deg,var(--accent),var(--accent2));
+    padding:5px 12px; border-radius:999px; font-weight:600}
+  .hero h2{font-size:30px; margin:14px 0 4px; letter-spacing:-.5px}
+  .hero p.lead{color:var(--muted); margin:0 0 22px; max-width:620px; font-size:14.5px}
+  .angles{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  .angle{background:rgba(10,15,23,.6); border:1px solid var(--line2);
+    border-radius:14px; padding:18px; position:relative; transition:transform .15s,border-color .15s}
+  .angle:hover{transform:translateY(-3px); border-color:rgba(52,226,228,.5)}
+  .angle .n{position:absolute; top:14px; right:16px; font-family:var(--mono);
+    font-size:11px; color:var(--faint)}
+  .angle .name{font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--accent); margin-bottom:9px}
+  .angle .hook{font-size:18px; font-weight:600; line-height:1.28; letter-spacing:-.2px}
+  .angle .from{margin-top:11px; font-size:12px; color:var(--faint); font-style:italic;
+    border-top:1px dashed var(--line); padding-top:9px}
+  .angle .from a{color:var(--muted); text-decoration:none; border-bottom:1px dotted var(--faint)}
+  .angle .from a:hover{color:var(--accent); border-color:var(--accent)}
+  .angle .from b{color:var(--muted); font-style:normal; font-family:var(--mono);
+    font-size:10px; letter-spacing:.1em; text-transform:uppercase}
+
+  footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:11px; color:var(--faint); display:flex;
+    justify-content:space-between; flex-wrap:wrap; gap:8px}
+
+  @media(max-width:820px){
+    .stats{grid-template-columns:repeat(2,1fr)} .g2,.g3,.angles,.swipe .grid{grid-template-columns:1fr}
+    h1{font-size:32px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="label"><span class="dot"></span>Reddit Voice-of-Customer</span>
+      <h1>{{TOPIC}} <span class="accent">VOC Report</span></h1>
+      <div class="hint"><b>Every quote is clickable</b> — opens the exact comment on Reddit ↗</div>
+    </div>
+    <div class="runline">
+      r/{{SUBREDDIT_A}} &nbsp;·&nbsp; r/{{SUBREDDIT_B}}<br>
+      {{GENERATED_AT}}
+    </div>
+  </header>
+
+  <!-- ============ STAT STRIP ============ -->
+  <div class="stats">
+    <div class="stat"><div class="num">{{THREADS}}</div><div class="cap">Threads pulled</div></div>
+    <div class="stat"><div class="num">{{COMMENTS}}</div><div class="cap">Comments analyzed</div></div>
+    <div class="stat"><div class="num">{{SUBREDDITS}}</div><div class="cap">Subreddits hit</div></div>
+    <div class="stat"><div class="num">{{CREDITS}}</div><div class="cap">Credits used</div></div>
+  </div>
+
+  <!-- ============ 01 · PAIN POINTS ============ -->
+  <section>
+    <div class="shead"><span class="idx">01</span><h2>Pain Points, Ranked</h2>
+      <span class="rule"></span><span class="sub">// what hurts, most-cited first</span></div>
+    <div class="grid g2">
+      <!-- REPEAT: one .card per ranked pain. Set --v on .meter for intensity. -->
+      <div class="card">
+        <div class="top"><span class="rank">1</span><span class="ctitle">{{PAIN_NAME}}</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="{{COMMENT_URL}}"><span class="qt">{{VERBATIM_QUOTE}}</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="tag sub">r/{{SUBREDDIT}}</span><span class="tag">{{N}} mentions</span></div>
+        <div class="meter"><i style="--v:88"></i></div>
+      </div>
+      <!-- /REPEAT -->
+    </div>
+  </section>
+
+  <!-- ============ 02 · WHAT THEY WANT ============ -->
+  <section>
+    <div class="shead"><span class="idx">02</span><h2>What They Actually Want</h2>
+      <span class="rule"></span><span class="sub">// desire, in their words</span></div>
+    <div class="grid g2 desire">
+      <!-- REPEAT: one .card per desire theme -->
+      <div class="card">
+        <div class="top"><span class="rank">1</span><span class="ctitle">{{DESIRE_NAME}}</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="{{COMMENT_URL}}"><span class="qt">{{VERBATIM_QUOTE}}</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="tag sub">r/{{SUBREDDIT}}</span></div>
+        <div class="meter"><i style="--v:72"></i></div>
+      </div>
+      <!-- /REPEAT -->
+    </div>
+  </section>
+
+  <!-- ============ 03 · OBJECTIONS ============ -->
+  <section>
+    <div class="shead"><span class="idx">03</span><h2>Objections &amp; What's Burned Them</h2>
+      <span class="rule"></span><span class="sub">// why they don't buy</span></div>
+    <div class="grid g2 obj">
+      <!-- REPEAT: one .card per objection -->
+      <div class="card">
+        <div class="top"><span class="rank">1</span><span class="ctitle">{{OBJECTION_NAME}}</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="{{COMMENT_URL}}"><span class="qt">{{VERBATIM_QUOTE}}</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="tag sub">r/{{SUBREDDIT}}</span></div>
+        <div class="meter"><i style="--v:64"></i></div>
+      </div>
+      <!-- /REPEAT -->
+    </div>
+  </section>
+
+  <!-- ============ 04 · SWIPE FILE ============ -->
+  <section>
+    <div class="shead"><span class="idx">04</span><h2>Swipe File</h2>
+      <span class="rule"></span><span class="sub">// exact phrases to lift into copy</span></div>
+    <div class="swipe">
+      <div class="grid">
+        <!-- REPEAT: one .phrase per liftable phrase; href = source comment permalink -->
+        <a class="phrase" target="_blank" rel="noopener" href="{{COMMENT_URL}}"><span class="mk">&gt;</span><span>{{EXACT_PHRASE}}</span></a>
+        <!-- /REPEAT -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HERO · AD ANGLES ============ -->
+  <section class="hero" id="angles">
+    <span class="badge">◆ The Payoff</span>
+    <h2>8–10 Ad Angles, Ready to Test</h2>
+    <p class="lead">Each hook is built from the pains, desires, and objections above —
+      phrased in the customer's own language. Drop straight into a Meta test.</p>
+    <div class="angles">
+      <!-- REPEAT: 8-10 .angle cards. .from cites which insight it came from. -->
+      <div class="angle">
+        <span class="n">01</span>
+        <div class="name">{{ANGLE_NAME}}</div>
+        <div class="hook">{{HOOK_LINE}}</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="{{COMMENT_URL}}">{{SOURCE_INSIGHT}} ↗</a></div>
+      </div>
+      <!-- /REPEAT -->
+    </div>
+  </section>
+
+  <footer>
+    <span>Reddit VOC · ScrapeCreators API · {{CREDITS}} credits</span>
+    <span>{{TOPIC}} · generated {{GENERATED_AT}}</span>
+  </footer>
+
+</div>
+</body>
+</html>

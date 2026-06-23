@@ -1,0 +1,14 @@
+# Secrets — never commit a real key
+scrapecreators-key.txt
+*.key
+.env
+.env.*
+*.secret
+
+# Generated run output (raw JSON + rendered dashboards)
+runs/
+
+# OS / editor cruft
+.DS_Store
+__pycache__/
+*.pyc

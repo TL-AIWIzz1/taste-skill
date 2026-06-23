@@ -23,6 +23,9 @@ For upgrading existing projects. Instead of rebuilding from zero, this skill wal
 ### 3. output-skill
 Stops the AI from being lazy. Prevents placeholder comments, skipped code blocks, and half-finished outputs. Forces the AI to actually write everything instead of cutting corners.
 
+### 4. reddit-research-agent
+A different kind of skill (by Mike Futia / SCALE AI). Turns real Reddit discussion into a polished dark voice-of-customer dashboard — ranked pains, desires, objections, a swipe file, and 8–10 ready-to-test ad angles, every quote deep-linked to the exact comment. A thin Python layer (`fetch_reddit.py`) fetches; Claude synthesizes and fills `dashboard-template.html`. Includes a `run-reddit-research-agent` skill that renders + screenshots the dashboard from a bundled real-data sample (no API key needed) — see `reddit-research-agent/.claude/skills/`.
+
 ## How to Use
 
 1. Copy the `SKILL.md` file from the skill folder you need into your project.
