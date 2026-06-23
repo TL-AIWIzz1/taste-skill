@@ -1,0 +1,103 @@
+{
+  "topic": "Paddle",
+  "brand_line": "Paddle · Meta Ad Library · 70 active ad variants decoded for the Stripe Roulette offer",
+  "generated_at": "2026-06-23",
+  "stats": { "ads": 70, "longest": 6, "threads": 7, "quotes": 96 },
+
+  "ads": [
+    {
+      "brand": "Paddle", "days": 6, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Chargebacks, churn, failed payments — they don't have to be inevitable. Don't let revenue leaks compound. Paddle's smart dunning software recovers up to 30% revenue.",
+      "url": "https://www.facebook.com/ads/library?id=881031837857778"
+    },
+    {
+      "brand": "Paddle", "days": 6, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Are you leaking revenue without realizing it? Checkout friction. Failed payments. Static pricing. Zero localization. This playbook shows you how to fix these bottlenecks and grow in the AI era.",
+      "url": "https://www.facebook.com/ads/library?id=1313754967406233"
+    },
+    {
+      "brand": "Paddle", "days": 6, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "HubX increased payment acceptance, recovered $100k revenue, and offloaded compliance, chargebacks, and global tax to Paddle. Less complexity. More revenue. Minimal engineering lift.",
+      "url": "https://www.facebook.com/ads/library?id=1784380426061210"
+    },
+    {
+      "brand": "Paddle", "days": 6, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Most payment providers don't help you fix revenue leaks. Paddle's recovery tools, smart dunning, and chargeback management work continuously to protect and grow your bottom line.",
+      "url": "https://www.facebook.com/ads/library?id=1370587981587514"
+    },
+    {
+      "brand": "Paddle", "days": 6, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Most apps don't realise their tax exposure until it's too late. Save the headache and offload tax liability to Paddle. No surprises, less risk, more time on your product.",
+      "url": "https://www.facebook.com/ads/library?id=1278053674143231"
+    },
+    {
+      "brand": "Paddle", "days": 6, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Your competitors don't nail their pricing the first time, but they do test and iterate at speed. With Paddle, launch new tiers, bundles, and A/B tests without touching your codebase.",
+      "url": "https://www.facebook.com/ads/library?id=2041216693447730"
+    },
+    {
+      "brand": "Paddle", "days": 6, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "Engineering hours. Global expansion delays. Mounting support requests. The real cost of your billing stack goes way beyond transaction fees. Paddle replaces the complexity with one integration, one team.",
+      "url": "https://www.facebook.com/ads/library?id=1011495634618718"
+    },
+    {
+      "brand": "Paddle", "days": 4, "cta": "Learn more", "platforms": "FB · IG",
+      "copy": "External payments are accelerating revenue for leading apps. Stoikk saw +25% revenue and +15% LTV in just 30 days — with 0% drop in conversions. Read the full story.",
+      "url": "https://www.facebook.com/ads/library?id=1373968647914426"
+    }
+  ],
+
+  "plays": [
+    { "name": "70 variants, refreshed every few days", "note": "Not a longevity play — a VOLUME play. Paddle floods the auction with fresh creative and tests relentlessly. Heavy, sustained spend." },
+    { "name": "\"Leaking revenue without realizing it\"", "note": "Their hook is identical to the Stripe Roulette premise — the leak framing is validated and proven at scale." },
+    { "name": "Merchant-of-record bundle", "note": "Recovery + chargebacks + global tax + compliance sold as one offload. The pitch is \"replace your stack,\" not \"tweak it.\"" },
+    { "name": "Named case studies, hard numbers", "note": "HubX $100k recovered, Stoikk +25% rev / +15% LTV, \"up to 30% revenue.\" Specific proof does the persuading." },
+    { "name": "Pricing-experimentation angle", "note": "\"A/B test pricing without touching your codebase\" — a second, separate value prop beyond leaks." },
+    { "name": "Anti-incumbent positioning", "note": "\"Most payment providers don't help you fix revenue leaks\" — a direct swipe at raw Stripe." },
+    { "name": "Playbook lead-magnets", "note": "\"Download the playbook\" content offers feed a longer nurture funnel before the sales conversation." }
+  ],
+
+  "gaps": [
+    {
+      "name": "Priced for scale, not solo founders", "ignored": true, "status": "Whitespace for a $9 offer",
+      "quote": "too small for expensive tools like Churn Buster (£200+/month)",
+      "url": "https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/failed_payment_recovery_what_do_you_use/",
+      "note": "Paddle targets \"high-growth apps at scale.\" The crowd asking for cheap help is wide open — exactly the $9 buyer."
+    },
+    {
+      "name": "Requires ripping out your stack", "ignored": true, "status": "Open: fix-don't-switch",
+      "quote": "Before you rip out Stripe… most founders find a setting worth $40–$200/month.",
+      "url": "https://www.reddit.com/r/stripe/comments/1phnfj4/great_alternatives_to_stripe/",
+      "note": "Paddle = migrate to a merchant of record. Many just want to fix the Stripe they already run, today."
+    },
+    {
+      "name": "Never names a single setting", "ignored": true, "status": "Whitespace",
+      "quote": "Make your billing descriptor crystal clear … You can customize this in your Stripe dashboard.",
+      "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/of7wjck/",
+      "note": "Paddle says \"fix bottlenecks\" but never tells you which. The offer's whole value is the specific checklist."
+    },
+    {
+      "name": "Takes a % of revenue, forever", "ignored": true, "status": "Open: pay once",
+      "quote": "Churn Buster costs too much and I don't want the churn and losing revenue due to this.",
+      "url": "https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/comment/nmw0oby/",
+      "note": "MoR + dunning take an ongoing cut. \"Find the leak once for $9\" is a clean counter-position."
+    },
+    {
+      "name": "It's a migration, not a quick win", "ignored": false, "status": "Owned by Paddle (case studies)",
+      "quote": "5–10% is unfortunately common if you're just relying on Stripe defaults.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/",
+      "note": "Paddle owns the \"big recovery, big proof\" story. Don't fight on scale — win on speed: 15 minutes vs an integration project."
+    }
+  ],
+
+  "angles": [
+    { "name": "You Don't Need to Re-Platform", "hook": "Paddle wants you to rip out Stripe. You just need to fix 3 settings. $9, 15 minutes.", "source": "Gap · fix-don't-switch", "url": "https://www.reddit.com/r/stripe/comments/1phnfj4/great_alternatives_to_stripe/" },
+    { "name": "Recover Revenue, Keep All of It", "hook": "Dunning tools take a cut of your recovery forever. Find the leak once — and keep 100%.", "source": "Objection · ongoing % cost", "url": "https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/comment/nmw0oby/" },
+    { "name": "Too Small for Paddle? Perfect.", "hook": "Not 'at scale' yet? You're exactly who's bleeding the highest % — and who Paddle ignores.", "source": "Gap · priced for scale", "url": "https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/failed_payment_recovery_what_do_you_use/" },
+    { "name": "The Leak Paddle Won't Name", "hook": "\"Fix revenue bottlenecks,\" they say — but never which one. We hand you the exact 47-point checklist.", "source": "Gap · never names a setting", "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/of7wjck/" },
+    { "name": "15 Minutes, Not a Migration", "hook": "Paddle is a quarter-long integration. This is a coffee break and a $9 checklist.", "source": "Gap · migration vs quick win", "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/" },
+    { "name": "You Didn't Even Notice", "hook": "Gross $100k, net $91k. The leak is already in your Stripe — no new platform required.", "source": "VOC · hidden fees", "url": "https://www.reddit.com/r/ecommerce/comments/15djkjv/stripe_fees_are_a_little_bit_crazy_i_didnt_even/" },
+    { "name": "Borrow Their Hook, Beat Their Price", "hook": "\"Leaking revenue without realizing it?\" Paddle's right — but you can plug it for $9, not a % forever.", "source": "Play · leak framing", "url": "https://www.facebook.com/ads/library?id=1313754967406233" },
+    { "name": "Keep Your Stripe. Plug the Holes.", "hook": "Love Stripe but hate the leaks? Don't migrate — audit. 47 settings, 15 minutes.", "source": "Gap · fix-don't-switch", "url": "https://www.reddit.com/r/stripe/comments/1phnfj4/great_alternatives_to_stripe/" }
+  ]
+}

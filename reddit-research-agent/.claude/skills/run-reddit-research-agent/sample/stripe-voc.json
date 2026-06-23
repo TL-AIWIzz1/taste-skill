@@ -1,0 +1,123 @@
+{
+  "topic": "Stripe Revenue Leaks",
+  "subreddit_a": "stripe",
+  "subreddit_b": "SaaS",
+  "generated_at": "2026-06-23 · r/stripe · r/SaaS · r/ecommerce · r/smallbusiness · r/Entrepreneur · r/indiehackers",
+  "stats": { "threads": 7, "comments": 96, "subreddits": 6, "credits": 18 },
+
+  "pains": [
+    {
+      "name": "Hidden fees you never noticed",
+      "quote": "What we didn't notice is that Stripe actually takes money from you… gross volume $100,000 vs net volume $91,000.",
+      "url": "https://www.reddit.com/r/ecommerce/comments/15djkjv/stripe_fees_are_a_little_bit_crazy_i_didnt_even/",
+      "subreddit": "ecommerce", "mentions": 14, "v": 90
+    },
+    {
+      "name": "Failed payments quietly bleed MRR",
+      "quote": "Stripe does auto-retry but I'm still bleeding money from customers who just… don't update their cards.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/losing_510_revenue_to_failed_payments_is_this/",
+      "subreddit": "SaaS", "mentions": 12, "v": 88
+    },
+    {
+      "name": "80% failing — revenue left on the table",
+      "quote": "my revenue would likely double or triple if more of these payments went through.",
+      "url": "https://www.reddit.com/r/stripe/comments/1s2wp37/80_of_my_stripe_payments_are_failing/",
+      "subreddit": "stripe", "mentions": 9, "v": 84
+    },
+    {
+      "name": "$15 chargeback fee even when you win",
+      "quote": "Stripe hits you with a $15 fee on every single chargeback — and they keep that money even if you win… if you lose, you're out $30.",
+      "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/stripe_charges_you_15_for_every_chargeback_even/",
+      "subreddit": "smallbusiness", "mentions": 7, "v": 80
+    },
+    {
+      "name": "Refund fees on cancelled orders",
+      "quote": "I got a bill for $44 for that cancelled sale. I feel like I'm getting completely fleeced.",
+      "url": "https://www.reddit.com/r/ecommerce/comments/16j0ied/payment_processing_fees_are_killing_me/",
+      "subreddit": "ecommerce", "mentions": 5, "v": 70
+    }
+  ],
+
+  "desires": [
+    {
+      "name": "Find the one leak doing the damage",
+      "quote": "once you break it down by decline type … you usually find one category doing most of the damage.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/",
+      "subreddit": "SaaS", "v": 86
+    },
+    {
+      "name": "A setting that stops the bleed",
+      "quote": "change your checkout setting so that you manually accept the payment instead of automatically … If you don't accept = no fees.",
+      "url": "https://www.reddit.com/r/ecommerce/comments/16j0ied/comment/k0pitmw/",
+      "subreddit": "ecommerce", "v": 82
+    },
+    {
+      "name": "Recover money already earned",
+      "quote": "we started sending email sequences when cards fail … recovered maybe 2-3% of that revenue back.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5dcu36/",
+      "subreddit": "SaaS", "v": 76
+    },
+    {
+      "name": "A clear billing descriptor (fewer disputes)",
+      "quote": "Make your billing descriptor crystal clear … You can customize this in your Stripe dashboard.",
+      "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/of7wjck/",
+      "subreddit": "smallbusiness", "v": 70
+    },
+    {
+      "name": "Affordable — not £200/mo tools",
+      "quote": "too small for expensive tools like Churn Buster (£200+/month)",
+      "url": "https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/failed_payment_recovery_what_do_you_use/",
+      "subreddit": "Entrepreneur", "v": 74
+    }
+  ],
+
+  "objections": [
+    {
+      "name": "\"All processors do this anyway\"",
+      "quote": "All processors do this to my knowledge. I believe they are charged and just pass it on.",
+      "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/of3kfyh/",
+      "subreddit": "smallbusiness", "v": 78
+    },
+    {
+      "name": "\"It's just part of doing business\"",
+      "quote": "Yeah 5-10% sounds about right unfortunately … it's just part of the SaaS game.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5dcu36/",
+      "subreddit": "SaaS", "v": 72
+    },
+    {
+      "name": "Recovery tools cost too much",
+      "quote": "Churn Buster costs too much and I don't want the churn and losing revenue due to this.",
+      "url": "https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/comment/nmw0oby/",
+      "subreddit": "Entrepreneur", "v": 66
+    },
+    {
+      "name": "\"Stripe profits from the problem\"",
+      "quote": "they took their liability and put it on the backs of small businesses, and in fact profit from fraud.",
+      "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/of6p0wd/",
+      "subreddit": "smallbusiness", "v": 60
+    }
+  ],
+
+  "phrases": [
+    { "text": "gross volume $100,000 vs net volume $91,000", "url": "https://www.reddit.com/r/ecommerce/comments/15djkjv/stripe_fees_are_a_little_bit_crazy_i_didnt_even/" },
+    { "text": "my revenue would likely double or triple if more of these payments went through", "url": "https://www.reddit.com/r/stripe/comments/1s2wp37/80_of_my_stripe_payments_are_failing/" },
+    { "text": "a $15 fee on every chargeback — and they keep that money even if you win", "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/stripe_charges_you_15_for_every_chargeback_even/" },
+    { "text": "I got a bill for $44 for that cancelled sale", "url": "https://www.reddit.com/r/ecommerce/comments/16j0ied/payment_processing_fees_are_killing_me/" },
+    { "text": "5–10% is common if you're just relying on Stripe defaults", "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/" },
+    { "text": "I just knew about manually capture", "url": "https://www.reddit.com/r/ecommerce/comments/15djkjv/comment/l3dpxza/" },
+    { "text": "too small for expensive tools like Churn Buster (£200+/month)", "url": "https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/failed_payment_recovery_what_do_you_use/" },
+    { "text": "make your billing descriptor crystal clear … customize this in your Stripe dashboard", "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/of7wjck/" }
+  ],
+
+  "angles": [
+    { "name": "You Didn't Even Notice", "hook": "Gross $100k, net $91k. Stripe skims through settings you never touched — find them in 15 minutes.", "source": "Pain · hidden fees", "url": "https://www.reddit.com/r/ecommerce/comments/15djkjv/stripe_fees_are_a_little_bit_crazy_i_didnt_even/" },
+    { "name": "It's Your Defaults", "hook": "Losing 5–10% a month isn't normal — it's settings on default, and one category does most of the damage.", "source": "Desire · find the leak", "url": "https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/" },
+    { "name": "$15 Even If You Win", "hook": "Every chargeback costs you $15 even when you win. Two settings cut how often they happen.", "source": "Pain · chargeback fee", "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/stripe_charges_you_15_for_every_chargeback_even/" },
+    { "name": "One Setting, No Refund Fee", "hook": "Cancelled orders cost $44 a pop — until you switch to manual capture.", "source": "Desire · settings fix", "url": "https://www.reddit.com/r/ecommerce/comments/16j0ied/comment/k0pitmw/" },
+    { "name": "Fix the Descriptor", "hook": "Customers dispute charges they don't recognise. Clean up your billing descriptor and watch disputes drop.", "source": "Desire · descriptor", "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/of7wjck/" },
+    { "name": "Skip the £200/mo Tool", "hook": "Too small for Churn Buster? Recover the same revenue with a $9 settings audit.", "source": "Objection · tools cost too much", "url": "https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/comment/nmw0oby/" },
+    { "name": "Don't Switch, Fix", "hook": "Before you leave Stripe over fees, spend $9 and 15 minutes plugging the holes you already have.", "source": "Pain · leaving Stripe", "url": "https://www.reddit.com/r/stripe/comments/1phnfj4/great_alternatives_to_stripe/" },
+    { "name": "Double Without More Traffic", "hook": "Founders watched revenue jump just by fixing retries and declines — zero extra ad spend.", "source": "Pain · revenue would double", "url": "https://www.reddit.com/r/stripe/comments/1s2wp37/80_of_my_stripe_payments_are_failing/" },
+    { "name": "Turn On What Stripe Hides", "hook": "Verifi & Radar → Disputes are off by default for most accounts. Flip them on and stop pre-paying for fraud.", "source": "Desire · hidden settings", "url": "https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/ok7noj5/" }
+  ]
+}

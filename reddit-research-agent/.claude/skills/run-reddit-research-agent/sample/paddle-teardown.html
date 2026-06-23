@@ -1,0 +1,372 @@
+<!doctype html>
+<!--
+  COMPETITOR AD TEARDOWN × VOC — TEMPLATE
+  =======================================
+  Merged dashboard: Meta Ad Library competitor teardown + Reddit voice-of-customer.
+  Fill every {{PLACEHOLDER}} and clone each <!-- REPEAT --> block. Rules:
+    - Ad copy is the REAL ad body from the Ad Library; link href = the ad's
+      facebook.com/ads/library URL.
+    - VOC quotes are REAL verbatim Reddit comments; link href = the comment permalink.
+    - "Days live" = how long the ad has been running (longevity = it's working).
+    - Section order of REPEAT blocks: ads -> hooks -> gaps -> angles.
+  Self-contained: no external fonts/scripts/network. Opens offline.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ad Teardown × VOC — Paddle</title>
+<style>
+  :root{
+    --bg:#080b10; --bg2:#0b1018; --panel:#0f1620; --panel2:#121b27;
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+    --ink:#eaf0f7; --muted:#93a1b5; --faint:#5d6b80;
+    --accent:#34e2e4; --accent2:#7c8bff;
+    --pain:#ff6f61; --desire:#46e0a0; --obj:#b794f6; --gold:#f7c948;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.5; letter-spacing:.1px;
+    background-image:
+      radial-gradient(900px 500px at 12% -8%, rgba(52,226,228,.10), transparent 60%),
+      radial-gradient(900px 600px at 100% 0%, rgba(124,139,255,.10), transparent 55%),
+      linear-gradient(180deg,var(--bg),var(--bg2));
+    background-attachment:fixed;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:34px 26px 90px}
+  .mono{font-family:var(--mono)}
+
+  .topbar{display:flex; align-items:flex-end; justify-content:space-between;
+    gap:20px; padding-bottom:22px; border-bottom:1px solid var(--line); flex-wrap:wrap}
+  .brand .dot{display:inline-block; width:9px; height:9px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 12px var(--accent); margin-right:9px;
+    vertical-align:middle; animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .brand .label{font-family:var(--mono); font-size:12px; letter-spacing:.24em;
+    text-transform:uppercase; color:var(--muted)}
+  h1{margin:.32em 0 0; font-size:42px; line-height:1.05; font-weight:680; letter-spacing:-.5px}
+  h1 .accent{background:linear-gradient(95deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  .runline{font-family:var(--mono); font-size:11.5px; color:var(--faint); text-align:right}
+  .hint{margin-top:14px; font-family:var(--mono); font-size:11.5px; color:var(--faint)}
+  .hint b{color:var(--accent); font-weight:500}
+
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0 12px}
+  .stat{background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px; position:relative; overflow:hidden}
+  .stat::after{content:""; position:absolute; left:0; right:0; bottom:0; height:2px;
+    background:linear-gradient(90deg,var(--accent),transparent)}
+  .stat .num{font-family:var(--mono); font-size:34px; font-weight:600; letter-spacing:-1px}
+  .stat .cap{font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--muted); margin-top:4px}
+
+  section{margin-top:46px}
+  .shead{display:flex; align-items:baseline; gap:14px; margin-bottom:18px}
+  .shead .idx{font-family:var(--mono); font-size:12px; color:var(--faint)}
+  .shead h2{margin:0; font-size:22px; font-weight:640; letter-spacing:-.2px}
+  .shead .sub{color:var(--muted); font-size:13.5px; margin-left:auto; font-family:var(--mono)}
+  .rule{flex:1; height:1px; background:var(--line)}
+
+  .grid{display:grid; gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+
+  .card{background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px; position:relative}
+  .card .top{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+  .rank{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--bg);
+    background:var(--accent2); width:26px; height:26px; border-radius:7px; display:grid; place-items:center; flex:none}
+  .ctitle{font-weight:620; font-size:15.5px}
+
+  a.quote{display:block; text-decoration:none; color:var(--ink);
+    border-left:2px solid var(--line2); padding:5px 8px 5px 14px; margin:10px 0;
+    border-radius:0 8px 8px 0; transition:border-color .15s,color .15s,background .15s}
+  a.quote .qt{font-size:14.5px; font-style:italic}
+  a.quote .qt::before{content:"\201C"} a.quote .qt::after{content:"\201D"}
+  a.quote .ext{display:block; margin-top:7px; font-family:var(--mono); font-size:10.5px; color:var(--faint); transition:color .15s}
+  a.quote .ext::before{content:"\2197  "}
+  a.quote:hover{border-left-color:var(--accent); color:#fff; background:rgba(52,226,228,.06)}
+  a.quote:hover .ext{color:var(--accent)}
+  .meta{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px}
+  .tag{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);
+    background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:999px; padding:3px 9px}
+  .tag.hot{color:var(--gold); border-color:rgba(247,201,72,.4); background:rgba(247,201,72,.07)}
+  .tag.cta{color:var(--accent2); border-color:rgba(124,139,255,.4)}
+  .tag.plat{color:var(--accent); border-color:rgba(52,226,228,.3)}
+
+  .meter{height:5px; border-radius:3px; background:rgba(255,255,255,.06); margin-top:12px; overflow:hidden}
+  .meter > i{display:block; height:100%; width:calc(var(--v,60)*1%); border-radius:3px;
+    background:linear-gradient(90deg,var(--gold),#ffe39a)}
+
+  /* recurring plays */
+  .plays{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+  .play{display:flex; gap:11px; align-items:flex-start; padding:13px 15px; background:rgba(255,255,255,.025);
+    border:1px solid var(--line); border-radius:11px}
+  .play .hk{color:var(--accent); font-family:var(--mono); flex:none}
+  .play b{display:block; font-size:14px; font-weight:620; margin-bottom:3px}
+  .play span.d{color:var(--muted); font-size:12.5px}
+
+  /* gap map */
+  .gap .rank{background:var(--pain)}
+  .gap a.quote:hover{border-left-color:var(--pain); background:rgba(255,111,97,.06)}
+  .gap a.quote:hover .ext{color:var(--pain)}
+  .status{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; padding:3px 9px; border-radius:999px; border:1px solid var(--line)}
+  .status.ignored{color:var(--pain); border-color:rgba(255,111,97,.45); background:rgba(255,111,97,.08)}
+  .status.run{color:var(--desire); border-color:rgba(70,224,160,.35); background:rgba(70,224,160,.06)}
+
+  .hero{margin-top:60px; padding:30px 26px 32px; border-radius:20px; border:1px solid var(--line2);
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(700px 320px at 15% -20%,rgba(124,139,255,.16),transparent 60%),
+      radial-gradient(700px 320px at 100% 120%,rgba(52,226,228,.14),transparent 60%),
+      linear-gradient(180deg,#0d141e,#0a0f17)}
+  .hero .badge{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--bg);
+    background:linear-gradient(95deg,var(--accent),var(--accent2)); padding:5px 12px; border-radius:999px; font-weight:600}
+  .hero h2{font-size:30px; margin:14px 0 4px; letter-spacing:-.5px}
+  .hero p.lead{color:var(--muted); margin:0 0 22px; max-width:640px; font-size:14.5px}
+  .angles{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  .angle{background:rgba(10,15,23,.6); border:1px solid var(--line2); border-radius:14px; padding:18px;
+    position:relative; transition:transform .15s,border-color .15s}
+  .angle:hover{transform:translateY(-3px); border-color:rgba(52,226,228,.5)}
+  .angle .n{position:absolute; top:14px; right:16px; font-family:var(--mono); font-size:11px; color:var(--faint)}
+  .angle .name{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:9px}
+  .angle .hook{font-size:18px; font-weight:600; line-height:1.28; letter-spacing:-.2px}
+  .angle .from{margin-top:11px; font-size:12px; color:var(--faint); font-style:italic; border-top:1px dashed var(--line); padding-top:9px}
+  .angle .from a{color:var(--muted); text-decoration:none; border-bottom:1px dotted var(--faint)}
+  .angle .from a:hover{color:var(--accent); border-color:var(--accent)}
+  .angle .from b{color:var(--muted); font-style:normal; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase}
+
+  footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:11px; color:var(--faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
+
+  @media(max-width:820px){
+    .stats{grid-template-columns:repeat(2,1fr)} .g2,.angles,.plays{grid-template-columns:1fr}
+    h1{font-size:32px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="label"><span class="dot"></span>Competitor Ad Teardown × VOC</span>
+      <h1>Paddle <span class="accent">Intel Report</span></h1>
+      <div class="hint"><b>Everything is clickable</b> — ads open in the Meta Ad Library, quotes open the exact Reddit comment ↗</div>
+    </div>
+    <div class="runline">Paddle · Meta Ad Library · 70 active ad variants decoded for the Stripe Roulette offer<br>2026-06-23</div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num">70</div><div class="cap">Competitor ads live</div></div>
+    <div class="stat"><div class="num">6d</div><div class="cap">Longest-running ad</div></div>
+    <div class="stat"><div class="num">7</div><div class="cap">VOC threads mined</div></div>
+    <div class="stat"><div class="num">96</div><div class="cap">Customer quotes</div></div>
+  </div>
+
+  <!-- ============ 01 · ADS THAT ARE WORKING ============ -->
+  <section>
+    <div class="shead"><span class="idx">01</span><h2>Competitor Ads Working Right Now</h2>
+      <span class="rule"></span><span class="sub">// ranked by days live — longevity = it converts</span></div>
+    <div class="grid g2">
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">1</span><span class="ctitle">Paddle</span><span class="tag hot">6 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=881031837857778"><span class="qt">Chargebacks, churn, failed payments — they don't have to be inevitable. Don't let revenue leaks compound. Paddle's smart dunning software recovers up to 30% revenue.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:6"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">2</span><span class="ctitle">Paddle</span><span class="tag hot">6 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1313754967406233"><span class="qt">Are you leaking revenue without realizing it? Checkout friction. Failed payments. Static pricing. Zero localization. This playbook shows you how to fix these bottlenecks and grow in the AI era.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:6"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">3</span><span class="ctitle">Paddle</span><span class="tag hot">6 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1784380426061210"><span class="qt">HubX increased payment acceptance, recovered $100k revenue, and offloaded compliance, chargebacks, and global tax to Paddle. Less complexity. More revenue. Minimal engineering lift.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:6"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">4</span><span class="ctitle">Paddle</span><span class="tag hot">6 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1370587981587514"><span class="qt">Most payment providers don't help you fix revenue leaks. Paddle's recovery tools, smart dunning, and chargeback management work continuously to protect and grow your bottom line.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:6"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">5</span><span class="ctitle">Paddle</span><span class="tag hot">6 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1278053674143231"><span class="qt">Most apps don't realise their tax exposure until it's too late. Save the headache and offload tax liability to Paddle. No surprises, less risk, more time on your product.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:6"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">6</span><span class="ctitle">Paddle</span><span class="tag hot">6 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=2041216693447730"><span class="qt">Your competitors don't nail their pricing the first time, but they do test and iterate at speed. With Paddle, launch new tiers, bundles, and A/B tests without touching your codebase.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:6"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">7</span><span class="ctitle">Paddle</span><span class="tag hot">6 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1011495634618718"><span class="qt">Engineering hours. Global expansion delays. Mounting support requests. The real cost of your billing stack goes way beyond transaction fees. Paddle replaces the complexity with one integration, one team.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:6"></i></div>
+      </div>
+      
+      <div class="card adcard">
+        <div class="top"><span class="rank">8</span><span class="ctitle">Paddle</span><span class="tag hot">4 days live</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1373968647914426"><span class="qt">External payments are accelerating revenue for leading apps. Stoikk saw +25% revenue and +15% LTV in just 30 days — with 0% drop in conversions. Read the full story.</span><span class="ext">view ad in Meta Ad Library</span></a>
+        <div class="meta"><span class="tag plat">FB · IG</span><span class="tag cta">CTA: Learn more</span></div>
+        <div class="meter"><i style="--v:4"></i></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ============ 02 · RECURRING PLAYS ============ -->
+  <section>
+    <div class="shead"><span class="idx">02</span><h2>Plays They Run Over and Over</h2>
+      <span class="rule"></span><span class="sub">// the patterns across their library</span></div>
+    <div class="plays">
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>70 variants, refreshed every few days</b><span class="d">Not a longevity play — a VOLUME play. Paddle floods the auction with fresh creative and tests relentlessly. Heavy, sustained spend.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>"Leaking revenue without realizing it"</b><span class="d">Their hook is identical to the Stripe Roulette premise — the leak framing is validated and proven at scale.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Merchant-of-record bundle</b><span class="d">Recovery + chargebacks + global tax + compliance sold as one offload. The pitch is "replace your stack," not "tweak it."</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Named case studies, hard numbers</b><span class="d">HubX $100k recovered, Stoikk +25% rev / +15% LTV, "up to 30% revenue." Specific proof does the persuading.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Pricing-experimentation angle</b><span class="d">"A/B test pricing without touching your codebase" — a second, separate value prop beyond leaks.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Anti-incumbent positioning</b><span class="d">"Most payment providers don't help you fix revenue leaks" — a direct swipe at raw Stripe.</span></div></div>
+      
+      <div class="play"><span class="hk">&#9656;</span><div><b>Playbook lead-magnets</b><span class="d">"Download the playbook" content offers feed a longer nurture funnel before the sales conversation.</span></div></div>
+      
+    </div>
+  </section>
+
+  <!-- ============ 03 · VOC x AD GAP ============ -->
+  <section>
+    <div class="shead"><span class="idx">03</span><h2>Where Customer Pain Meets (and Misses) Their Ads</h2>
+      <span class="rule"></span><span class="sub">// real Reddit pain vs. what competitors actually run</span></div>
+    <div class="grid g2">
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">1</span><span class="ctitle">Priced for scale, not solo founders</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/failed_payment_recovery_what_do_you_use/"><span class="qt">too small for expensive tools like Churn Buster (£200+/month)</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status ignored">Whitespace for a $9 offer</span><span class="tag">Paddle targets "high-growth apps at scale." The crowd asking for cheap help is wide open — exactly the $9 buyer.</span></div>
+      </div>
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">2</span><span class="ctitle">Requires ripping out your stack</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/stripe/comments/1phnfj4/great_alternatives_to_stripe/"><span class="qt">Before you rip out Stripe… most founders find a setting worth $40–$200/month.</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status ignored">Open: fix-don't-switch</span><span class="tag">Paddle = migrate to a merchant of record. Many just want to fix the Stripe they already run, today.</span></div>
+      </div>
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">3</span><span class="ctitle">Never names a single setting</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/of7wjck/"><span class="qt">Make your billing descriptor crystal clear … You can customize this in your Stripe dashboard.</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status ignored">Whitespace</span><span class="tag">Paddle says "fix bottlenecks" but never tells you which. The offer's whole value is the specific checklist.</span></div>
+      </div>
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">4</span><span class="ctitle">Takes a % of revenue, forever</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/comment/nmw0oby/"><span class="qt">Churn Buster costs too much and I don't want the churn and losing revenue due to this.</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status ignored">Open: pay once</span><span class="tag">MoR + dunning take an ongoing cut. "Find the leak once for $9" is a clean counter-position.</span></div>
+      </div>
+      
+      <div class="card gap">
+        <div class="top"><span class="rank">5</span><span class="ctitle">It's a migration, not a quick win</span></div>
+        <a class="quote" target="_blank" rel="noopener" href="https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/"><span class="qt">5–10% is unfortunately common if you're just relying on Stripe defaults.</span><span class="ext">view on Reddit</span></a>
+        <div class="meta"><span class="status run">Owned by Paddle (case studies)</span><span class="tag">Paddle owns the "big recovery, big proof" story. Don't fight on scale — win on speed: 15 minutes vs an integration project.</span></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ============ HERO · YOUR OPENINGS ============ -->
+  <section class="hero" id="angles">
+    <span class="badge">&#9670; The Opening</span>
+    <h2>Ad Angles That Beat Them to It</h2>
+    <p class="lead">Each hook targets a real customer pain the competitor's ads <b>don't</b> address yet — phrased in the
+      customer's own words. The whitespace, ready to test.</p>
+    <div class="angles">
+      
+      <div class="angle">
+        <span class="n">01</span>
+        <div class="name">You Don't Need to Re-Platform</div>
+        <div class="hook">Paddle wants you to rip out Stripe. You just need to fix 3 settings. $9, 15 minutes.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/stripe/comments/1phnfj4/great_alternatives_to_stripe/">Gap · fix-don't-switch &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">02</span>
+        <div class="name">Recover Revenue, Keep All of It</div>
+        <div class="hook">Dunning tools take a cut of your recovery forever. Find the leak once — and keep 100%.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/comment/nmw0oby/">Objection · ongoing % cost &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">03</span>
+        <div class="name">Too Small for Paddle? Perfect.</div>
+        <div class="hook">Not 'at scale' yet? You're exactly who's bleeding the highest % — and who Paddle ignores.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/Entrepreneur/comments/1onc0ws/failed_payment_recovery_what_do_you_use/">Gap · priced for scale &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">04</span>
+        <div class="name">The Leak Paddle Won't Name</div>
+        <div class="hook">"Fix revenue bottlenecks," they say — but never which one. We hand you the exact 47-point checklist.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/smallbusiness/comments/1sg9du7/comment/of7wjck/">Gap · never names a setting &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">05</span>
+        <div class="name">15 Minutes, Not a Migration</div>
+        <div class="hook">Paddle is a quarter-long integration. This is a coffee break and a $9 checklist.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/SaaS/comments/1r4qftp/comment/o5tzf7i/">Gap · migration vs quick win &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">06</span>
+        <div class="name">You Didn't Even Notice</div>
+        <div class="hook">Gross $100k, net $91k. The leak is already in your Stripe — no new platform required.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/ecommerce/comments/15djkjv/stripe_fees_are_a_little_bit_crazy_i_didnt_even/">VOC · hidden fees &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">07</span>
+        <div class="name">Borrow Their Hook, Beat Their Price</div>
+        <div class="hook">"Leaking revenue without realizing it?" Paddle's right — but you can plug it for $9, not a % forever.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.facebook.com/ads/library?id=1313754967406233">Play · leak framing &#8599;</a></div>
+      </div>
+      
+      <div class="angle">
+        <span class="n">08</span>
+        <div class="name">Keep Your Stripe. Plug the Holes.</div>
+        <div class="hook">Love Stripe but hate the leaks? Don't migrate — audit. 47 settings, 15 minutes.</div>
+        <div class="from"><b>Built from</b> &nbsp;<a target="_blank" rel="noopener" href="https://www.reddit.com/r/stripe/comments/1phnfj4/great_alternatives_to_stripe/">Gap · fix-don't-switch &#8599;</a></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <footer>
+    <span>Meta Ad Library + Reddit VOC · Paddle · Meta Ad Library · 70 active ad variants decoded for the Stripe Roulette offer</span>
+    <span>Paddle · generated 2026-06-23</span>
+  </footer>
+
+</div>
+</body>
+</html>
