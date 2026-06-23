@@ -1,0 +1,129 @@
+{
+  "topic": "SaaS Churn",
+  "subreddit_a": "CustomerSuccess",
+  "subreddit_b": "SaaS",
+  "generated_at": "2026-06-23 · r/CustomerSuccess + r/SaaS + r/startups",
+  "stats": { "threads": 4, "comments": 47, "subreddits": 3, "credits": 7 },
+
+  "pains": [
+    {
+      "name": "Churn is quietly bleeding revenue",
+      "quote": "we've been bleeding revenue from churn lately … I know churn is the big killer of SaaS, so I wanna curb it before we scale.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/any_tips_to_reduce_churn/",
+      "subreddit": "SaaS", "mentions": 12, "v": 90
+    },
+    {
+      "name": "They ghost — you never find out why",
+      "quote": "Most people who churn never contact support—they just ghost.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/nkxiari/",
+      "subreddit": "SaaS", "mentions": 9, "v": 85
+    },
+    {
+      "name": "Blindsided — churn shows up as a surprise",
+      "quote": "Surprises are where you get in trouble.",
+      "url": "https://www.reddit.com/r/CustomerSuccess/comments/1kafkgi/comment/mpotkrl/",
+      "subreddit": "CustomerSuccess", "mentions": 7, "v": 80
+    },
+    {
+      "name": "Every cancellation feels like personal failure",
+      "quote": "every time a customer churns, I feel like I failed, even though each customer's situation is different.",
+      "url": "https://www.reddit.com/r/CustomerSuccess/comments/1kafkgi/i_internally_freak_out_every_time_someone/",
+      "subreddit": "CustomerSuccess", "mentions": 5, "v": 74
+    },
+    {
+      "name": "Sales overpromises, CS can't save it",
+      "quote": "sales promises features and a level of support that doesn't exist and then it's hard for me to win over the client enough to convince them to stay",
+      "url": "https://www.reddit.com/r/CustomerSuccess/comments/13swj6h/comment/jlwhah1/",
+      "subreddit": "CustomerSuccess", "mentions": 4, "v": 66
+    }
+  ],
+
+  "desires": [
+    {
+      "name": "Save them before they hit cancel",
+      "quote": "It's much easier to save a customer who's drifting away, than one who's already decided to leave.",
+      "url": "https://www.reddit.com/r/CustomerSuccess/comments/1kafkgi/comment/mpszfen/",
+      "subreddit": "CustomerSuccess", "v": 92
+    },
+    {
+      "name": "A health score that flags the drift",
+      "quote": "Build health scores: Weight activity, support tickets, and plan type. Even a basic spreadsheet model will show you who's drifting.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/nga07jh/",
+      "subreddit": "SaaS", "v": 86
+    },
+    {
+      "name": "Actually know the reason they leave",
+      "quote": "Exit surveys tell you a lot. When someone cancels, ask why … You'll see patterns fast.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/ng06pth/",
+      "subreddit": "SaaS", "v": 80
+    },
+    {
+      "name": "Make the product impossible to quit",
+      "quote": "The more features used, the harder it is to walk away.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/ng01khj/",
+      "subreddit": "SaaS", "v": 74
+    },
+    {
+      "name": "Peace of mind instead of dread",
+      "quote": "a SaaS product that customers can't operate without … is the best for CSM's mental health.",
+      "url": "https://www.reddit.com/r/CustomerSuccess/comments/13swj6h/comment/jlt5ea7/",
+      "subreddit": "CustomerSuccess", "v": 66
+    }
+  ],
+
+  "objections": [
+    {
+      "name": "Discounts don't actually save anyone",
+      "quote": "Discounts rarely helped. If someone's leaving because they're not getting value, cheaper doesn't fix that.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/nkxiari/",
+      "subreddit": "SaaS", "v": 84
+    },
+    {
+      "name": "Generic 'hope you're enjoying it' emails get deleted",
+      "quote": "Generic email campaigns were meh. \"Hope you're enjoying the product!\" = instant delete.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/nkxiari/",
+      "subreddit": "SaaS", "v": 72
+    },
+    {
+      "name": "Some churn you simply can't stop",
+      "quote": "There's good churn and bad churn … Management will never acknowledge good churn, but it exists, and it's not worth your time.",
+      "url": "https://www.reddit.com/r/CustomerSuccess/comments/19b0xvo/comment/kiozop6/",
+      "subreddit": "CustomerSuccess", "v": 75
+    },
+    {
+      "name": "Too many moving parts to stitch together",
+      "quote": "Sounds like a ton of moving parts if you're stitching it all together.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/ng7nh0z/",
+      "subreddit": "SaaS", "v": 66
+    },
+    {
+      "name": "A tool can't fix a product/value gap",
+      "quote": "Most churn happens because you're not building what users actually need.",
+      "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/ng06pth/",
+      "subreddit": "SaaS", "v": 60
+    }
+  ],
+
+  "phrases": [
+    { "text": "we've been bleeding revenue from churn lately", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/any_tips_to_reduce_churn/" },
+    { "text": "Most people who churn never contact support—they just ghost.", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/nkxiari/" },
+    { "text": "every time a customer churns, I feel like I failed", "url": "https://www.reddit.com/r/CustomerSuccess/comments/1kafkgi/i_internally_freak_out_every_time_someone/" },
+    { "text": "It's much easier to save a customer who's drifting away, than one who's already decided to leave.", "url": "https://www.reddit.com/r/CustomerSuccess/comments/1kafkgi/comment/mpszfen/" },
+    { "text": "You can't save customers you don't know are struggling.", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/nkxiari/" },
+    { "text": "Surprises are where you get in trouble.", "url": "https://www.reddit.com/r/CustomerSuccess/comments/1kafkgi/comment/mpotkrl/" },
+    { "text": "The more features used, the harder it is to walk away.", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/ng01khj/" },
+    { "text": "trigger saves before they ever see the cancel page", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/ng7avdu/" }
+  ],
+
+  "angles": [
+    { "name": "Catch Them Before the Cancel Page", "hook": "It's far easier to save a customer drifting away than one who's already decided to leave. Spot the drift first.", "source": "Desire · save before cancel", "url": "https://www.reddit.com/r/CustomerSuccess/comments/1kafkgi/comment/mpszfen/" },
+    { "name": "They Don't Complain. They Ghost.", "hook": "Most churned customers never open a ticket — they just quietly stop logging in. We surface the silence.", "source": "Pain · silent ghosting", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/nkxiari/" },
+    { "name": "Never Get Blindsided by a Renewal", "hook": "\"Surprises are where you get in trouble.\" Know which accounts are at risk a full quarter out.", "source": "Pain · blindsided", "url": "https://www.reddit.com/r/CustomerSuccess/comments/1kafkgi/comment/mpotkrl/" },
+    { "name": "A Health Score That Actually Warns You", "hook": "Logins lie. Track real usage drop-off and get pinged the moment an account starts going cold.", "source": "Desire · health score", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/nga07jh/" },
+    { "name": "Discounts Won't Save Them", "hook": "If they're not getting value, 20% off just delays goodbye. Close the value gap instead of cutting price.", "source": "Objection · discounts don't work", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/nkxiari/" },
+    { "name": "Know Why They Leave — in One Question", "hook": "A single-question exit survey reveals the pattern your dashboard never will. Ask, then act.", "source": "Desire · know the reason", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/ng06pth/" },
+    { "name": "Make Your Product Impossible to Quit", "hook": "The more features they adopt, the harder it is to walk away. Drive depth, kill churn.", "source": "Desire · stickiness", "url": "https://www.reddit.com/r/SaaS/comments/1npkesz/comment/ng01khj/" },
+    { "name": "End the Churn Dread", "hook": "Stop freaking out every time a cancel request lands. Turn gut-feel risk into a documented save plan.", "source": "Pain · churn feels like failure", "url": "https://www.reddit.com/r/CustomerSuccess/comments/1kafkgi/i_internally_freak_out_every_time_someone/" },
+    { "name": "Separate Good Churn From Bad", "hook": "Bad-fit accounts will always leave. Stop wasting saves on them and pour energy into the ones you can win.", "source": "Objection · some churn is unavoidable", "url": "https://www.reddit.com/r/CustomerSuccess/comments/19b0xvo/comment/kiozop6/" }
+  ]
+}
