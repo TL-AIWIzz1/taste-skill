@@ -23,6 +23,11 @@ For upgrading existing projects. Instead of rebuilding from zero, this skill wal
 ### 3. output-skill
 Stops the AI from being lazy. Prevents placeholder comments, skipped code blocks, and half-finished outputs. Forces the AI to actually write everything instead of cutting corners.
 
+## Other Plugins
+
+### fable-advisor
+A separate Claude Code plugin (not a design/taste skill) that ships in its own [`fable-advisor/`](fable-advisor/) folder with its own `README.md`. It implements the architect-as-orchestrator pattern: the session runs on the most capable model and routes implementation work to cheaper cross-vendor lanes (Grok 4.5, GPT-5.6 Sol) via subagents, with a read-only advisor agent for commitment-boundary decisions. See [`fable-advisor/README.md`](fable-advisor/README.md) for install and usage instructions.
+
 ## How to Use
 
 1. Copy the `SKILL.md` file from the skill folder you need into your project.
