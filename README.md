@@ -23,6 +23,15 @@ For upgrading existing projects. Instead of rebuilding from zero, this skill wal
 ### 3. output-skill
 Stops the AI from being lazy. Prevents placeholder comments, skipped code blocks, and half-finished outputs. Forces the AI to actually write everything instead of cutting corners.
 
+### 4. hallmark (external)
+[Hallmark](https://github.com/nutlope/hallmark) by Together AI, installed via the [`skills`](https://github.com/vercel-labs/skills) CLI:
+
+```
+npx skills add nutlope/hallmark
+```
+
+It lives at `.agents/skills/hallmark/` (symlinked into `.claude/skills/hallmark/` for Claude Code) and is tracked in `skills-lock.json`, unlike the hand-maintained skills above. Run `npx skills update` to pull upstream changes.
+
 ## How to Use
 
 1. Copy the `SKILL.md` file from the skill folder you need into your project.
